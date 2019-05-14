@@ -10,7 +10,7 @@ topic-tags: dispatcher
 content-type: riferimento
 discoiquuid: aeffee 8 e-bb 34-42 a 7-9 a 5 e-b 7 d 0 e 848391 a
 translation-type: tm+mt
-source-git-commit: bd8fff69a9c8a32eade60c68fc75c3aa411582af
+source-git-commit: 2f0ca874c23cb7aecbcedc22802c46a295bb4d75
 
 ---
 
@@ -567,20 +567,23 @@ Ogni elemento della `/filter` sezione include un tipo e un pattern associato a u
 
 * **Elemento della riga richiesta:** Includete `/method``/url`, `/query`o `/protocol` e un pattern per le richieste di filtraggio in base a queste parti specifiche della porzione di richiesta della richiesta HTTP. Il filtro sugli elementi della riga di richiesta (anziché sull&#39;intera riga di richiesta) è il metodo di filtro preferito.
 
-* **proprietà glob**: La `/glob` proprietà viene utilizzata per corrispondere all&#39;intera riga di richiesta della richiesta HTTP.
-
-Per informazioni sulle /glob à, vedere [Progettazione di pattern per le proprietà di glob](#designing-patterns-for-glob-properties). Le regole per l&#39;uso dei caratteri jolly in /glob à sono valide anche per gli elementi per gli elementi corrispondenti della riga di richiesta.
+* **Elementi avanzati della riga richiesta:** A partire da Dispatcher 4.2.0, sono disponibili quattro nuovi elementi filtro. Questi nuovi elementi sono `/path`, `/selectors``/extension` e `/suffix` rispettivamente. Includete uno o più elementi per controllare ulteriormente i pattern URL.
 
 >[!NOTE]
 >
->Nella versione 4.2.0 di Dispatcher sono stati aggiunti diversi miglioramenti per le configurazioni di filtro e le funzionalità di registrazione:
->
->* [Supporto per espressioni regolari POSIX](dispatcher-configuration.md#main-pars-title-1996763852)
->* [Supporto per filtrare altri elementi dell&#39;URL della richiesta](dispatcher-configuration.md#main-pars-title-694578373)
->* [Registrazione registrazione](dispatcher-configuration.md#main-pars-title-1950006642)
->
+>Per ulteriori informazioni sulla parte della riga di richiesta a ciascuno di questi riferimenti, consultate la [pagina wiki Sling URL Desolution](https://sling.apache.org/documentation/the-sling-engine/url-decomposition.html) wiki.
 
+* **proprietà glob**: La `/glob` proprietà viene utilizzata per corrispondere all&#39;intera riga di richiesta della richiesta HTTP.
 
+>[!CAUTION]
+>
+>Il filtraggio con i globi è obsoleto nel dispatcher. Pertanto, evitare di utilizzare i globi nelle `/filter` sezioni in quanto potrebbe causare problemi di sicurezza. Di conseguenza, invece di:
+
+`/glob "* *.css *"`
+
+dovreste usare
+
+`/url "*.css"`
 
 #### The request-line Part of HTTP Requests {#the-request-line-part-of-http-requests}
 
@@ -593,6 +596,18 @@ I caratteri &lt; CRLF &gt; riportavano un ritorno a capo seguito da un feed di r
 GET /content/geometrixx-outdoors/en.html HTTP .1 .1 &lt; CRLF &gt;
 
 I pattern devono prendere in considerazione gli spazi nella riga di richiesta e i caratteri &lt; CRLF &gt;.
+
+#### Virgolette doppie e virgolette singole {#double-quotes-vs-single-quotes}
+
+Quando si creano le regole di filtro, utilizzare doppie virgolette `"pattern"` per pattern semplici. Se si utilizza Dispatcher 4.2.0 o successivo e il pattern include un&#39;espressione regolare, è necessario racchiudere il pattern regex `'(pattern1|pattern2)'` all&#39;interno di virgolette singole.
+
+#### Espressioni regolari {#regular-expressions}
+
+Dopo il dispatcher 4.2.0, potete includere espressioni regolari estese POSIX nei pattern di filtro.
+
+#### Risoluzione dei problemi dei filtri {#troubleshooting-filters}
+
+Se i filtri non vengono attivati come previsto, abilitate [Trace Logging](#trace-logging) on dispatcher per vedere quale filtro sta intercettando la richiesta.
 
 #### Filtro esempio: Rifiuta tutto {#example-filter-deny-all}
 
@@ -659,15 +674,6 @@ Questo filtro abilita le estensioni nelle directory di contenuto non pubbliche u
 ```
 
 #### Filtro esempio: Filtrare altri elementi di un URL di richiesta {#example-filter-filter-additional-elements-of-a-request-url}
-
-Uno dei miglioramenti introdotti nel dispatcher 4.2.0 è la capacità di filtrare altri elementi dell&#39;URL della richiesta. I nuovi elementi introdotti sono:
-
-* path
-* selectors
-* extension
-* suffix
-
-Questi possono essere configurati aggiungendo la proprietà dello stesso nome alla regola di filtro: `/path`, `/selectors`e `/extension``/suffix` rispettivamente.
 
 Di seguito è riportato un esempio di regole che blocca l&#39;acquisizione dei contenuti dal `/content` percorso e dalla relativa sottostruttura, utilizzando i filtri per percorso, selettori ed estensioni:
 
