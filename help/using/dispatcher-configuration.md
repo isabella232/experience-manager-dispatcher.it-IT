@@ -10,7 +10,7 @@ topic-tags: dispatcher
 content-type: riferimento
 discoiquuid: aeffee 8 e-bb 34-42 a 7-9 a 5 e-b 7 d 0 e 848391 a
 translation-type: tm+mt
-source-git-commit: 8e8638027c79015a4151539918a17069fb16873a
+source-git-commit: 4f1e3740c7eb91023b819ffed0bb5d0b432002be
 
 ---
 
@@ -1710,7 +1710,7 @@ Questa operazione ruota automaticamente:
 * il file di registro del dispatcher; con marca temporale nell&#39;estensione (logs/dispatcher. log % Y % m % d).
 * settimanale (60 x 60 x 24 x 7 = 604800 secondi).
 
-Please see the Apache web server documentation on Log Rotation and Piped Logs; for example [Apache 2.2](https://httpd.apache.org/docs/2.2/logs.html).
+Please see the Apache web server documentation on Log Rotation and Piped Logs; for example [Apache 2.4](https://httpd.apache.org/docs/2.4/logs.html).
 
 >[!NOTE]
 >
