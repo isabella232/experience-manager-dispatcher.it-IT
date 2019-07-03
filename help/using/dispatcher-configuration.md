@@ -10,7 +10,7 @@ topic-tags: dispatcher
 content-type: riferimento
 discoiquuid: aeffee 8 e-bb 34-42 a 7-9 a 5 e-b 7 d 0 e 848391 a
 translation-type: tm+mt
-source-git-commit: 4f1e3740c7eb91023b819ffed0bb5d0b432002be
+source-git-commit: a997d2296e80d182232677af06a2f4ab5a14bfd5
 
 ---
 
@@ -413,7 +413,7 @@ Con questo esempio, la tabella seguente mostra gli host virtuali risolti per le 
 >
 >`/allowAuthorized`**per** abilitare questa funzione deve essere impostato `"0"` nella `/cache` sezione.
 
-Create una sessione protetta per accedere alla farm farm, in modo che gli utenti debbano accedere per accedere a qualsiasi pagina della fattoria. Dopo aver eseguito l&#39;accesso, gli utenti possono accedere a tutte le pagine della fattoria. See [Creating a Closed User Group](https://helpx.adobe.com/experience-manager/6-3/sites/administering/using/cug.html#CreatingTheUserGroupToBeUsed) for information about using this feature with CUGs.
+Create una sessione protetta per accedere alla farm farm, in modo che gli utenti debbano accedere per accedere a qualsiasi pagina della fattoria. Dopo aver eseguito l&#39;accesso, gli utenti possono accedere alle pagine della fattoria. See [Creating a Closed User Group](https://helpx.adobe.com/experience-manager/6-3/sites/administering/using/cug.html#CreatingTheUserGroupToBeUsed) for information about using this feature with CUGs. Also, see the Dispatcher [Security Checklist](/help/using/security-checklist.md) before going live.
 
 The `/sessionmanagement` property is a subproperty of `/farms`.
 
@@ -426,6 +426,17 @@ The `/sessionmanagement` property is a subproperty of `/farms`.
 **/directory** (obbligatorio)
 
 La directory in cui memorizzate le informazioni della sessione. Se la directory non esiste, viene creata.
+
+>[!CAUTION]
+>
+> When configuring the directory sub-parameter **do not** point to the root folder (`/directory "/"`) as it can cause serious problems. Specificate sempre il percorso della cartella in cui memorizzare le informazioni della sessione. Esempio:
+
+```xml
+/sessionmanagement 
+  { 
+  /directory "/usr/local/apache/.sessions"
+  }
+```
 
 **/encode** (facoltativo)
 
