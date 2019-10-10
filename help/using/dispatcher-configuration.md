@@ -1,25 +1,25 @@
 ---
-title: Configurazione del dispatcher
-seo-title: Configurazione del dispatcher
+title: Configurazione di Dispatcher
+seo-title: Configurazione di Dispatcher
 description: Scopri come configurare il dispatcher.
 seo-description: Scopri come configurare il dispatcher.
 uuid: 253ef0f7-2491-4set-ab22-97439df29fd6
 cmgrlastmodified: 01.11.2007 08 22 29 [aheimoz]
 pageversionid: '1193211344162'
-topic-tags: spedizioniere
-content-type: riferimento
+topic-tags: dispatcher
+content-type: reference
 discoiquuid: aeffee8e-bb34-42a7-9a5e-b7d0e848391a
 translation-type: tm+mt
-source-git-commit: a997d2296e80d182232677af06a2f4ab5a14bfd5
+source-git-commit: 119f952439a59e51f769f285c79543aec8fdda37
 
 ---
 
 
-# Configurazione del dispatcher{#configuring-dispatcher}
+# Configurazione di Dispatcher{#configuring-dispatcher}
 
 >[!NOTE]
 >
->Le versioni del dispatcher sono indipendenti da AEM. Potreste essere stati reindirizzati a questa pagina se avete seguito un collegamento alla documentazione del dispatcher incorporata nella documentazione di una versione precedente di AEM.
+>Le versioni di Dispatcher sono indipendenti da AEM. Potresti essere stato reindirizzato a questa pagina se hai seguito un collegamento alla documentazione di Dispatcher incorporato nella documentazione di una versione precedente di AEM.
 
 Nelle sezioni seguenti viene descritto come configurare vari aspetti del dispatcher.
 
@@ -163,7 +163,7 @@ La `/farms` proprietà definisce uno o più set di comportamenti Dispatcher, in 
 
 La `/farms` proprietà è una proprietà di livello principale nella struttura di configurazione. Per definire una farm, aggiungete una proprietà figlio alla `/farms` proprietà. Utilizzate un nome di proprietà che identifichi in modo univoco la farm all'interno dell'istanza Dispatcher.
 
-La `/*farmname*` proprietà è multivalore e contiene altre proprietà che definiscono il comportamento del dispatcher:
+La `/farmname` proprietà è multivalore e contiene altre proprietà che definiscono il comportamento del dispatcher:
 
 * URL delle pagine a cui si applica la farm.
 * Uno o più URL di servizio (in genere istanze di pubblicazione AEM) da utilizzare per il rendering dei documenti.
@@ -213,6 +213,7 @@ Ogni proprietà farm può contenere le seguenti proprietà figlio:
 | [/tryDelay](#specifying-the-page-retry-delay) | Il ritardo prima di riprovare a eseguire una connessione non riuscita. |
 | [/non disponibilePenalty](#reflecting-server-unavailability-in-dispatcher-statistics) | Sanzioni che influiscono sulle statistiche per i calcoli di bilanciamento del carico. |
 | [/failover](#using-the-fail-over-mechanism) | Inviate di nuovo le richieste a diversi rendering quando la richiesta originale non riesce. |
+| [/auth_checker](permissions-cache.md) | Per il caching sensibile alle autorizzazioni, consultate [Memorizzazione in cache di contenuto](permissions-cache.md)protetto. |
 
 ## Specificare una pagina predefinita (solo IIS) - /homepage {#specify-a-default-page-iis-only-homepage}
 
@@ -545,7 +546,7 @@ Con la versione **4.1.6** del dispatcher, puoi configurare la `/always-resolve` 
 Questa proprietà può essere utilizzata anche in caso di problemi di risoluzione IP dinamica, come illustrato nell'esempio seguente:
 
 ```xml
-/rend {
+/renders {
   /0001 {
      /hostname "host-name-here"
      /port "4502"
@@ -974,6 +975,7 @@ La `/cache` sezione controlla come il dispatcher memorizza nella cache i documen
 * /header
 * /mode
 * /GracePeriod
+* /enableTTL
 
 
 Esempio di sezione della cache:
@@ -1053,9 +1055,9 @@ La `/rules` proprietà controlla quali documenti vengono memorizzati nella cache
 
 * Se l’URI della richiesta contiene un punto interrogativo ("?").\
    In genere indica una pagina dinamica, ad esempio un risultato di ricerca che non deve essere memorizzato nella cache.
-* Estensione del file mancante.\
-   Per determinare il tipo di documento (il tipo MIME) è necessario utilizzare l'estensione per il server Web.
-* L'intestazione di autenticazione è impostata (può essere configurata)
+* Se manca l’estensione del file.\
+   Il server web ha bisogno dell’estensione per determinare il tipo di documento (tipo MIME).
+* Se l’intestazione di autenticazione è impostata (configurabile).
 * Se l’istanza AEM risponde con le seguenti intestazioni:
 
    * `no-cache`
@@ -1064,7 +1066,7 @@ La `/rules` proprietà controlla quali documenti vengono memorizzati nella cache
 
 >[!NOTE]
 >
->I metodi GET o HEAD (per l’intestazione HTTP) sono memorizzabili nella cache dal dispatcher. Per ulteriori informazioni sul caching delle intestazioni delle risposte, consultate la sezione [Memorizzazione in cache delle intestazioni](dispatcher-configuration.md#caching-http-response-headers) di risposta HTTP.
+>Dispatcher può memorizzare in cache i metodi GET o HEAD (per l’intestazione HTTP). Per ulteriori informazioni sul caching delle intestazioni delle risposte, consultate la sezione [Memorizzazione in cache delle intestazioni](dispatcher-configuration.md#caching-http-response-headers) di risposta HTTP.
 
 Ogni elemento della proprietà /rules include un pattern [di tipo](#designing-patterns-for-glob-properties) di tipo:
 
@@ -1505,7 +1507,7 @@ Per ulteriori informazioni sul `httponly` flag, leggete [questa pagina](https://
 
 ### secure {#secure}
 
-Quando sono attivate le connessioni di tipo "sticky", il modulo del dispatcher imposta il `renderid` cookie. Questo cookie non ha il flag **sicuro** , che deve essere aggiunto per migliorare la sicurezza. È possibile eseguire questa operazione impostando la `secure` proprietà nel `/stickyConnections` nodo di un file di `dispatcher.any` configurazione. Il valore della proprietà (0 o 1) definisce se al `renderid` cookie è aggiunto l' `secure` attributo. Il valore predefinito è 0, che significa che l'attributo verrà aggiunto se* *la richiesta in arrivo è sicura. Se il valore è impostato su 1, il flag secure verrà aggiunto indipendentemente dal fatto che la richiesta in arrivo sia protetta o meno.
+Quando sono attivate le connessioni di tipo "sticky", il modulo del dispatcher imposta il `renderid` cookie. Questo cookie non ha il flag **sicuro** , che deve essere aggiunto per migliorare la sicurezza. È possibile eseguire questa operazione impostando la `secure` proprietà nel `/stickyConnections` nodo di un file di `dispatcher.any` configurazione. Il valore della proprietà (0 o 1) definisce se al `renderid` cookie è aggiunto l' `secure` attributo. Il valore predefinito è 0, ovvero l’attributo verrà aggiunto **se** la richiesta in arrivo è sicura. Se il valore è impostato su 1, il flag secure verrà aggiunto indipendentemente dal fatto che la richiesta in arrivo sia protetta o meno.
 
 ## Gestione degli errori di connessione del rendering {#handling-render-connection-errors}
 
@@ -1786,14 +1788,14 @@ https://localhost:80/libs/wcm/core/content/siteadmin.html
 1. Attivate una pagina per verificare che la cache venga scaricata correttamente.
 1. Se tutto funziona correttamente è possibile ridurre il `loglevel` a `0`.
 
-## Utilizzo di più dispatcher {#using-multiple-dispatchers}
+## Utilizzo di più istanze di Dispatcher {#using-multiple-dispatchers}
 
-In configurazioni complesse, puoi utilizzare più dispatcher. Ad esempio, potete utilizzare:
+In configurazioni complesse è possibile utilizzare più istanze di Dispatcher. Ad esempio, puoi utilizzare:
 
-* un Dispatcher per pubblicare un sito Web sulla Intranet
-* un secondo dispatcher, con un indirizzo diverso e con impostazioni di protezione diverse, per pubblicare lo stesso contenuto su Internet.
+* un’istanza di Dispatcher per pubblicare un sito web nella Intranet;
+* una seconda istanza di Dispatcher, con un indirizzo diverso e impostazioni di sicurezza diverse, per pubblicare lo stesso contenuto in Internet.
 
-In tal caso, accertatevi che ogni richiesta passi attraverso un solo Dispatcher. Un dispatcher non gestisce le richieste provenienti da un altro dispatcher. Assicuratevi pertanto che entrambi i dispatcher accedano direttamente al sito Web AEM.
+In tal caso, assicurati che ogni richiesta venga gestita tramite un’unica istanza di Dispatcher. Un’istanza di Dispatcher non gestisce le richieste provenienti da un’altra istanza di Dispatcher. Assicurati pertanto che entrambe le istanze di Dispatcher accedano direttamente al sito web AEM.
 
 ## Debug {#debugging}
 
