@@ -9,7 +9,7 @@ content-type: reference
 products: SG_EXPERIENCEMANAGER/6.4
 discoiquuid: ff3d38e0-71c9-4b41-85f9-fa896393aac5
 translation-type: tm+mt
-source-git-commit: 3cef8724f499f3eba19b920d3832b9feacc5c155
+source-git-commit: 72e3fb193f018e747f82bf9f8d646a04c69056f6
 
 ---
 
@@ -139,7 +139,7 @@ Per istruzioni dettagliate, consultate [Installazione del dispatcher](dispatcher
 
 ### Apache 2.4 {#apache}
 
-| Piattaforma | Architettura | Supporto SSL | Scarica |
+| Piattaforma | Architettura | OpenSSL | Scarica |
 |---|---|---|---|
 | Linux | i686 (32 bit) | Nessuno | [dispatcher-apache2.4-linux-i686-4.3.3.tar.gz](https://download.macromedia.com/dispatcher/download/dispatcher-apache2.4-linux-i686-4.3.3.tar.gz) |
 | Linux | i686 (32 bit) | 1.0 | [dispatcher-apache2.4-linux-i686-ssl1.0-4.3.3.tar.gz](https://download.macromedia.com/dispatcher/download/dispatcher-apache2.4-linux-i686-ssl1.0-4.3.3.tar.gz) |
@@ -151,7 +151,7 @@ Per istruzioni dettagliate, consultate [Installazione del dispatcher](dispatcher
 
 ### IIS {#iis}
 
-| Piattaforma | Architettura | Supporto SSL | Scarica |
+| Piattaforma | Architettura | OpenSSL | Scarica |
 |---|---|---|---|
 | Windows | x86 (32 bit) | Nessuno | [dispatcher-iis-windows-x86-4.3.3.zip](https://download.macromedia.com/dispatcher/download/dispatcher-iis-windows-x86-4.3.3.zip) |
 | Windows | x86 (32 bit) | 1.0 | [dispatcher-iis-windows-x86-ssl1.0-4.3.3.zip](https://download.macromedia.com/dispatcher/download/dispatcher-iis-windows-x86-ssl1.0-4.3.3.zip) |
