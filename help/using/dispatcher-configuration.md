@@ -10,7 +10,7 @@ topic-tags: dispatcher
 content-type: reference
 discoiquuid: aeffee8e-bb34-42a7-9a5e-b7d0e848391a
 translation-type: tm+mt
-source-git-commit: 119f952439a59e51f769f285c79543aec8fdda37
+source-git-commit: eed7c3f77ec64f2e7c5cfff070ef96108886a059
 
 ---
 
@@ -221,7 +221,7 @@ Ogni proprietà farm può contenere le seguenti proprietà figlio:
 >
 >Il `/homepage`parametro (solo IIS) non funziona più. Utilizzare invece il modulo [di riscrittura URL](https://docs.microsoft.com/en-us/iis/extensions/url-rewrite-module/using-the-url-rewrite-module)IIS.
 >
->Se si utilizza Apache, è necessario utilizzare il `mod_rewrite` modulo. Per informazioni su `mod_rewrite` (ad esempio, [Apache 2.4](https://httpd.apache.org/docs/current/mod/mod_rewrite.html)), consultate la documentazione del sito Web Apache. Quando si utilizza `mod_rewrite`, è consigliabile utilizzare il flag ** ['passthrough|PT' (passare al gestore successivo)](https://helpx.adobe.com/dispatcher/kb/DispatcherModReWrite.html)** per forzare il motore di riscrittura a impostare il `uri` campo della `request_rec` struttura interna sul valore del `filename` campo.
+>Se si utilizza Apache, è necessario utilizzare il `mod_rewrite` modulo. Per informazioni su `mod_rewrite` (ad esempio, [Apache 2.4](https://httpd.apache.org/docs/current/mod/mod_rewrite.html)), consultate la documentazione del sito Web Apache. Quando si utilizza `mod_rewrite`, è consigliabile utilizzare il flag **['passthrough|PT' (passare attraverso il gestore successivo)](https://helpx.adobe.com/dispatcher/kb/DispatcherModReWrite.html)** per forzare il motore di riscrittura a impostare il `uri` campo della `request_rec` struttura interna sul valore del `filename` campo.
 
 <!-- 
 
@@ -1163,7 +1163,7 @@ Utilizzare la `/statfileslevel` proprietà per annullare la validità dei file m
 
    * Ad esempio: se si imposta la `statfileslevel` proprietà su 6 e un file viene invalidato al livello 5, ogni `.stat` file da docroot a 5 verrà toccato. Se si continua con questo esempio, se un file viene invalidato al livello 7 allora ogni . `stat` file da docroot a 6 sarà toccato (da allora `/statfileslevel = "6"`).
 
-Vengono interessate solo le risorse** lungo il percorso** del file invalidato. Considerate l'esempio seguente: un sito Web utilizza la struttura `/content/myWebsite/xx/.` Se impostate `statfileslevel` su 3, viene creato un `.stat`file come segue:
+Vengono interessate solo le risorse **lungo il percorso** del file invalidato. Considerate l'esempio seguente: un sito Web utilizza la struttura `/content/myWebsite/xx/.` Se impostate `statfileslevel` su 3, viene creato un `.stat`file come segue:
 
 * `docroot`
 * `/content`
