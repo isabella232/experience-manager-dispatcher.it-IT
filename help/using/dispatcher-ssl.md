@@ -4,16 +4,16 @@ seo-title: Utilizzo di SSL con Dispatcher
 description: Scopri come configurare il dispatcher per le comunicazioni con AEM tramite le connessioni SSL.
 seo-description: Scopri come configurare il dispatcher per le comunicazioni con AEM tramite le connessioni SSL.
 uuid: 1a8f448c-d3d8-4798-a5cb-9579171171ed
-contentOwner: Utente
+contentOwner: User
 products: SG_EXPERIENCEMANAGER/DISPATCHER
-topic-tags: spedizioniere
-content-type: riferimento
+topic-tags: dispatcher
+content-type: reference
 discoiquuid: 771cfd85-6c26-4ff2-a3fe-dff8d8f7920b
 index: y
 internal: n
 snippet: y
 translation-type: tm+mt
-source-git-commit: 6d3ff696780ce55c077a1d14d01efeaebcb8db28
+source-git-commit: eed7c3f77ec64f2e7c5cfff070ef96108886a059
 
 ---
 
