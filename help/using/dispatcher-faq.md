@@ -4,14 +4,14 @@ seo-title: Problemi principali per AEM Dispatcher
 description: Problemi principali per AEM Dispatcher
 seo-description: Problemi principali per Adobe AEM Dispatcher
 translation-type: tm+mt
-source-git-commit: 76cffbfb616cd5601aed36b7076f67a2faf3ed3b
+source-git-commit: eed7c3f77ec64f2e7c5cfff070ef96108886a059
 
 ---
 
 
 # Domande frequenti sui problemi principali del dispatcher AEM
 
-![Configurazione del dispatcher](assets/CQDispatcher_workflow_v2.png)
+![Configurazione di Dispatcher](assets/CQDispatcher_workflow_v2.png)
 
 ## Introduzione
 
@@ -23,17 +23,17 @@ Per il caching, il modulo Dispatcher utilizza la capacità del server Web di dis
 
 ### Come viene eseguito il caching del dispatcher?
 
-Il dispatcher utilizza la capacità del server Web di distribuire contenuti statici. Il dispatcher memorizza i documenti memorizzati nella cache nella directory principale del documento del server Web. Il Dispatcher dispone di due metodi principali per aggiornare il contenuto della cache quando vengono apportate modifiche al sito Web.
+Il dispatcher utilizza la capacità del server Web di distribuire contenuti statici. Il dispatcher memorizza i documenti memorizzati nella cache nella directory principale del documento del server Web. In Dispatcher sono disponibili due metodi principali per aggiornare il contenuto della cache quando vengono apportate modifiche al sito web.
 
-* **Aggiornamenti** contenuto rimuove le pagine che sono state modificate e i file che sono direttamente associati ad esse.
-* **L'annullamento della validità** automatica invalida automaticamente le parti della cache che potrebbero non essere più aggiornate dopo un aggiornamento. Ad esempio, contrassegna efficacemente le pagine rilevanti come non aggiornate, senza eliminare nulla.
+* **Aggiornamenti del contenuto**: le pagine modificate e i file che sono direttamente associati ad esse vengono rimossi.
+* **Annullamento automatico della validità**: le parti della cache che potrebbero risultare obsolete dopo un aggiornamento vengono invalidate automaticamente, Ad esempio, contrassegna efficacemente le pagine rilevanti come non aggiornate, senza eliminare nulla.
 
 ### Quali sono i vantaggi del bilanciamento del carico?
 
 Il bilanciamento del carico distribuisce le richieste degli utenti (caricate) in diverse istanze di AEM. L'elenco seguente descrive i vantaggi del bilanciamento del carico:
 
-* **Maggiore potenza** di elaborazione: In pratica ciò significa che il dispatcher condivide le richieste di documenti tra diverse istanze di AEM. Poiché ogni istanza dispone di un numero inferiore di documenti da elaborare, i tempi di risposta sono più rapidi. Il Dispatcher conserva statistiche interne per ciascuna categoria di documenti, in modo da poter stimare il carico e distribuire le query in modo efficiente.
-* **Maggiore copertura** non sicura: Se il Dispatcher non riceve risposte da un'istanza, le richieste verranno inviate automaticamente a un'altra istanza. Pertanto, se un'istanza diventa non disponibile, l'unico effetto è un rallentamento del sito, proporzionato alla potenza di calcolo persa.
+* **Maggiore potenza** di elaborazione: In pratica ciò significa che il dispatcher condivide le richieste di documenti tra diverse istanze di AEM. Poiché ogni istanza dispone di un numero inferiore di documenti da elaborare, i tempi di risposta sono più rapidi. Dispatcher mantiene statistiche interne per ogni categoria di documenti, in modo da poter stimare il carico e distribuire le query in modo efficiente.
+* **Maggiore copertura** non sicura: Se il Dispatcher non riceve risposte da un'istanza, le richieste verranno inviate automaticamente a un'altra istanza. Pertanto, se un’istanza risulta non disponibile, l’unico effetto è un rallentamento del sito, proporzionato alla potenza di elaborazione persa,
 
 >[!NOTE]
 >
@@ -153,20 +153,20 @@ Per attivarla:
 In che modo il dispatcher determina se un documento è aggiornato?
 Per determinare se un documento è aggiornato, il dispatcher esegue le azioni seguenti:
 
-Controlla se il documento è soggetto all'annullamento automatico della convalida. In caso contrario, il documento viene considerato aggiornato.
-Se il documento è configurato per l'annullamento automatico della convalida, il dispatcher controlla se è più vecchio o più recente dell'ultima modifica disponibile. Se è precedente, il dispatcher richiede la versione corrente dall’istanza di AEM e sostituisce la versione presente nella cache.
+Verifica se il documento è soggetto ad annullamento automatico della validità. Se non lo è, il documento viene considerato aggiornato.
+Se il documento è configurato per l’annullamento automatico della validità, Dispatcher controlla se è più o meno recente dell’ultima modifica disponibile. Se è meno recente, Dispatcher richiede la versione corrente dall’istanza di AEM e sostituisce la versione nella cache.
 
 ### In che modo il dispatcher restituisce i documenti?
 
-È possibile definire se il dispatcher memorizza nella cache un documento utilizzando il file di configurazione [del](dispatcher-configuration.md) dispatcher, `dispatcher.any`. Il Dispatcher controlla la richiesta rispetto all'elenco dei documenti memorizzabili nella cache. Se il documento non è incluso in questo elenco, il dispatcher richiede il documento dall’istanza AEM.
+È possibile definire se il dispatcher memorizza nella cache un documento utilizzando il file di configurazione [del](dispatcher-configuration.md) dispatcher, `dispatcher.any`. Dispatcher confronta la richiesta con l’elenco dei documenti memorizzabili in cache. Se il documento non è incluso in questo elenco, Dispatcher richiede il documento dall’istanza di AEM.
 
 La `/rules` proprietà controlla quali documenti vengono memorizzati nella cache in base al percorso del documento. Indipendentemente dalla `/rules` proprietà, il dispatcher non memorizza mai nella cache un documento nelle seguenti circostanze:
 
-* Se l’URI della richiesta contiene un punto interrogativo `(?)`.
+* If the request URI contains a question mark `(?)`.
 * In genere indica una pagina dinamica, ad esempio un risultato di ricerca che non deve essere memorizzato nella cache.
-* Estensione del file mancante.
-* Per determinare il tipo di documento (il tipo MIME) è necessario utilizzare l'estensione per il server Web.
-* L'intestazione di autenticazione è impostata (può essere configurata)
+* Se manca l’estensione del file.
+* Il server web ha bisogno dell’estensione per determinare il tipo di documento (tipo MIME).
+* Se l’intestazione di autenticazione è impostata (configurabile).
 * Se l’istanza AEM risponde con le seguenti intestazioni:
    * nessuna cache
    * no-store
@@ -176,7 +176,7 @@ Il dispatcher memorizza i file memorizzati nella cache sul server Web come se fo
 
 >[!NOTE]
 >
->I metodi GET o HEAD (per l’intestazione HTTP) sono memorizzabili nella cache dal dispatcher. Per ulteriori informazioni sul caching delle intestazioni delle risposte, consultate la sezione [Memorizzazione in cache delle intestazioni](dispatcher-configuration.md#caching-http-response-headers) di risposta HTTP.
+>Dispatcher può memorizzare in cache i metodi GET o HEAD (per l’intestazione HTTP). Per ulteriori informazioni sul caching delle intestazioni delle risposte, consultate la sezione [Memorizzazione in cache delle intestazioni](dispatcher-configuration.md#caching-http-response-headers) di risposta HTTP.
 
 ### Posso implementare più dispatcher in una configurazione?
 
