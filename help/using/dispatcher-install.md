@@ -1,21 +1,21 @@
 ---
-title: Installazione del dispatcher
+title: Installazione di Dispatcher
 seo-title: Installazione di AEM Dispatcher
 description: Scoprite come installare il modulo Dispatcher su Microsoft Internet Information Server, Apache Web Server e Sun Java Web Server-iPlanet.
 seo-description: Scoprite come installare il modulo AEM Dispatcher su Microsoft Internet Information Server, Apache Web Server e Sun Java Web Server-iPlanet.
 uuid: 2384b907-1042-4707-b02f-fba2125618cf
-contentOwner: Utente
+contentOwner: User
 converted: vero
-topic-tags: spedizioniere
-content-type: riferimento
+topic-tags: dispatcher
+content-type: reference
 discoiquuid: f00ad751-6b95-4365-8500-e1e0108d9536
 translation-type: tm+mt
-source-git-commit: 6d3ff696780ce55c077a1d14d01efeaebcb8db28
+source-git-commit: eed7c3f77ec64f2e7c5cfff070ef96108886a059
 
 ---
 
 
-# Installazione del dispatcher {#installing-dispatcher}
+# Installazione di Dispatcher {#installing-dispatcher}
 
 <!-- 
 
@@ -27,7 +27,7 @@ Comment Type: draft
 
 >[!NOTE]
 >
->Le versioni del dispatcher sono indipendenti da AEM. Potreste essere stati reindirizzati a questa pagina se avete seguito un collegamento alla documentazione del dispatcher incorporata nella documentazione di una versione precedente di AEM.
+>Le versioni di Dispatcher sono indipendenti da AEM. Potresti essere stato reindirizzato a questa pagina se hai seguito un collegamento alla documentazione di Dispatcher incorporato nella documentazione di una versione precedente di AEM.
 
 Utilizzare la pagina [Note](release-notes.md) sulla versione del dispatcher per ottenere il file di installazione più recente per il sistema operativo e il server Web in uso. I numeri di rilascio del dispatcher sono indipendenti dai numeri di rilascio di Adobe Experience Manager e sono compatibili con le versioni di Adobe Experience Manager 6.x, 5.x e Adobe CQ 5.x.
 
@@ -109,7 +109,7 @@ Il file ZIP contiene i file seguenti:
 
 | File | Descrizione |
 |--- |--- |
-| `disp_iis.dll` |  Il file della libreria di collegamenti dinamici del dispatcher. |
+| `disp_iis.dll` | Il file della libreria di collegamenti dinamici del dispatcher. |
 | `disp_iis.ini` | File di configurazione per IIS. Questo esempio può essere aggiornato in base alle tue esigenze. **Nota**: Il file ini deve avere lo stesso nome-radice della dll. |
 | `dispatcher.any` | Un file di configurazione di esempio per il dispatcher. |
 | `author_dispatcher.any` | Un file di configurazione di esempio per il dispatcher che utilizza l’istanza di creazione. |
@@ -250,7 +250,7 @@ Utilizzare la procedura seguente per scrivere i messaggi di registro del dispatc
    `IIS AppPool\DefaultAppPool`
 
 1. Fate clic sul pulsante Controlla nomi. Quando Windows risolve l'account utente, fate clic su OK.
-1. Nella finestra di dialogo Autorizzazioni per la cartella del dispatcher, selezionate l'account appena aggiunto, abilitate tutte le autorizzazioni per l'account** eccetto Controllo completo,** e fate clic su OK. Fare clic su OK per chiudere la finestra di dialogo Proprietà cartella.
+1. Nella finestra di dialogo Autorizzazioni per la cartella del dispatcher, selezionate l’account appena aggiunto, abilitate tutte le autorizzazioni per l’account **tranne Controllo completo,** quindi fate clic su OK. Fare clic su OK per chiudere la finestra di dialogo Proprietà cartella.
 1. Usate un editor di testo per aprire il `disp_iis.ini` file.
 1. Aggiungete una riga di testo simile al seguente esempio per configurare il percorso del file di registro e quindi salvare il file:
 
@@ -294,7 +294,7 @@ I file di archivio dell'installazione contengono i file seguenti, a seconda che 
 
 | File | Descrizione |
 |--- |--- |
-| disp_apache&lt;x.y&gt;.dll | Windows: Il file della libreria di collegamenti dinamici del dispatcher. |
+| disp_apache&lt;x.y&gt;.dll | Windows:Il file della libreria di collegamenti dinamici del dispatcher. |
 | dispatcher-apache&lt;x.y&gt;-&lt;rel-nr&gt;.so | Unix: Il file di libreria oggetto condiviso del dispatcher. |
 | mod_dispatcher.so | Unix: Un collegamento di esempio. |
 | http.conf.disp&lt;x&gt; | Un file di configurazione di esempio per il server Apache. |
@@ -569,7 +569,7 @@ I file di archivio dell'installazione contengono i file seguenti, a seconda che 
 
 | File | Descrizione |
 |---|---|
-| `disp_ns.dll` | Windows: Il file della libreria di collegamenti dinamici del dispatcher. |
+| `disp_ns.dll` | Windows:Il file della libreria di collegamenti dinamici del dispatcher. |
 | `dispatcher.so` | Unix: Il file di libreria oggetto condiviso del dispatcher. |
 | `dispatcher.so` | Unix: Un collegamento di esempio. |
 | `obj.conf.disp` | Un file di configurazione di esempio per il server Web iPlanet / Sun Java System. |
@@ -591,7 +591,7 @@ Il server Web deve essere configurato utilizzando `obj.conf`. Nel kit di install
    `Service fn="dispService"`\
    dalla `obj.conf.disp` sezione di inizializzazione di `obj.conf`.
 
-1. Salvate le modifiche.
+1. Salva le modifiche.
 1. Apri `magnus.conf` per la modifica.
 1. Copiate le due righe che iniziano:\
    `Init funcs="dispService, dispInit"`\
@@ -599,7 +599,7 @@ Il server Web deve essere configurato utilizzando `obj.conf`. Nel kit di install
    `Init fn="dispInit"`\
    dalla `obj.conf.disp` sezione di inizializzazione di `magnus.conf`.
 
-1. Salvate le modifiche.
+1. Salva le modifiche.
 
 >[!NOTE]
 Le seguenti configurazioni devono essere tutte su una sola riga e `$(SERVER_ROOT)` `$(PRODUCT_SUBDIR)` devono essere sostituite dai rispettivi valori.
