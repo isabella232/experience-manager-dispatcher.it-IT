@@ -3,14 +3,14 @@ title: Configurazione di Dispatcher
 seo-title: Configurazione di Dispatcher
 description: Scopri come configurare il dispatcher.
 seo-description: Scopri come configurare il dispatcher.
-uuid: 253ef0f7-2491-4set-ab22-97439df29fd6
+uuid: 253ef0f7-2491-4cec-ab22-97439df29fd6
 cmgrlastmodified: 01.11.2007 08 22 29 [aheimoz]
-pageversionid: '1193211344162'
+pageversionid: 1193211344162
 topic-tags: dispatcher
 content-type: reference
 discoiquuid: aeffee8e-bb34-42a7-9a5e-b7d0e848391a
 translation-type: tm+mt
-source-git-commit: eed7c3f77ec64f2e7c5cfff070ef96108886a059
+source-git-commit: 71bca4bea15ca8fa89888e10770743422c56b827
 
 ---
 
@@ -1383,19 +1383,13 @@ La `/gracePeriod` proprietà definisce il numero di secondi di cui una risorsa n
 
 Per ulteriori dettagli, consultare anche le `/invalidate` sezioni e `/statfileslevel`sezioni precedenti.
 
-## Configurazione dell'annullamento della validità della cache in base al tempo - /enableTTL {#configuring-time-based-cache-invalidation-enablettl}
+### Configurazione dell'annullamento della validità della cache in base al tempo - /enableTTL {#configuring-time-based-cache-invalidation-enablettl}
 
-Se impostata, la `enableTTL` proprietà valuterà le intestazioni di risposta dal back-end, e se contengono una `Cache-Control` massima età o una `Expires` data, viene creato un file ausiliario vuoto accanto al file della cache, con l'ora di modifica uguale alla data di scadenza. Quando il file memorizzato nella cache viene richiesto oltre l'ora di modifica, viene automaticamente richiesto nuovamente dal backend.
-
-È possibile abilitare la funzione aggiungendo questa riga al `dispatcher.any` file:
-
-```xml
-/enableTTL "1"
-```
+Se impostata, la `/enableTTL` proprietà valuterà le intestazioni di risposta dal back-end, e se contengono una `Cache-Control` massima età o una `Expires` data, viene creato un file ausiliario vuoto accanto al file della cache, con l'ora di modifica uguale alla data di scadenza. Quando il file memorizzato nella cache viene richiesto oltre l'ora di modifica, viene automaticamente richiesto nuovamente dal backend.
 
 >[!NOTE]
 >
->Questa funzione è disponibile con la versione **4.1.11** del dispatcher.
+>Questa funzione è disponibile nella versione **4.1.11** o successiva del dispatcher.
 
 ## Configurazione del bilanciamento del carico - /statistics {#configuring-load-balancing-statistics}
 
