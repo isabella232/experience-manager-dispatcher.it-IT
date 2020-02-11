@@ -11,7 +11,7 @@ topic-tags: dispatcher
 content-type: reference
 discoiquuid: 40d91d66-c99b-422d-8e61-c0ced23272ef
 translation-type: tm+mt
-source-git-commit: 851202feff9b8fe3c6a44241d0ed12822b07b806
+source-git-commit: 64d26d802dbc9bb0b6815011a16e24c63a7672aa
 
 ---
 
@@ -71,7 +71,7 @@ Per utilizzare Dispatcher con più domini, è necessario configurare AEM, Dispat
 Per abilitare gli URL di dominio e i percorsi di contenuto per la risoluzione dei file memorizzati nella cache, è necessario convertire in un determinato momento un percorso di file o un URL di pagina. Vengono fornite descrizioni delle seguenti strategie comuni, in cui le traduzioni di percorso o URL avvengono in punti diversi del processo:
 
 * (consigliato) L’istanza di pubblicazione AEM utilizza la mappatura Sling per la risoluzione delle risorse per implementare le regole di riscrittura URL interne. Gli URL del dominio vengono convertiti in percorsi dell&#39;archivio dei contenuti. Consultate [AEM Riscrive gli URL](#aem-rewrites-incoming-urls)in arrivo.
-* Il server Web utilizza regole interne di riscrittura URL che convertono gli URL del dominio nei percorsi della cache. (Vedete [Il Server Web Riscrive Gli URL](#the-web-server-rewrites-incoming-urls)In Arrivo.)
+* Il server Web utilizza regole interne di riscrittura URL che convertono gli URL del dominio nei percorsi della cache. Consultate [Il Server Web Riscrive Gli URL](#the-web-server-rewrites-incoming-urls)In Arrivo.
 
 In genere è consigliabile utilizzare URL brevi per le pagine Web. In genere, gli URL delle pagine riflettono la struttura delle cartelle dell’archivio contenenti il contenuto Web. Tuttavia, gli URL non rivelano i nodi directory archivio principali, come `/content`. Il client non è necessariamente a conoscenza della struttura dell&#39;archivio AEM.
 
