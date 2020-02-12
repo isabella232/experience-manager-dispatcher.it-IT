@@ -1,25 +1,25 @@
 ---
-title: Elenco Di Controllo Del Dispatcher
-seo-title: Elenco Di Controllo Del Dispatcher
+title: Elenco di controllo della sicurezza di Dispatcher
+seo-title: Elenco di controllo della sicurezza di Dispatcher
 description: Elenco di controllo di sicurezza da completare prima di iniziare la produzione.
 seo-description: Elenco di controllo di sicurezza da completare prima di iniziare la produzione.
 uuid: 7bfa3202-03f6-48e9-8d2e-2a40e137ecbe
-contentOwner: Utente
+contentOwner: User
 products: SG_EXPERIENCEMANAGER/DISPATCHER
-topic-tags: spedizioniere
-content-type: riferimento
+topic-tags: dispatcher
+content-type: reference
 discoiquuid: fbfafa55-c029-4ed7-ab3e-1bebfde18248
 jcr-lastmodifiedby: remove-legacypath-6-1
 index: y
 internal: n
 snippet: y
 translation-type: tm+mt
-source-git-commit: 6d3ff696780ce55c077a1d14d01efeaebcb8db28
+source-git-commit: 5b5ac8cdff27d6bc6664f1c18302c53649df7360
 
 ---
 
 
-# Elenco Di Controllo Del Dispatcher{#the-dispatcher-security-checklist}
+# Elenco di controllo della sicurezza di Dispatcher{#the-dispatcher-security-checklist}
 
 <!-- 
 
@@ -40,11 +40,11 @@ Il dispatcher come sistema front-end offre un ulteriore livello di sicurezza all
 
 ## Usa la versione più recente del dispatcher {#use-the-latest-version-of-dispatcher}
 
-Installate la versione più recente disponibile disponibile per la piattaforma in uso. Devi aggiornare l'istanza del dispatcher per utilizzare la versione più recente per sfruttare i miglioramenti apportati a livello di prodotti e sicurezza. Consultate [Installazione del dispatcher](dispatcher-install.md).
+Installate la versione più recente disponibile disponibile per la piattaforma in uso. Devi aggiornare l&#39;istanza del dispatcher per utilizzare la versione più recente per sfruttare i miglioramenti apportati a livello di prodotti e sicurezza. Consultate [Installazione del dispatcher](dispatcher-install.md).
 
 >[!NOTE]
 >
->È possibile controllare la versione corrente dell'installazione del dispatcher esaminando il file di registro del dispatcher.
+>È possibile controllare la versione corrente dell&#39;installazione del dispatcher esaminando il file di registro del dispatcher.
 >
 >`[Thu Apr 30 17:30:49 2015] [I] [23171(140735307338496)] Dispatcher initialized (build 4.1.9)`
 >
@@ -77,17 +77,17 @@ Last Modified Date: 2015-06-26T04:41:28.841-0400
 
 ## Limita accesso {#restrict-access}
 
-Durante la configurazione del dispatcher è necessario limitare il più possibile l'accesso esterno. Consulta [Esempio /filter Section](dispatcher-configuration.md#main-pars_184_1_title) nella documentazione del dispatcher.
+Durante la configurazione del dispatcher è necessario limitare il più possibile l&#39;accesso esterno. Consulta [Esempio /filter Section](dispatcher-configuration.md#main-pars_184_1_title) nella documentazione del dispatcher.
 
 ## Assicurati che l’accesso agli URL amministrativi sia negato {#make-sure-access-to-administrative-urls-is-denied}
 
-Accertatevi di utilizzare i filtri per bloccare l'accesso esterno a qualsiasi URL amministrativo, come la console Web.
+Accertatevi di utilizzare i filtri per bloccare l&#39;accesso esterno a qualsiasi URL amministrativo, come la console Web.
 
 Consultate [Verifica della sicurezza](dispatcher-configuration.md#testing-dispatcher-security) del dispatcher per un elenco di URL da bloccare.
 
 ## Usa whitelist invece delle blacklist {#use-whitelists-instead-of-blacklists}
 
-Le whitelist rappresentano un modo migliore per fornire il controllo dell'accesso in quanto, di per sé, presuppongono che tutte le richieste di accesso debbano essere negate a meno che non facciano parte esplicitamente della whitelist. Questo modello offre un controllo più restrittivo sulle nuove richieste che potrebbero non essere state ancora esaminate o prese in considerazione durante una determinata fase di configurazione.
+Le whitelist rappresentano un modo migliore per fornire il controllo dell&#39;accesso in quanto, di per sé, presuppongono che tutte le richieste di accesso debbano essere negate a meno che non facciano parte esplicitamente della whitelist. Questo modello offre un controllo più restrittivo sulle nuove richieste che potrebbero non essere state ancora esaminate o prese in considerazione durante una determinata fase di configurazione.
 
 ## Eseguire il dispatcher con un utente di sistema dedicato {#run-dispatcher-with-a-dedicated-system-user}
 
@@ -117,14 +117,14 @@ A livello di dispatcher, sono disponibili due metodi di configurazione per preve
    * `.doc`
    * `.pdf`
    * `.ppt`
-   Un file di configurazione di esempio può essere visualizzato per [limitare l'accesso](#restrict-access)esterno, che include restrizioni per i tipi mime.
+   Un file di configurazione di esempio può essere visualizzato per [limitare l&#39;accesso](#restrict-access)esterno, che include restrizioni per i tipi mime.
 
 Per abilitare tutte le funzionalità nelle istanze di pubblicazione, configurate i filtri in modo da impedire l’accesso ai seguenti nodi:
 
 * `/etc/`
 * `/libs/`
 
-Quindi configurate i filtri per consentire l'accesso ai seguenti percorsi dei nodi:
+Quindi configurate i filtri per consentire l&#39;accesso ai seguenti percorsi dei nodi:
 
 * `/etc/designs/*`
 * `/etc/clientlibs/*`
@@ -147,9 +147,9 @@ Last Modified Date: 2015-06-26T04:38:17.016-0400
 
  -->
 
-## Configurare il dispatcher per impedire attacchi CSRF {#configure-dispatcher-to-prevent-csrf-attacks}
+## Configure Dispatcher to prevent CSRF Attacks {#configure-dispatcher-to-prevent-csrf-attacks}
 
-AEM fornisce un [framework](https://helpx.adobe.com/experience-manager/6-3/sites/administering/using/security-checklist.html#verification-steps) per prevenire attacchi di tipo "cross-site Request Forgery". Per utilizzare correttamente questo framework, è necessario inserire in una whitelist il supporto per i token CSRF nel dispatcher. È possibile eseguire questa operazione tramite:
+AEM fornisce un [framework](https://helpx.adobe.com/experience-manager/6-3/sites/administering/using/security-checklist.html#verification-steps) per prevenire attacchi di tipo &quot;cross-site Request Forgery&quot;. Per utilizzare correttamente questo framework, è necessario inserire in una whitelist il supporto per i token CSRF nel dispatcher. È possibile eseguire questa operazione tramite:
 
 1. Creazione di un filtro per consentire il `/libs/granite/csrf/token.json` percorso;
 1. Aggiungete l’ `CSRF-Token` intestazione alla `clientheaders` sezione della configurazione del dispatcher.
