@@ -32,7 +32,7 @@ Il metodo scelto dipende dalla comodità con cui state modificando la documentaz
 
 ### Creare un problema {#create-an-issue}
 
-Hai un suggerimento, un&#39;osservazione sui documenti attuali, o hai dei dubbi sul modo in cui qualcosa viene descritto? Quindi create un problema. I problemi sono anche eccellenti se hai qualcosa da contribuire, ma non sentirti a tuo agio nel modificare i documenti o fare una richiesta pull.
+Hai un suggerimento, un&#39;osservazione sui documenti attuali, o hai dei dubbi sul modo in cui qualcosa viene descritto? Quindi create un problema. I problemi sono anche eccellenti se si ha qualcosa da contribuire, ma non sentirsi a proprio agio nel modificare i documenti o fare una richiesta pull.
 
 I problemi ti consentono di descrivere facilmente la tua idea di miglioramento ai documenti e un membro del team Docs di AEM può esaminarla. È sufficiente fare clic sul collegamento **Registra un problema** nella parte superiore del pannello di navigazione a destra in qualsiasi pagina per creare un problema.
 
@@ -56,4 +56,4 @@ Naturalmente, siamo lieti di qualsiasi contributo e valuteremo il vostro contrib
 
 ## Ulteriori informazioni
 
-Per ulteriori informazioni sull’utilizzo della piattaforma di authoring GitHub, consulta la Guida [per i collaboratori di](https://docs.adobe.com/help/en/contributor/contributor-guide/introduction.html) Adobe Docs.
+Per ulteriori informazioni sull’utilizzo della piattaforma di creazione GitHub, consulta la Guida [per i collaboratori di](https://docs.adobe.com/help/en/contributor/contributor-guide/introduction.html) Adobe Docs.
