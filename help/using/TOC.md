@@ -4,8 +4,12 @@ product: experience manager
 sub-product: experience manager dispatcher
 archetype: Administrator
 user-guide-title: Aiuto di Experience Manager Dispatcher
-translation-type: ht
-source-git-commit: 5cd966c0e317949582084d3268c6914540b707b1
+user-guide-description: Learn to use Dispatcher for caching, load balancing, and improving security for your AEM server.
+translation-type: tm+mt
+source-git-commit: 02a082ec66e32f2c4c0b3a6135eacbb4c5e9de7b
+workflow-type: tm+mt
+source-wordcount: '70'
+ht-degree: 81%
 
 ---
 
@@ -20,7 +24,7 @@ source-git-commit: 5cd966c0e317949582084d3268c6914540b707b1
 + Configurazione {#configuring}
    + [Configurazione di Dispatcher](dispatcher-configuration.md)
    + [Annullamento della validità delle pagine in cache da AEM](page-invalidate.md)
-   + [Ottimizzazione delle prestazioni della cache di un sito web](https://helpx.adobe.com/it/experience-manager/6-4/sites/deploying/using/configuring-performance.html)
+   + [Ottimizzazione di un sito Web per le prestazioni della cache](https://helpx.adobe.com/experience-manager/6-4/sites/deploying/using/configuring-performance.html)
    + [Caching di contenuto protetto](permissions-cache.md)
    + [Utilizzo di Dispatcher con più domini](dispatcher-domains.md)
    + [Utilizzo di SSL con Dispatcher](dispatcher-ssl.md)
