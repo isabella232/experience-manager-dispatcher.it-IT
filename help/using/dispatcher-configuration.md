@@ -10,7 +10,10 @@ topic-tags: dispatcher
 content-type: reference
 discoiquuid: aeffee8e-bb34-42a7-9a5e-b7d0e848391a
 translation-type: tm+mt
-source-git-commit: 183131dec51b67e152a8660c325ed980ae9ef458
+source-git-commit: 5734e601379fda9a62eda46bded493b8dbd49a4c
+workflow-type: tm+mt
+source-wordcount: '8802'
+ht-degree: 2%
 
 ---
 
@@ -139,7 +142,7 @@ Ad esempio, se il file dispatcher.any si trova nella stessa directory della dire
 /docroot "${PWD}/cache"
 ```
 
-Come altro esempio, se create una variabile di ambiente denominata `PUBLISH_IP` che memorizza il nome host dell’istanza di pubblicazione AEM, potete utilizzare la seguente configurazione della proprietà [/renders](dispatcher-configuration.md#main-pars-127-25-0008) :
+Ad esempio, se create una variabile di ambiente denominata `PUBLISH_IP` che memorizza il nome host dell’istanza di pubblicazione AEM, potete utilizzare la seguente configurazione della proprietà [/renders](dispatcher-configuration.md#main-pars-127-25-0008) :
 
 ```xml
 /renders {
@@ -166,7 +169,7 @@ La `/farms` proprietà è una proprietà di livello principale nella struttura d
 La `/farmname` proprietà è multivalore e contiene altre proprietà che definiscono il comportamento del dispatcher:
 
 * URL delle pagine a cui si applica la farm.
-* Uno o più URL di servizio (in genere istanze di pubblicazione AEM) da utilizzare per il rendering dei documenti.
+* Uno o più URL del servizio (in genere di AEM istanze di pubblicazione) da utilizzare per il rendering dei documenti.
 * Statistiche da utilizzare per il bilanciamento del carico di più renderer di documenti.
 * Diversi altri comportamenti, ad esempio quali file memorizzare nella cache e dove.
 
@@ -202,7 +205,7 @@ Ogni proprietà farm può contenere le seguenti proprietà figlio:
 | [/clientheaders](#specifying-the-http-headers-to-pass-through-clientheaders) | Intestazioni dalla richiesta HTTP client da trasmettere. |
 | [/virtualhosts](#identifying-virtual-hosts-virtualhosts) | Host virtuali per la farm. |
 | [/sessionmanagement](#enabling-secure-sessions-sessionmanagement) | Supporto per la gestione e l’autenticazione delle sessioni. |
-| [/renderer](#defining-page-renderers-renders) | I server che forniscono le pagine di cui è stato eseguito il rendering (in genere istanze di pubblicazione AEM). |
+| [/renderer](#defining-page-renderers-renders) | I server che forniscono le pagine sottoposte a rendering (in genere AEM istanze di pubblicazione). |
 | [/filter](#configuring-access-to-content-filter) | Definisce gli URL a cui il dispatcher consente l&#39;accesso. |
 | [/vanity_urls](#enabling-access-to-vanity-urls-vanity-urls) | Configura l’accesso agli URL personalizzati. |
 | [/propagateSyndPost](#forwarding-syndication-requests-propagatesyndpost) | Supporto per l&#39;inoltro delle richieste di sindacazione. |
@@ -221,7 +224,7 @@ Ogni proprietà farm può contenere le seguenti proprietà figlio:
 >
 >Il `/homepage`parametro (solo IIS) non funziona più. Utilizzare invece il modulo [di riscrittura URL](https://docs.microsoft.com/en-us/iis/extensions/url-rewrite-module/using-the-url-rewrite-module)IIS.
 >
->Se si utilizza Apache, è necessario utilizzare il `mod_rewrite` modulo. Per informazioni su `mod_rewrite` (ad esempio, [Apache 2.4](https://httpd.apache.org/docs/current/mod/mod_rewrite.html)), consultate la documentazione del sito Web Apache. Quando si utilizza `mod_rewrite`, è consigliabile utilizzare il flag **[&#39;passthrough|PT&#39; (passare attraverso il gestore successivo)](https://helpx.adobe.com/dispatcher/kb/DispatcherModReWrite.html)**per forzare il motore di riscrittura a impostare il`uri`campo della`request_rec`struttura interna sul valore del`filename`campo.
+>Se si utilizza Apache, è necessario utilizzare il `mod_rewrite` modulo. Per informazioni su `mod_rewrite` (ad esempio, [Apache 2.4](https://httpd.apache.org/docs/current/mod/mod_rewrite.html)), consultate la documentazione del sito Web Apache. Quando si utilizza `mod_rewrite`, è consigliabile utilizzare il flag **[&#39;passthrough|PT&#39; (passare attraverso il gestore successivo)](https://helpx.adobe.com/dispatcher/kb/DispatcherModReWrite.html)** per forzare il motore di riscrittura a impostare il `uri` campo della `request_rec` struttura interna sul valore del `filename` campo.
 
 <!-- 
 
@@ -265,7 +268,7 @@ Comment Type: draft
 
 La `/clientheaders` proprietà definisce un elenco di intestazioni HTTP che il dispatcher passa dalla richiesta HTTP client al renderer (istanza AEM).
 
-Per impostazione predefinita, il dispatcher inoltra le intestazioni HTTP standard all’istanza AEM. In alcuni casi, potrebbe essere necessario inoltrare intestazioni aggiuntive o rimuovere intestazioni specifiche:
+Per impostazione predefinita, il dispatcher inoltra le intestazioni HTTP standard all&#39;istanza AEM. In alcuni casi, potrebbe essere necessario inoltrare intestazioni aggiuntive o rimuovere intestazioni specifiche:
 
 * Aggiungete intestazioni, ad esempio intestazioni personalizzate, che l’istanza AEM prevede nella richiesta HTTP.
 * Rimuovete le intestazioni, ad esempio le intestazioni di autenticazione, rilevanti solo per il server Web.
@@ -412,7 +415,7 @@ Utilizzando questo esempio, la tabella seguente mostra gli host virtuali risolti
 
 >[!CAUTION]
 >
->`/allowAuthorized` Per attivare questa funzione, **è necessario** impostarla `"0"` nella `/cache` sezione.
+>`/allowAuthorized` **deve** essere impostato `"0"` nella `/cache` sezione per attivare questa funzione.
 
 Create una sessione protetta per l&#39;accesso alla farm di rendering in modo che gli utenti debbano accedere a qualsiasi pagina della farm. Dopo l&#39;accesso, gli utenti possono accedere alle pagine della farm. Consultate [Creazione di un gruppo](https://helpx.adobe.com/experience-manager/6-3/sites/administering/using/cug.html#CreatingTheUserGroupToBeUsed) utenti chiuso per informazioni sull’utilizzo di questa funzione con i CUG. Inoltre, vedere l&#39;elenco di controllo [della](/help/using/security-checklist.md) sicurezza del dispatcher prima di iniziare a visualizzare in diretta.
 
@@ -465,7 +468,7 @@ Esempio di configurazione:
 
 ## Definizione dei renderer di pagina {#defining-page-renderers-renders}
 
-La proprietà /renders definisce l&#39;URL al quale il dispatcher invia le richieste per eseguire il rendering di un documento. La sezione di esempio seguente `/renders` identifica una singola istanza di AEM per il rendering:
+La proprietà /renders definisce l&#39;URL al quale il dispatcher invia le richieste per eseguire il rendering di un documento. La sezione di esempio seguente `/renders` identifica una singola istanza AEM per il rendering:
 
 ```xml
 /renders
@@ -482,7 +485,7 @@ La proprietà /renders definisce l&#39;URL al quale il dispatcher invia le richi
   }
 ```
 
-La seguente sezione /renders di esempio identifica un’istanza AEM che viene eseguita sullo stesso computer del dispatcher:
+La sezione di esempio /renders seguente identifica un&#39;istanza AEM eseguita sullo stesso computer del dispatcher:
 
 ```xml
 /renders
@@ -495,7 +498,7 @@ La seguente sezione /renders di esempio identifica un’istanza AEM che viene es
   }
 ```
 
-La seguente sezione di esempio /renders distribuisce le richieste di rendering tra due istanze AEM:
+La sezione di esempio /renders seguente distribuisce le richieste di rendering in modo uniforme tra due istanze AEM:
 
 ```xml
 /renders
@@ -517,7 +520,7 @@ La seguente sezione di esempio /renders distribuisce le richieste di rendering t
 
 **/timeout**
 
-Specifica il timeout di connessione per l&#39;accesso all&#39;istanza di AEM, in millisecondi. Il valore predefinito è &quot;0&quot;, che causerà un&#39;attesa indefinita del dispatcher.
+Specifica il timeout di connessione per l&#39;accesso all&#39;istanza AEM, in millisecondi. Il valore predefinito è &quot;0&quot;, che causerà un&#39;attesa indefinita del dispatcher.
 
 **/receiveTimeout**
 
@@ -530,11 +533,11 @@ Specifica se Dispatcher utilizza la `getaddrinfo` funzione (per IPv6) o la `geth
 
 La funzione getaddrinfo restituisce un elenco di indirizzi IP. Dispatcher esegue un&#39;iterazione dell&#39;elenco di indirizzi finché non stabilisce una connessione TCP/IP. Pertanto, la proprietà ipv4 è importante quando il nome host di rendering è associato a più indirizzi IP e l&#39;host, in risposta alla funzione getaddrinfo, restituisce un elenco di indirizzi IP che sono sempre nello stesso ordine. In questa situazione, è necessario utilizzare la funzione gethostbyname in modo che l&#39;indirizzo IP con cui il Dispatcher si collega sia casuale.
 
-Amazon Elastic Load Balancing (ELB) è un servizio che risponde a getaddrinfo con un elenco potenzialmente uguale di indirizzi IP.
+ il sistema ELB (Elastic Load Balancing) di Amazon è un servizio che risponde a getaddrinfo con un elenco potenzialmente uguale di indirizzi IP.
 
 **/secure**
 
-Se il valore della `/secure` proprietà è &quot;1&quot;, il dispatcher utilizza HTTPS per comunicare con l&#39;istanza di AEM. Per ulteriori dettagli, consultate anche [Configurazione del dispatcher per l’utilizzo di SSL](dispatcher-ssl.md#configuring-dispatcher-to-use-ssl).
+Se il valore della `/secure` proprietà è &quot;1&quot;, il dispatcher utilizza HTTPS per comunicare con l&#39;istanza AEM. Per ulteriori dettagli, consultate anche [Configurazione del dispatcher per l’utilizzo di SSL](dispatcher-ssl.md#configuring-dispatcher-to-use-ssl).
 
 **/always-resolve**
 
@@ -564,7 +567,7 @@ Utilizzate la `/filter` sezione per specificare le richieste HTTP accettate da D
 
 >[!CAUTION]
 >
->Per ulteriori considerazioni su come limitare l&#39;accesso tramite Dispatcher, consulta l&#39;elenco di controllo [Protezione dispatcher](security-checklist.md) . Inoltre, consultate l&#39;elenco di controllo [AEM Security](https://helpx.adobe.com/experience-manager/6-3/sites/administering/using/security-checklist.html) per ulteriori dettagli di sicurezza relativi all&#39;installazione di AEM.
+>Per ulteriori considerazioni su come limitare l&#39;accesso tramite Dispatcher, consulta l&#39;elenco di controllo [Protezione dispatcher](security-checklist.md) . Inoltre, leggete l&#39;elenco di controllo [AEM sicurezza](https://helpx.adobe.com/experience-manager/6-3/sites/administering/using/security-checklist.html) per ulteriori dettagli di sicurezza relativi all&#39;installazione AEM.
 
 La sezione /filter è composta da una serie di regole che negano o consentono l’accesso al contenuto in base ai pattern presenti nella parte della riga della richiesta HTTP. È consigliabile utilizzare una strategia whtelist per la sezione /filter:
 
@@ -603,7 +606,7 @@ HTTP/1.1 definisce la riga [di](https://www.w3.org/Protocols/rfc2616/rfc2616-sec
 
 *Richiesta metodo - URI HTTP-Version*&lt;CRLF>
 
-I caratteri &lt;CRLF> rappresentano un ritorno a capo seguito da un avanzamento riga. L’esempio seguente è la riga-richiesta ricevuta quando un cliente richiede la pagina en del sito Geometrixx-Outoors:
+I caratteri &lt;CRLF> rappresentano un ritorno a capo seguito da un avanzamento riga. L’esempio seguente è la riga di richiesta ricevuta quando un cliente richiede la pagina en del sito Geometrixx-Outors:
 
 GET /content/geometrixx-outdoors/en.html HTTP.1.1&lt;CRLF>
 
@@ -641,7 +644,7 @@ I filtri consentono inoltre di negare l’accesso a vari elementi, ad esempio pa
 
 #### Esempio di filtro: Abilita richieste POST {#example-filter-enable-post-requests}
 
-Il seguente filtro di esempio consente di inviare i dati del modulo tramite il metodo POST:
+Il seguente filtro di esempio consente l&#39;invio dei dati del modulo tramite il metodo POST:
 
 ```xml
 /filter {
@@ -708,7 +711,7 @@ Durante la configurazione del dispatcher, devi limitare il più possibile l&#39;
    * `/etc/designs/default*`
    * `/etc/designs/mydesign*`
 
-Dopo aver creato i filtri, [verificate l’accesso](dispatcher-configuration.md#main-pars-title-19) alla pagina per garantire la protezione dell’istanza AEM.
+Dopo aver creato i filtri, [verificate l&#39;accesso](dispatcher-configuration.md#main-pars-title-19) alla pagina per garantire la protezione dell&#39;istanza AEM.
 
 La seguente sezione /filter del file dispatcher.any può essere utilizzata come base nel file di configurazione [del](dispatcher-configuration.md) dispatcher.
 
@@ -785,7 +788,7 @@ Last Modified Date: 2015-06-26T04:32:37.986-0400
 
 >[!NOTE]
 >
->I filtri 0030 e 0031 per gli elementi multimediali dinamici sono applicabili ad AEM 6.0 e versioni successive.
+>I filtri 0030 e 0031 per quanto riguarda gli elementi multimediali dinamici sono applicabili a AEM 6.0 e versioni successive.
 
 Se scegliete di estendere l&#39;accesso, tenete presenti le seguenti raccomandazioni:
 
@@ -842,7 +845,7 @@ Una singola voce può avere *un* elemento di stile *o una combinazione di* metod
 
 ### Verifica della protezione del dispatcher {#testing-dispatcher-security}
 
-I filtri del dispatcher devono bloccare l&#39;accesso alle pagine e agli script seguenti sulle istanze di pubblicazione AEM. Usate un browser Web per tentare di aprire le pagine seguenti come un visitatore del sito e verificare che venga restituito un codice 404. Se si ottiene un altro risultato, regolate i filtri.
+I filtri del dispatcher devono bloccare l&#39;accesso alle pagine e agli script seguenti su AEM istanze di pubblicazione. Usate un browser Web per tentare di aprire le pagine seguenti come un visitatore del sito e verificare che venga restituito un codice 404. Se si ottiene un altro risultato, regolate i filtri.
 
 Il rendering normale della pagina deve essere visualizzato per /content/add_valid_page.html?debug=layout.
 
@@ -946,14 +949,14 @@ La `/vanity_urls` sezione contiene le proprietà seguenti:
 
 Utilizzate la procedura seguente per abilitare l&#39;accesso agli URL personalizzati.
 
-1. Se il servizio di rendering è un’istanza di AEM, installate il pacchetto com.adobe.granite.dispatcher.vanityurl.content sull’istanza di pubblicazione (consultate la nota precedente).
+1. Se il servizio di rendering è un’istanza AEM, installate il pacchetto com.adobe.granite.dispatcher.vanityurl.content sull’istanza pubblica (vedete la nota precedente).
 1. Per ogni URL personalizzato configurato per una pagina AEM o CQ, accertatevi che la ` [/filter](dispatcher-configuration.md#main-pars_134_32_0009)` configurazione neghi l’URL. Se necessario, aggiungete un filtro che neghi l’URL.
 1. Aggiungete la `/vanity_urls` sezione seguente `/farms`.
 1. Riavviate il server Web Apache.
 
 ## Inoltro delle richieste di sindacazione - /propagateSyndPost {#forwarding-syndication-requests-propagatesyndpost}
 
-Le richieste di sindacazione sono in genere destinate solo al Dispatcher, pertanto per impostazione predefinita non vengono inviate al renderer (ad esempio, un’istanza di AEM).
+Le richieste di sindacazione sono in genere destinate solo al Dispatcher, pertanto per impostazione predefinita non vengono inviate al renderer (ad esempio, un&#39;istanza AEM).
 
 Se necessario, impostare la proprietà /propagateSyndPost su &quot;1&quot; per inoltrare le richieste di sindacazione al Dispatcher. Se impostato, accertatevi che le richieste POST non vengano negate nella sezione del filtro.
 
@@ -1029,7 +1032,7 @@ Il file di stato non ha contenuto. Quando il contenuto viene aggiornato, il disp
 
 La `/serveStaleOnError` proprietà controlla se il dispatcher restituisce documenti invalidati quando il server di rendering restituisce un errore. Per impostazione predefinita, quando un file di stato viene toccato e invalida il contenuto memorizzato nella cache, il dispatcher elimina il contenuto memorizzato nella cache al successivo richiamo.
 
-Se `/serveStaleOnError` è impostato su &quot;1&quot;, il dispatcher non elimina il contenuto invalidato dalla cache, a meno che il server di rendering non restituisca una risposta corretta. Una risposta 5xx da AEM o un timeout di connessione causa la distribuzione da parte del dispatcher del contenuto obsoleto e la risposta con uno stato HTTP 111 (revoca non riuscita).
+Se `/serveStaleOnError` è impostato su &quot;1&quot;, il dispatcher non elimina il contenuto invalidato dalla cache, a meno che il server di rendering non restituisca una risposta corretta. Una risposta 5xx da AEM o un timeout di connessione causa la distribuzione del contenuto obsoleto da parte del dispatcher e la risposta con uno stato HTTP 111 (revoca non riuscita).
 
 ### Memorizzazione nella cache quando viene utilizzata l&#39;autenticazione {#caching-when-authentication-is-used}
 
@@ -1058,7 +1061,7 @@ La `/rules` proprietà controlla quali documenti vengono memorizzati nella cache
 * Se manca l’estensione del file.\
    Il server web ha bisogno dell’estensione per determinare il tipo di documento (tipo MIME).
 * Se l’intestazione di autenticazione è impostata (configurabile).
-* Se l’istanza AEM risponde con le seguenti intestazioni:
+* Se l&#39;istanza AEM risponde con le seguenti intestazioni:
 
    * `no-cache`
    * `no-store`
@@ -1216,7 +1219,7 @@ Se offrite per il download file PDF e ZIP generati automaticamente, potreste dov
   }
 ```
 
-L&#39;integrazione di AEM con Adobe Analytics fornisce i dati di configurazione in un file analytics.sitecatalyst.js nel sito Web. Il file dispatcher.any fornito con il dispatcher include la seguente regola di annullamento della validità per il file:
+L&#39;integrazione AEM con  Adobe Analytics fornisce i dati di configurazione in un file analytics.sitecatalyst.js nel sito Web. Il file dispatcher.any fornito con il dispatcher include la seguente regola di annullamento della validità per il file:
 
 ```xml
 {
@@ -1235,7 +1238,7 @@ Viene chiamato con i seguenti argomenti:
 * Azione\
    Azione di replica (ad esempio Attiva, Disattiva)
 * Ambito azione\
-   Ambito dell&#39;azione di replica (vuoto, a meno che non `CQ-Action-Scope: ResourceOnly` venga inviata un&#39;intestazione, per ulteriori informazioni, consultate [Invalidazione delle pagine nella cache da AEM](page-invalidate.md) )
+   Ambito dell&#39;azione di replica (vuoto, a meno che non `CQ-Action-Scope: ResourceOnly` venga inviata un&#39;intestazione, vedere [Invalidazione delle pagine nella cache dalla AEM](page-invalidate.md) per ulteriori dettagli)
 
 Questo può essere utilizzato per coprire una serie di casi d’uso diversi, ad esempio per invalidare altre cache specifiche dell’applicazione, o per gestire i casi in cui l’URL esternalizzato di una pagina e la sua posizione nel documento non corrispondono al percorso del contenuto.
 
@@ -1347,10 +1350,11 @@ Presentato di seguito è un esempio della configurazione predefinita:
 
 >[!NOTE]
 >
->Se dovete memorizzare e distribuire le intestazioni di risposta ETag da AEM, eseguite le seguenti operazioni:
+>Se dovete memorizzare e distribuire le intestazioni di risposta ETag dal AEM, eseguite le seguenti operazioni:
 >
 >* Aggiungete il nome dell’intestazione nella `/cache/headers`sezione.
 >* Aggiungere la seguente direttiva [Apache](https://httpd.apache.org/docs/2.4/mod/core.html#fileetag) nella sezione relativa al dispatcher:
+
 >
 
 
@@ -1575,11 +1579,13 @@ Utilizzate il parametro /ignoreEINTR se la vostra istanza dispone di tale config
 
 `Error while reading response: Interrupted system call`
 
-Internamente, il dispatcher legge la risposta dal server remoto (ad es. AEM) utilizzando un loop che può essere rappresentato come:
+Internamente, Dispatcher legge la risposta dal server remoto (ad es. AEM) utilizzando un loop che può essere rappresentato come:
 
-`while (response not finished) {  
+```
+while (response not finished) {  
 read more data  
-}`
+}
+```
 
 Tali messaggi possono essere generati quando `EINTR` si verifica nella sezione &quot; `read more data`&quot; e sono causati dalla ricezione di un segnale prima della ricezione dei dati.
 
@@ -1597,9 +1603,9 @@ I valori di GLOW possono includere caratteri jolly e caratteri alfanumerici per 
 
 | Carattere jolly | Descrizione | Esempi |
 |--- |--- |--- |
-| `*` | Corrisponde a zero o più istanze contigue di qualsiasi carattere nella stringa. Il carattere finale della corrispondenza è determinato dalle seguenti situazioni: <br/>Un carattere nella stringa corrisponde al carattere successivo nel pattern e il carattere del pattern ha le seguenti caratteristiche:<br/><ul><li>Not a *</li><li>Non è un ?</li><li>Un carattere letterale (incluso uno spazio) o una classe di caratteri.</li><li>Viene raggiunta la fine del pattern.</li></ul>All&#39;interno di una classe di caratteri, il carattere viene interpretato letteralmente. | `*/geo*` Corrisponde a qualsiasi pagina sotto il `/content/geometrixx` nodo e il `/content/geometrixx-outdoors` nodo. Le seguenti richieste HTTP corrispondono al pattern di gestione: <br/><ul><li>`"GET /content/geometrixx/en.html"`</li><li>`"GET /content/geometrixx-outdoors/en.html"` </li></ul><br/> `*outdoors/*` Corrisponde <br/>a qualsiasi pagina sotto il `/content/geometrixx-outdoors` nodo. Ad esempio, la seguente richiesta HTTP corrisponde al pattern di gestione: <br/><ul><li>`"GET /content/geometrixx-outdoors/en.html"`</li></ul> |
+| `*` | Corrisponde a zero o più istanze contigue di qualsiasi carattere nella stringa. Il carattere finale della corrispondenza è determinato dalle seguenti situazioni: <br/>Un carattere nella stringa corrisponde al carattere successivo nel pattern e il carattere del pattern ha le seguenti caratteristiche:<br/><ul><li>Not a *</li><li>Non è un ?</li><li>Un carattere letterale (incluso uno spazio) o una classe di caratteri.</li><li>Viene raggiunta la fine del pattern.</li></ul>All&#39;interno di una classe di caratteri, il carattere viene interpretato letteralmente. | `*/geo*` Corrisponde a qualsiasi pagina sotto il `/content/geometrixx` nodo e il `/content/geometrixx-outdoors` nodo. Le seguenti richieste HTTP corrispondono al pattern di gestione: <br/><ul><li>`"GET /content/geometrixx/en.html"`</li><li>`"GET /content/geometrixx-outdoors/en.html"` </li></ul><br/> `*outdoors/*` <br/>Corrisponde a qualsiasi pagina sotto il `/content/geometrixx-outdoors` nodo. Ad esempio, la seguente richiesta HTTP corrisponde al pattern di gestione: <br/><ul><li>`"GET /content/geometrixx-outdoors/en.html"`</li></ul> |
 | `?` | Corrisponde a qualsiasi singolo carattere. Utilizzare classi di caratteri esterne. All&#39;interno di una classe di caratteri, questo carattere viene interpretato letteralmente. | `*outdoors/??/*`<br/> Corrisponde alle pagine per qualsiasi lingua del sito geometrixx-outdoors. Ad esempio, la seguente richiesta HTTP corrisponde al pattern di gestione: <br/><ul><li>`"GET /content/geometrixx-outdoors/en/men.html"`</li></ul><br/>La richiesta seguente non corrisponde al pattern di tipo Gap: <br/><ul><li>&quot;GET /content/geometrixx-outdoors/en.html&quot;</li></ul> |
-| `[ and ]` | Richiama l&#39;inizio e la fine di una classe di caratteri. Le classi di caratteri possono includere uno o più intervalli di caratteri e caratteri singoli.<br/>Una corrispondenza si verifica se il carattere di destinazione corrisponde a uno qualsiasi dei caratteri della classe di caratteri, o all&#39;interno di un intervallo definito.<br/>Se la parentesi di chiusura non è inclusa, il pattern non produce alcuna corrispondenza. | `*[o]men.html*`<br/> Corrisponde alla seguente richiesta HTTP:<br/><ul><li>`"GET /content/geometrixx-outdoors/en/women.html"`</li></ul><br/>Non corrisponde alla seguente richiesta HTTP:<br/><ul><li>`"GET /content/geometrixx-outdoors/en/men.html"`</li></ul><br/> `*[o/]men.html*` Corrisponde <br/>alle seguenti richieste HTTP: <br/><ul><li>`"GET /content/geometrixx-outdoors/en/women.html"`</li><li>`"GET /content/geometrixx-outdoors/en/men.html"`</li></ul> |
+| `[ and ]` | Richiama l&#39;inizio e la fine di una classe di caratteri. Le classi di caratteri possono includere uno o più intervalli di caratteri e caratteri singoli.<br/>Una corrispondenza si verifica se il carattere di destinazione corrisponde a uno qualsiasi dei caratteri della classe di caratteri, o all&#39;interno di un intervallo definito.<br/>Se la parentesi di chiusura non è inclusa, il pattern non produce alcuna corrispondenza. | `*[o]men.html*`<br/> Corrisponde alla seguente richiesta HTTP:<br/><ul><li>`"GET /content/geometrixx-outdoors/en/women.html"`</li></ul><br/>Non corrisponde alla seguente richiesta HTTP:<br/><ul><li>`"GET /content/geometrixx-outdoors/en/men.html"`</li></ul><br/> `*[o/]men.html*` <br/>Corrisponde alle seguenti richieste HTTP: <br/><ul><li>`"GET /content/geometrixx-outdoors/en/women.html"`</li><li>`"GET /content/geometrixx-outdoors/en/men.html"`</li></ul> |
 | `-` | Indica un intervallo di caratteri. Da utilizzare nelle classi di caratteri.  Al di fuori di una classe di caratteri, questo carattere viene interpretato letteralmente. | `*[m-p]men.html*` Corrisponde alla seguente richiesta HTTP: <br/><ul><li>`"GET /content/geometrixx-outdoors/en/women.html"`</li></ul>Non corrisponde alla seguente richiesta HTTP:<br/><ul><li>`"GET /content/geometrixx-outdoors/en/men.html"`</li></ul> |
 | `!` | Nega la classe di caratteri o di caratteri che segue. Utilizzare solo per negare i caratteri e gli intervalli di caratteri all&#39;interno delle classi di caratteri. Equivalente al `^ wildcard`. <br/>Al di fuori di una classe di caratteri, questo carattere viene interpretato letteralmente. | `*[!o]men.html*`<br/> Corrisponde alla seguente richiesta HTTP: <br/><ul><li>`"GET /content/geometrixx-outdoors/en/men.html"`</li></ul><br/>Non corrisponde alla seguente richiesta HTTP: <br/><ul><li>`"GET /content/geometrixx-outdoors/en/women.html"`</li></ul><br/>`*[!o!/]men.html*`<br/> Non corrisponde alla seguente richiesta HTTP:<br/><ul><li>`"GET /content/geometrixx-outdoors/en/women.html"` o `"GET /content/geometrixx-outdoors/en/men. html"`</li></ul> |
 | `^` | Nega il carattere o l&#39;intervallo di caratteri che segue. Utilizzare per negare solo caratteri e intervalli di caratteri all&#39;interno delle classi di caratteri. Equivalente al carattere `!` jolly. <br/>Al di fuori di una classe di caratteri, questo carattere viene interpretato letteralmente. | Si applicano gli esempi del carattere `!` jolly, sostituendo i `!` caratteri nei pattern di esempio con `^` caratteri. |
@@ -1760,12 +1766,12 @@ E un evento registrato quando viene richiesto un file che corrisponde a una rego
 
 ## Conferma del funzionamento di base {#confirming-basic-operation}
 
-Per confermare il funzionamento e l’interazione di base tra il server Web, il dispatcher e l’istanza di AEM, procedi come segue:
+Per confermare il funzionamento e l&#39;interazione di base del server Web, del dispatcher e dell&#39;istanza AEM, procedere come segue:
 
 1. Impostare `loglevel` su `3`.
 
 1. Avviare il server Web; viene avviato anche il Dispatcher.
-1. Avviate l’istanza AEM.
+1. Avviate l&#39;istanza AEM.
 1. Controllate i file di registro e di errore del server Web e del dispatcher.\
    A seconda del server Web, dovrebbero essere visualizzati messaggi quali:\
    `[Thu May 30 05:16:36 2002] [notice] Apache/2.0.50 (Unix) configured`\
@@ -1773,7 +1779,7 @@ Per confermare il funzionamento e l’interazione di base tra il server Web, il 
    `[Fri Jan 19 17:22:16 2001] [I] [19096] Dispatcher initialized (build XXXX)`
 
 1. Navigare sul sito Web tramite il server Web. Verificate che il contenuto venga visualizzato come richiesto.\
-   Ad esempio, in un’installazione locale in cui AEM viene eseguito sulla porta `4502` e sul server Web che accede `80` alla console Siti Web utilizzando entrambi:\
+   Ad esempio, in un’installazione locale in cui AEM eseguito sulla porta `4502` e sul server Web che `80` accede alla console Siti Web utilizzando entrambi:\
    ` https://localhost:4502/libs/wcm/core/content/siteadmin.html  
 https://localhost:80/libs/wcm/core/content/siteadmin.html  
 `I risultati devono essere identici. Confermate l&#39;accesso ad altre pagine con lo stesso meccanismo.
@@ -1827,14 +1833,15 @@ Di seguito è riportato un elenco contenente le intestazioni di risposta che `X-
 * **caching**\
    Il file di destinazione non è contenuto nella cache e il dispatcher ha stabilito che è valido per memorizzare l&#39;output nella cache e distribuirlo.
 * **caching: Il file stat è più recente** Il file di destinazione è contenuto nella cache, tuttavia, viene invalidato da un file di stato più recente. Il dispatcher eliminerà il file di destinazione, lo ricreerà dall&#39;output e lo invierà.
-* **non memorizzabile nella cache: nessun elemento principale** del documento La configurazione della farm non contiene un elemento radice del documento (elemento di configurazione `cache.docroot`).
+* **non memorizzabile nella cache: nessun livello principale** del documento La configurazione della farm non contiene un livello principale del documento (elemento di configurazione 
+`cache.docroot`).
 * **non memorizzabile nella cache: percorso del file cache troppo lungo**\
    Il file di destinazione, ovvero la concatenazione della radice del documento e del file URL, supera il nome file più lungo possibile sul sistema.
 * **non memorizzabile nella cache: percorso del file temporaneo troppo lungo**\
    Il modello di nome file temporaneo supera il nome file più lungo possibile sul sistema. Il dispatcher crea prima un file temporaneo, prima di creare o sovrascrivere effettivamente il file memorizzato nella cache. Il nome del file temporaneo è il nome del file di destinazione con i caratteri `_YYYYXXXXXX` aggiunti, in cui il nome `Y` e `X` verrà sostituito per creare un nome univoco.
 * **non memorizzabile nella cache: l&#39;URL della richiesta non ha estensione**\
    L&#39;URL della richiesta non ha alcuna estensione, oppure esiste un percorso dopo l&#39;estensione del file, ad esempio: `/test.html/a/path`.
-* **non memorizzabile nella cache: La richiesta non era un metodo GET o HEAD** Il metodo HTTP non è né un metodo GET né un metodo HEAD. Il dispatcher presume che l&#39;output conterrà dati dinamici che non dovrebbero essere memorizzati nella cache.
+* **non memorizzabile nella cache: La richiesta non era un GET o un HEAD** Il metodo HTTP non è né un GET né un HEAD. Il dispatcher presume che l&#39;output conterrà dati dinamici che non dovrebbero essere memorizzati nella cache.
 * **non memorizzabile nella cache: la richiesta conteneva una stringa di query**\
    La richiesta conteneva una stringa di query. Il dispatcher presuppone che l&#39;output dipenda dalla stringa di query specificata e pertanto non memorizza nella cache.
 * **non memorizzabile nella cache: session manager non autenticato**\
@@ -1850,5 +1857,6 @@ Di seguito è riportato un elenco contenente le intestazioni di risposta che `X-
 * **non memorizzabile nella cache: accesso negato al controllo dell&#39;autorizzazione**\
    Il controllo delle autorizzazioni della farm ha negato l&#39;accesso al file memorizzato nella cache.
 * **non memorizzabile nella cache: session non valida** La cache della farm è gestita da un gestore di sessioni (la configurazione contiene un `sessionmanagement` nodo) e la sessione dell&#39;utente non è o non è più valida.
-* **non memorizzabile nella cache: la risposta contiene`no_cache `**Il server remoto ha restituito un&#39;`Dispatcher: no_cache`intestazione, che non consentiva al dispatcher di memorizzare nella cache l&#39;output.
+* **non memorizzabile nella cache: la risposta contiene`no_cache `** Il server remoto ha restituito un 
+`Dispatcher: no_cache` intestazione, divieto del dispatcher di memorizzare nella cache l&#39;output.
 * **non memorizzabile nella cache: la lunghezza del contenuto della risposta è zero** La lunghezza del contenuto della risposta è zero; il dispatcher non creerà un file di lunghezza zero.
