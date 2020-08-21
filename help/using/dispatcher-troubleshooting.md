@@ -1,30 +1,33 @@
 ---
-title: Risoluzione dei problemi del dispatcher
-seo-title: Risoluzione dei problemi del dispatcher AEM
+title: Risoluzione dei problemi di Dispatcher
+seo-title: Risoluzione dei problemi AEM dispatcher
 description: Scopri come risolvere i problemi del dispatcher.
-seo-description: Scopri come risolvere i problemi di AEM Dispatcher.
+seo-description: Scopri come risolvere AEM problemi del dispatcher.
 uuid: 9c109a48-d921-4b6e-9626-1158cebc41e7
 cmgrlastmodified: 01.11.2007 08 22 29 [aheimoz]
-pageversionid: '1193211344162'
+pageversionid: 1193211344162
 template: /apps/docs/templates/contentpage
-contentOwner: Utente
+contentOwner: User
 products: SG_EXPERIENCEMANAGER/DISPATCHER
-topic-tags: spedizioniere
-content-type: riferimento
+topic-tags: dispatcher
+content-type: reference
 discoiquuid: a612e745-f1e6-43de-b25a-9adcaadab5cf
 translation-type: tm+mt
-source-git-commit: 76cffbfb616cd5601aed36b7076f67a2faf3ed3b
+source-git-commit: 5734e601379fda9a62eda46bded493b8dbd49a4c
+workflow-type: tm+mt
+source-wordcount: '553'
+ht-degree: 7%
 
 ---
 
 
-# Risoluzione dei problemi del dispatcher {#troubleshooting-dispatcher-problems}
+# Risoluzione dei problemi di Dispatcher {#troubleshooting-dispatcher-problems}
 
 >[!NOTE]
 >
->Le versioni del dispatcher sono indipendenti da AEM, tuttavia la documentazione del dispatcher è incorporata nella documentazione di AEM. Usa sempre la documentazione del dispatcher incorporata nella documentazione per l’ultima versione di AEM.
+>Le versioni del dispatcher sono indipendenti da AEM, tuttavia la documentazione del dispatcher è incorporata nella documentazione AEM. Usa sempre la documentazione del dispatcher incorporata nella documentazione per la versione più recente di AEM.
 >
->Potreste essere stati reindirizzati a questa pagina se avete seguito un collegamento alla documentazione del dispatcher incorporata nella documentazione di una versione precedente di AEM.
+>Potresti essere stato reindirizzato a questa pagina se hai seguito un collegamento alla documentazione di Dispatcher incorporato nella documentazione di una versione precedente di AEM.
 
 >[!NOTE]
 >
@@ -35,7 +38,7 @@ source-git-commit: 76cffbfb616cd5601aed36b7076f67a2faf3ed3b
 Come sempre, i primi passi sono controllare le nozioni di base:
 
 * [Conferma funzionamento di base](#ConfirmBasicOperation)
-* Controllate tutti i file di registro per il server Web e il dispatcher. Se necessario, aumentare l' `loglevel` utilizzo per la [registrazione](#Logging)del dispatcher.
+* Controllate tutti i file di registro per il server Web e il dispatcher. Se necessario, aumentare l&#39; `loglevel` utilizzo per la [registrazione](#Logging)del dispatcher.
 
 * [Controlla la configurazione](#ConfiguringtheDispatcher):
 
@@ -54,22 +57,22 @@ IIS fornisce vari strumenti di analisi, a seconda della versione effettiva:
 * IIS 6 - È possibile scaricare e configurare gli strumenti di diagnostica IIS
 * IIS 7 - Traccia completamente integrata
 
-che possono essere utili per monitorare l'attività.
+che possono essere utili per monitorare l&#39;attività.
 
 ## IIS e 404 non trovati {#iis-and-not-found}
 
 Quando si utilizza IIS è possibile che `404 Not Found` venga restituito in diversi scenari. In tal caso, consultate i seguenti articoli della Knowledge Base.
 
-* [IIS 6/7: Il metodo POST restituisce 404](https://helpx.adobe.com/dispatcher/kb/IIS6IsapiFilters.html)
-* [IIS 6: Richieste agli URL che contengono la restituzione del percorso di base `/bin``404 Not Found`](https://helpx.adobe.com/dispatcher/kb/RequestsToBinDirectoryFailInIIS6.html)
+* [IIS 6/7: POST metodo restituisce 404](https://helpx.adobe.com/dispatcher/kb/IIS6IsapiFilters.html)
+* [IIS 6: Richieste agli URL che contengono la restituzione del percorso di base `/bin` `404 Not Found`](https://helpx.adobe.com/dispatcher/kb/RequestsToBinDirectoryFailInIIS6.html)
 
 È inoltre necessario verificare che la directory principale della cache del dispatcher e la directory principale del documento IIS siano impostate sulla stessa directory.
 
-## Problemi nell'eliminazione dei modelli di workflow {#problems-deleting-workflow-models}
+## Problemi durante l&#39;eliminazione dei modelli di workflow {#problems-deleting-workflow-models}
 
 **Sintomi**
 
-Problemi durante il tentativo di eliminare i modelli di workflow quando si accede a un'istanza di creazione AEM tramite il dispatcher.
+Problemi durante il tentativo di eliminare i modelli di workflow quando si accede a un&#39;istanza di creazione AEM tramite il dispatcher.
 
 **Passaggi per riprodurre:**
 
@@ -80,7 +83,7 @@ Problemi durante il tentativo di eliminare i modelli di workflow quando si acced
 
 1. Fate clic su **Sì** per confermare.
 1. Viene visualizzata una finestra di messaggio di errore che mostra:\
-   " `ERROR 'Could not delete workflow model!!`".
+   &quot; `ERROR 'Could not delete workflow model!!`&quot;.
 
 **Risoluzione**
 
@@ -89,18 +92,20 @@ Aggiungete le seguenti intestazioni alla `/clientheaders` sezione del `dispatche
 * `x-http-method-override`
 * `x-requested-with`
 
-`{  
+```
+{  
 {  
 /clientheaders  
 {  
 ...  
 "x-http-method-override"  
 "x-requested-with"  
-}`
+}
+```
 
 ## Interferenza con mod_dir (Apache) {#interference-with-mod-dir-apache}
 
-Questo descrive il modo in cui il dispatcher interagisce con `mod_dir` l'interno del server Web Apache, in quanto ciò può causare diversi effetti potenzialmente imprevisti:
+Questo descrive il modo in cui il dispatcher interagisce con `mod_dir` l&#39;interno del server Web Apache, in quanto ciò può causare diversi effetti potenzialmente imprevisti:
 
 ### Apache 1.3 {#apache}
 
@@ -117,7 +122,7 @@ Quando il dispatcher è abilitato, elabora tali richieste registrandosi come ges
 
 In Apache 2.x le cose sono diverse. Un modulo può gestire diverse fasi della richiesta, ad esempio la correzione URL. `mod_dir` gestisce questo passaggio reindirizzando una richiesta (quando l’URL viene mappato su una directory) all’URL con un `/` collegamento.
 
-Il dispatcher non intercetta la `mod_dir` correzione, ma gestisce completamente la richiesta all'URL reindirizzato (ad es. con `/` aggiunta). Ciò potrebbe causare un problema se il server remoto (ad esempio AEM) gestisce le richieste in `/a_path` modo diverso rispetto alle richieste a `/a_path/` (quando `/a_path` viene mappato su una directory esistente).
+Il dispatcher non intercetta la `mod_dir` correzione, ma gestisce completamente la richiesta all&#39;URL reindirizzato (ad es. con `/` aggiunta). Ciò potrebbe causare un problema se il server remoto (ad es. AEM) gestisce le richieste in `/a_path` modo diverso rispetto alle richieste a `/a_path/` (quando `/a_path` viene mappato su una directory esistente).
 
 In questo caso è necessario:
 
