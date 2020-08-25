@@ -10,9 +10,9 @@ topic-tags: dispatcher
 content-type: reference
 discoiquuid: aeffee8e-bb34-42a7-9a5e-b7d0e848391a
 translation-type: tm+mt
-source-git-commit: 5734e601379fda9a62eda46bded493b8dbd49a4c
+source-git-commit: 31dc02adc1d16ec61d5191b86d0d1276c2e1da46
 workflow-type: tm+mt
-source-wordcount: '8802'
+source-wordcount: '8582'
 ht-degree: 2%
 
 ---
@@ -362,10 +362,10 @@ Quando il dispatcher riceve una richiesta HTTP o HTTPS, trova il valore host vir
 * Il dispatcher inizia dalla farm più bassa e procede verso l’alto nel file dispatcher.any.
 * Per ogni farm, Dispatcher inizia con il valore superiore nella `virtualhosts` proprietà e procede verso il basso fino all&#39;elenco dei valori.
 
-Il dispatcher trova il valore host virtuale più corrispondente nel modo seguente:
+Dispatcher trova il valore host virtuale più simile nel modo seguente:
 
 * Viene utilizzato il primo host virtuale rilevato che corrisponde a tutti e tre `host`, il `scheme`e `uri` il numero della richiesta.
-* Se non `virtualhosts` sono presenti `scheme` e `uri` parti che corrispondono sia alla richiesta che `scheme` alla richiesta, viene utilizzato il primo host virtuale rilevato che corrisponde alla `uri` `host` richiesta.
+* Se nessun `virtualhosts` valore ha `scheme` e `uri` parti che corrispondono sia alla richiesta che `scheme` all&#39;host virtuale rilevato per la prima volta che corrisponde alla `uri` `host` richiesta, viene utilizzato l&#39;host virtuale rilevato per la prima volta.
 * Se non `virtualhosts` esiste una parte host che corrisponda all&#39;host della richiesta, viene utilizzato l&#39;host virtuale superiore della farm superiore.
 
 Pertanto, è necessario posizionare l&#39;host virtuale predefinito nella parte superiore della `virtualhosts` proprietà nella farm superiore del file dispatcher.any.
@@ -847,60 +847,60 @@ Una singola voce può avere *un* elemento di stile *o una combinazione di* metod
 
 I filtri del dispatcher devono bloccare l&#39;accesso alle pagine e agli script seguenti su AEM istanze di pubblicazione. Usate un browser Web per tentare di aprire le pagine seguenti come un visitatore del sito e verificare che venga restituito un codice 404. Se si ottiene un altro risultato, regolate i filtri.
 
-Il rendering normale della pagina deve essere visualizzato per /content/add_valid_page.html?debug=layout.
+Il rendering normale della pagina dovrebbe essere visualizzato per `/content/add_valid_page.html?debug=layout`.
 
 
-* /admin
-* /system/console
-* /dav/crx.default
-* /crx
-* /bin/crxde/logs
-* /jcr:system/jcr:versionStorage.json
-* /_jcr_system/_jcr_versionStorage.json
-* /libs/wcm/core/content/siteadmin.html
-* /libs/collab/core/content/admin.html
-* /libs/cq/ui/content/dumplibs.html
-* /var/linkchecker.html
-* /etc/linkchecker.html
-* /home/users/a/admin/profile.json
-* /home/users/a/admin/profile.xml
-* /libs/cq/core/content/login.json
-* ../libs/foundation/components/text/text.jsp
-* /content/.{.}
-* /apps/sling/config/org.apache.felix.webconsole.internal.servlet.OsgiManager.config/jcr%3acontent/jcr%3adata
-* /libs/foundation/components/primary/cq/workflow/components/participants/json.GET.servlet
-* /content.pages.json
-* /content.languages.json
-* /content.blueprint.json
-* /content.-1.json
-* /content.10.json
-* /content.infinity.json
-* /content.tidy.json
-* /content.tidy.-1.blubber.json
-* /content/dam.tidy.-100.json
-* /content/content/geometrixx.sitemap.txt
-* /content/add_valid_page.query.json?Statement=/*
-* /content/add_valid_page.qu%65ry.js%6Fn?istruzione=/*
-* /content/add_valid_page.query.json?istruzione=/*[@TransportPassword]/(@TransportPassword%20|%20@transportUri%20|%20@transportUser)
-* /content/add_valid_path_to_a_page/_jcr_content.json
-* /content/add_valid_path_to_a_page/jcr:content.json
-* /content/add_valid_path_to_a_page/_jcr_content.feed
-* /content/add_valid_path_to_a_page/jcr:content.feed
-* /content/add_valid_path_to_a_page/nomepagina._jcr_content.feed
-* /content/add_valid_path_to_a_page/pagename.jcr:content.feed
-* /content/add_valid_path_to_a_page/pagename.docview.xml
-* /content/add_valid_path_to_a_page/pagename.docview.json
-* /content/add_valid_path_to_a_page/pagename.sysview.xml
-* /etc.xml
-* /content.feed.xml
-* /content.rss.xml
-* /content.feed.html
-* /content/add_valid_page.html?debug=layout
-* /projects
-* /tagging
-* /etc/replication.html
-* /etc/cloudservices.html
-* /benvenuti
+* `/admin`
+* `/system/console`
+* `/dav/crx.default`
+* `/crx`
+* `/bin/crxde/logs`
+* `/jcr:system/jcr:versionStorage.json`
+* `/_jcr_system/_jcr_versionStorage.json`
+* `/libs/wcm/core/content/siteadmin.html`
+* `/libs/collab/core/content/admin.html`
+* `/libs/cq/ui/content/dumplibs.html`
+* `/var/linkchecker.html`
+* `/etc/linkchecker.html`
+* `/home/users/a/admin/profile.json`
+* `/home/users/a/admin/profile.xml`
+* `/libs/cq/core/content/login.json`
+* `/content/../libs/foundation/components/text/text.jsp`
+* `/content/.{.}/libs/foundation/components/text/text.jsp`
+* `/apps/sling/config/org.apache.felix.webconsole.internal.servlet.OsgiManager.config/jcr%3acontent/jcr%3adata`
+* `/libs/foundation/components/primary/cq/workflow/components/participants/json.GET.servlet`
+* `/content.pages.json`
+* `/content.languages.json`
+* `/content.blueprint.json`
+* `/content.-1.json`
+* `/content.10.json`
+* `/content.infinity.json`
+* `/content.tidy.json`
+* `/content.tidy.-1.blubber.json`
+* `/content/dam.tidy.-100.json`
+* `/content/content/geometrixx.sitemap.txt `
+* `/content/add_valid_page.query.json?statement=//*`
+* `/content/add_valid_page.qu%65ry.js%6Fn?statement=//*`
+* `/content/add_valid_page.query.json?statement=//*[@transportPassword]/(@transportPassword%20|%20@transportUri%20|%20@transportUser)`
+* `/content/add_valid_path_to_a_page/_jcr_content.json`
+* `/content/add_valid_path_to_a_page/jcr:content.json`
+* `/content/add_valid_path_to_a_page/_jcr_content.feed`
+* `/content/add_valid_path_to_a_page/jcr:content.feed`
+* `/content/add_valid_path_to_a_page/pagename._jcr_content.feed`
+* `/content/add_valid_path_to_a_page/pagename.jcr:content.feed`
+* `/content/add_valid_path_to_a_page/pagename.docview.xml`
+* `/content/add_valid_path_to_a_page/pagename.docview.json`
+* `/content/add_valid_path_to_a_page/pagename.sysview.xml`
+* `/etc.xml`
+* `/content.feed.xml`
+* `/content.rss.xml`
+* `/content.feed.html`
+* `/content/add_valid_page.html?debug=layout`
+* `/projects`
+* `/tagging`
+* `/etc/replication.html`
+* `/etc/cloudservices.html`
+* `/welcome`
 
 Emettere il comando seguente in un terminale o in un prompt dei comandi per determinare se l&#39;accesso in scrittura anonimo è abilitato. Non dovresti essere in grado di scrivere dati sul nodo.
 
@@ -926,7 +926,7 @@ Configurate il dispatcher per abilitare l’accesso agli URL personalizzati conf
 
 Quando l’accesso agli URL personalizzati è abilitato, Dispatcher chiama periodicamente un servizio in esecuzione sull’istanza di rendering per ottenere un elenco di URL personalizzati. Il dispatcher memorizza l&#39;elenco in un file locale. Quando una richiesta di pagina viene rifiutata a causa di un filtro nella `/filter` sezione , Dispatcher consulta l’elenco degli URL personalizzati. Se l’URL negato è presente nell’elenco, il dispatcher consente l’accesso all’URL personalizzato.
 
-Per abilitare l’accesso agli URL personalizzati, aggiungete una `/vanity_urls` sezione alla `/farms` sezione, simile al seguente esempio:
+Per abilitare l’accesso agli URL personalizzati, aggiungete una `/vanity_urls` sezione alla `/farms` sezione, simile all’esempio seguente:
 
 ```xml
  /vanity_urls {
@@ -1381,7 +1381,7 @@ Il valore predefinito è 0755, che consente al proprietario di leggere, scrivere
 
 ### Throttling .stat file touch {#throttling-stat-file-touching}
 
-Con la `/invalidate` proprietà predefinita, ogni attivazione invalida di fatto tutti `.html` i file (quando il percorso corrisponde alla `/invalidate` sezione). Su un sito Web con traffico considerevole, più attivazioni successive aumenteranno il carico di CPU sul back-end. In questo caso, è consigliabile &quot;limitare&quot; il `.stat` tocco dei file per mantenere il sito Web reattivo. È possibile eseguire questa operazione utilizzando la `/gracePeriod` proprietà .
+Con la `/invalidate` proprietà predefinita, ogni attivazione invalida di fatto tutti `.html` i file (quando il percorso corrisponde alla `/invalidate` sezione). In un sito Web con traffico considerevole, più attivazioni successive aumenteranno il carico di CPU sul back-end. In questo caso, è consigliabile &quot;limitare&quot; il `.stat` tocco dei file per mantenere il sito Web reattivo. È possibile eseguire questa operazione utilizzando la `/gracePeriod` proprietà .
 
 La `/gracePeriod` proprietà definisce il numero di secondi di cui una risorsa non aggiornata e con annullamento automatico può ancora essere servita dalla cache dopo l&#39;ultima attivazione. La proprietà può essere utilizzata in una configurazione in cui un batch di attivazioni in caso contrario annullerebbe ripetutamente l&#39;intera cache. Il valore consigliato è 2 secondi.
 
@@ -1463,7 +1463,7 @@ L’esempio seguente include anche una categoria per le pagine di ricerca:
 
 ### Riflesso dell&#39;indisponibilità del server nelle statistiche del dispatcher {#reflecting-server-unavailability-in-dispatcher-statistics}
 
-La `/unavailablePenalty` proprietà imposta il tempo (in decimi di secondo) applicato alle statistiche di rendering quando una connessione al rendering non riesce. Il dispatcher aggiunge l&#39;ora alla categoria di statistiche che corrisponde all&#39;URI richiesto.
+La `/unavailablePenalty` proprietà imposta il tempo (in decimi di secondo) applicato alle statistiche di rendering quando una connessione al rendering non riesce. Il dispatcher aggiunge l&#39;ora alla categoria delle statistiche che corrisponde all&#39;URI richiesto.
 
 Ad esempio, la sanzione viene applicata quando non è possibile stabilire la connessione TCP/IP alla porta/nome host designata, perché AEM non è in esecuzione (e non è in ascolto) o a causa di un problema di rete.
 
