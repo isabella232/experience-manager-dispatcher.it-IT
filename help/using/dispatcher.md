@@ -9,7 +9,10 @@ topic-tags: dispatcher
 content-type: reference
 discoiquuid: 1d449ee2-4cdd-4b7a-8b4e-7e6fc0a1d7ee
 translation-type: tm+mt
-source-git-commit: 3bf255c54b46f571fab64f0754b71e050c3bda3f
+source-git-commit: 88ea38c9ad7fe67edbaf68c4882a01c3f9a475d9
+workflow-type: tm+mt
+source-wordcount: '3222'
+ht-degree: 91%
 
 ---
 
@@ -26,15 +29,18 @@ Il processo di distribuzione di Dispatcher è indipendente dal server web e dall
 
 1. Scopri di più su Dispatcher (questa pagina). Inoltre, vedete le domande [frequenti sul dispatcher](https://helpx.adobe.com/experience-manager/using/dispatcher-faq.html).
 1. Installate un server [Web](https://helpx.adobe.com/experience-manager/6-3/sites/deploying/using/technical-requirements.html) supportato in base alla documentazione del server Web.
-
 1. [Installa il modulo Dispatcher](dispatcher-install.md) nel server web e configura di conseguenza il server web.
 1. [Configura Dispatcher](dispatcher-configuration.md) (il file dispatcher.any).
-
 1. [Configura AEM](page-invalidate.md) in modo che gli aggiornamenti dei contenuti annullino la validità della cache.
 
 >[!NOTE]
 >
->Per comprendere meglio il funzionamento di Dispatcher con AEM, visita la pagina [Ask the AEM Community Experts for July 2017](https://bit.ly/ATACE0717).
+>Per comprendere meglio come funziona Dispatcher con AEM:
+>
+>* Consulta [Ask the AEM Community Experts for luglio 2017](https://bit.ly/ATACE0717).
+>* Accedere [a questo archivio](https://github.com/adobe/aem-dispatcher-experiments). Contiene una raccolta di esperimenti in un formato di laboratorio &quot;da portare a casa&quot;.
+
+
 
 Utilizza le seguenti informazioni come richiesto:
 
@@ -99,7 +105,7 @@ Questo ti permette di creare contenuti più ricchi e dinamici, che aumentano la 
 
 >[!NOTE]
 >
->Se manca la configurazione per il caching delle intestazioni HTTP, Dispatcher archivia solo il codice HTML della pagina e non le intestazioni HTTP. Questo comportamento può costituire un problema se utilizzi codifiche diverse all’interno del sito web, in quanto tali codifiche potrebbero andare perse. Per abilitare il caching delle intestazioni HTTP, consulta [Configurazione della cache di Dispatcher.](https://helpx.adobe.com/experience-manager/dispatcher/using/dispatcher-configuration.html)
+>Se manca la configurazione per il caching delle intestazioni HTTP, Dispatcher archivia solo il codice HTML della pagina e non le intestazioni HTTP. Questo comportamento può costituire un problema se utilizzi codifiche diverse all’interno del sito web, in quanto tali codifiche potrebbero andare perse. Per abilitare il caching delle intestazioni HTTP, consulta [Configurazione della cache di Dispatcher.](https://helpx.adobe.com/it/experience-manager/dispatcher/using/dispatcher-configuration.html)
 
 >[!NOTE]
 >
@@ -153,7 +159,7 @@ Anche in questo caso, tieni presente le seguenti considerazioni:
 
 ### Determinare se un documento è soggetto a caching
 
-È possibile [definire i documenti memorizzati nella cache del Dispatcher nel file](https://helpx.adobe.com/experience-manager/dispatcher/using/dispatcher-configuration.html)di configurazione. Dispatcher confronta la richiesta con l’elenco dei documenti memorizzabili in cache. Se il documento non è incluso in questo elenco, Dispatcher richiede il documento dall’istanza di AEM.
+È possibile [definire i documenti memorizzati nella cache del Dispatcher nel file](https://helpx.adobe.com/it/experience-manager/dispatcher/using/dispatcher-configuration.html)di configurazione. Dispatcher confronta la richiesta con l’elenco dei documenti memorizzabili in cache. Se il documento non è incluso in questo elenco, Dispatcher richiede il documento dall’istanza di AEM.
 
 Dispatcher richiede *sempre* il documento direttamente all’istanza di AEM nei casi seguenti:
 
@@ -163,7 +169,7 @@ Dispatcher richiede *sempre* il documento direttamente all’istanza di AEM nei 
 
 >[!NOTE]
 >
->Dispatcher può memorizzare in cache i metodi GET o HEAD (per l’intestazione HTTP). Per ulteriori informazioni sul caching delle intestazioni delle risposte, consultate la sezione [Memorizzazione in cache delle intestazioni](https://helpx.adobe.com/experience-manager/dispatcher/using/dispatcher-configuration.html) di risposta HTTP.
+>Dispatcher può memorizzare in cache i metodi GET o HEAD (per l’intestazione HTTP). Per ulteriori informazioni sul caching delle intestazioni delle risposte, consultate la sezione [Memorizzazione in cache delle intestazioni](https://helpx.adobe.com/it/experience-manager/dispatcher/using/dispatcher-configuration.html) di risposta HTTP.
 
 ### Determinare se un documento è memorizzato in cache
 
@@ -306,7 +312,7 @@ Puoi utilizzare un’istanza di Dispatcher prima di un’istanza di authoring pe
 1. Apri il file `author_dispatcher.any` in un editor di testo e apporta le seguenti modifiche:
 
    1. Modifica le istruzioni `/hostname` e `/port` della sezione `/renders` in modo che puntino all’istanza di authoring.
-   1. Modifica l’istruzione `/docroot` della sezione `/cache` in modo che punti a una directory cache. Se utilizzi [AEM con l’interfaccia](https://helpx.adobe.com/experience-manager/6-3/sites/developing/using/touch-ui-concepts.html)touch, consulta l’avviso qui sopra.
+   1. Modifica l’istruzione `/docroot` della sezione `/cache` in modo che punti a una directory cache. Se utilizzi [AEM con l’interfaccia](https://helpx.adobe.com/experience-manager/6-3/sites/developing/using/touch-ui-concepts.html)touch, vedi l’avviso qui sopra.
    1. Salva le modifiche.
 
 1. Elimina tutti i file esistenti nella directory `/cache` > `/docroot` configurata in precedenza.
