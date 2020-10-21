@@ -1,9 +1,16 @@
 ---
-source-git-commit: 36c4ad10a9140d368fdbf3f0939e6756cc2bfbbf
+source-git-commit: 21f7d8e620bb6dc220bf08a996b5f273e0c11743
+workflow-type: tm+mt
 translation-type: tm+mt
+source-wordcount: '155'
+ht-degree: 3%
 
 ---
 # Documentazione di Adobe Experience Manager Dispatcher
+
+| EXL-PR | EXL | Anteprima | Attiva | Pubblicato | Aiuto |
+|--- |--- |--- |--- |--- |--- |
+| [![Stato build](https://docs.ci.corp.adobe.com/view/exl-pr/job/authoring-guide-exl.en_pr-exl/badge/icon)](https://docs.ci.corp.adobe.com/view/exl-pr/job/authoring-guide-exl.en_pr-exl/lastBuild/) | [![Stato build](https://docs.ci.corp.adobe.com/view/exl-pr/job/authoring-guide-exl.en_exl/lastBuild/badge/icon)](https://docs.ci.corp.adobe.com/view/exl-pr/job/authoring-guide-exl.en_exl/lastBuild/lastBuild) | [URL anteprima](https://experienceleague.corp.adobe.com/docs/authoring-guide-exl/using/dispatcher.html?lang=en) | [activate-exl](https://docs.ci.corp.adobe.com/job/activate-exl/build/) | [URL dal vivo](https://experienceleague.adobe.com/docs/authoring-guide-exl/using/dispatcher.html?lang=en) | [Guida all’authoring](https://experienceleague.adobe.com/docs/authoring-guide-exl/using/home.html?lang=en) |
 
 Questo è l&#39;archivio della documentazione di Adobe Experience Manager Dispatcher.
 
