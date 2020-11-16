@@ -13,7 +13,7 @@ topic-tags: dispatcher
 content-type: reference
 discoiquuid: a612e745-f1e6-43de-b25a-9adcaadab5cf
 translation-type: tm+mt
-source-git-commit: 5734e601379fda9a62eda46bded493b8dbd49a4c
+source-git-commit: 9af0dc22d32f1176b84c28a70b1a4701414d434e
 workflow-type: tm+mt
 source-wordcount: '553'
 ht-degree: 7%
@@ -37,10 +37,10 @@ ht-degree: 7%
 
 Come sempre, i primi passi sono controllare le nozioni di base:
 
-* [Conferma funzionamento di base](#ConfirmBasicOperation)
-* Controllate tutti i file di registro per il server Web e il dispatcher. Se necessario, aumentare l&#39; `loglevel` utilizzo per la [registrazione](#Logging)del dispatcher.
+* [Conferma funzionamento di base](/help/using/dispatcher-configuration.md#confirming-basic-operation)
+* Controllate tutti i file di registro per il server Web e il dispatcher. Se necessario, aumentare l&#39; `loglevel` utilizzo per la [registrazione](/help/using/dispatcher-configuration.md#logging)del dispatcher.
 
-* [Controlla la configurazione](#ConfiguringtheDispatcher):
+* [Controlla la configurazione](/help/using/dispatcher-configuration.md):
 
    * Hai più dispatcher?
 
