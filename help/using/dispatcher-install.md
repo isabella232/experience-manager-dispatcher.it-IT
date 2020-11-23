@@ -10,9 +10,9 @@ topic-tags: dispatcher
 content-type: reference
 discoiquuid: f00ad751-6b95-4365-8500-e1e0108d9536
 translation-type: tm+mt
-source-git-commit: ef0fc34cbf2f07090f39613811d6f015ba2305ab
+source-git-commit: 024348672c2a9a4f8a01429572eba27ea8b8a490
 workflow-type: tm+mt
-source-wordcount: '3689'
+source-wordcount: '3684'
 ht-degree: 1%
 
 ---
@@ -28,11 +28,11 @@ Comment Type: draft
 
  -->
 
+Utilizzare la pagina [Note](release-notes.md) sulla versione del dispatcher per ottenere il file di installazione più recente per il sistema operativo e il server Web in uso. I numeri di rilascio del dispatcher sono indipendenti dai numeri di rilascio di Adobe Experience Manager e sono compatibili con le versioni di Adobe Experience Manager 6.x, 5.x e  Adobe CQ 5.x.
+
 >[!NOTE]
 >
->Le versioni di Dispatcher sono indipendenti da AEM. Potresti essere stato reindirizzato a questa pagina se hai seguito un collegamento alla documentazione di Dispatcher incorporato nella documentazione di una versione precedente di AEM.
-
-Utilizzare la pagina [Note](release-notes.md) sulla versione del dispatcher per ottenere il file di installazione più recente per il sistema operativo e il server Web in uso. I numeri di rilascio del dispatcher sono indipendenti dai numeri di rilascio di Adobe Experience Manager e sono compatibili con le versioni di Adobe Experience Manager 6.x, 5.x e  Adobe CQ 5.x.
+>Adobe Experience Manager 6.5 richiede la versione 4.3.2 o successiva del dispatcher. Tuttavia, le versioni del Dispatcher sono indipendenti da AEM, ad esempio, la versione 4.3.2 del Dispatcher è compatibile anche con Adobe Experience Manager 6.4.
 
 Viene utilizzata la seguente convenzione di denominazione file:
 
@@ -48,7 +48,7 @@ Nella tabella seguente è riportato l’identificatore del server Web utilizzato
 | Microsoft Internet Information Server 7.5, 8, 8.5 | dispatcher-**iis**-&lt;altri parametri> |
 | Sun Java Web Server iPlanet | dispatcher-**ns**-&lt;altri parametri> |
 
->[!NOTE]
+>[!CAUTION]
 >
 >Installa la versione più recente del dispatcher disponibile per la piattaforma in uso. Su base annua, è necessario aggiornare l&#39;istanza del Dispatcher per utilizzare la versione più recente per sfruttare i miglioramenti apportati al prodotto.
 
