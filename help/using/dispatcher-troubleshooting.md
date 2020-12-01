@@ -31,14 +31,14 @@ ht-degree: 7%
 
 >[!NOTE]
 >
->Per ulteriori informazioni, consulta anche [Dispatcher Knowledge Base](https://helpx.adobe.com/cq/kb/index/dispatcher.html), [Risoluzione dei problemi](https://helpx.adobe.com/adobe-cq/kb/troubleshooting-dispatcher-flushing-issues.html) di cancellazione del dispatcher e le Domande frequenti sui problemi principali del [dispatcher](dispatcher-faq.md) .
+>Per ulteriori informazioni, controllare anche la [Knowledge Base del dispatcher](https://helpx.adobe.com/cq/kb/index/dispatcher.html), [Troubleshooting Dispatcher Flushing Issues](https://helpx.adobe.com/adobe-cq/kb/troubleshooting-dispatcher-flushing-issues.html) e le [Domande frequenti sui problemi principali del dispatcher](dispatcher-faq.md).
 
 ## Controllare la configurazione di base {#check-the-basic-configuration}
 
 Come sempre, i primi passi sono controllare le nozioni di base:
 
 * [Conferma funzionamento di base](/help/using/dispatcher-configuration.md#confirming-basic-operation)
-* Controllate tutti i file di registro per il server Web e il dispatcher. Se necessario, aumentare l&#39; `loglevel` utilizzo per la [registrazione](/help/using/dispatcher-configuration.md#logging)del dispatcher.
+* Controllate tutti i file di registro per il server Web e il dispatcher. Se necessario, aumentare la `loglevel` utilizzata per il dispatcher [logging](/help/using/dispatcher-configuration.md#logging).
 
 * [Controlla la configurazione](/help/using/dispatcher-configuration.md):
 
@@ -61,14 +61,14 @@ che possono essere utili per monitorare l&#39;attività.
 
 ## IIS e 404 non trovati {#iis-and-not-found}
 
-Quando si utilizza IIS è possibile che `404 Not Found` venga restituito in diversi scenari. In tal caso, consultate i seguenti articoli della Knowledge Base.
+Quando si utilizza IIS è possibile che `404 Not Found` venga restituito in vari scenari. In tal caso, consultate i seguenti articoli della Knowledge Base.
 
 * [IIS 6/7: POST metodo restituisce 404](https://helpx.adobe.com/dispatcher/kb/IIS6IsapiFilters.html)
-* [IIS 6: Richieste agli URL che contengono la restituzione del percorso di base `/bin` `404 Not Found`](https://helpx.adobe.com/dispatcher/kb/RequestsToBinDirectoryFailInIIS6.html)
+* [IIS 6: Richieste agli URL che contengono la  `/bin` restituzione del percorso di base  `404 Not Found`](https://helpx.adobe.com/dispatcher/kb/RequestsToBinDirectoryFailInIIS6.html)
 
 È inoltre necessario verificare che la directory principale della cache del dispatcher e la directory principale del documento IIS siano impostate sulla stessa directory.
 
-## Problemi durante l&#39;eliminazione dei modelli di workflow {#problems-deleting-workflow-models}
+## Problemi durante l&#39;eliminazione dei modelli di flussi di lavoro {#problems-deleting-workflow-models}
 
 **Sintomi**
 
@@ -87,7 +87,7 @@ Problemi durante il tentativo di eliminare i modelli di workflow quando si acced
 
 **Risoluzione**
 
-Aggiungete le seguenti intestazioni alla `/clientheaders` sezione del `dispatcher.any` file:
+Aggiungete le seguenti intestazioni alla sezione `/clientheaders` del file `dispatcher.any`:
 
 * `x-http-method-override`
 * `x-requested-with`
@@ -105,27 +105,27 @@ Aggiungete le seguenti intestazioni alla `/clientheaders` sezione del `dispatche
 
 ## Interferenza con mod_dir (Apache) {#interference-with-mod-dir-apache}
 
-Questo descrive il modo in cui il dispatcher interagisce con `mod_dir` l&#39;interno del server Web Apache, in quanto ciò può causare diversi effetti potenzialmente imprevisti:
+Questo descrive il modo in cui il dispatcher interagisce con `mod_dir` all&#39;interno del server Web Apache, in quanto ciò può causare diversi effetti potenzialmente imprevisti:
 
 ### Apache 1.3 {#apache}
 
-In Apache 1.3 `mod_dir` gestisce ogni richiesta in cui l’URL viene mappato su una directory del file system.
+In Apache 1.3 `mod_dir` gestisce ogni richiesta in cui l&#39;URL viene mappato su una directory del file system.
 
 Può:
 
-* reindirizzare la richiesta a un `index.html` file esistente
+* reindirizzare la richiesta a un file `index.html` esistente
 * generare un elenco di directory
 
 Quando il dispatcher è abilitato, elabora tali richieste registrandosi come gestore per il tipo di contenuto `httpd/unix-directory`.
 
 ### Apache 2.x {#apache-x}
 
-In Apache 2.x le cose sono diverse. Un modulo può gestire diverse fasi della richiesta, ad esempio la correzione URL. `mod_dir` gestisce questo passaggio reindirizzando una richiesta (quando l’URL viene mappato su una directory) all’URL con un `/` collegamento.
+In Apache 2.x le cose sono diverse. Un modulo può gestire diverse fasi della richiesta, ad esempio la correzione URL. `mod_dir` gestisce questo passaggio reindirizzando una richiesta (quando l’URL viene mappato su una directory) all’URL con un  `/` allegato.
 
-Il dispatcher non intercetta la `mod_dir` correzione, ma gestisce completamente la richiesta all&#39;URL reindirizzato (ad es. con `/` aggiunta). Ciò potrebbe causare un problema se il server remoto (ad es. AEM) gestisce le richieste in `/a_path` modo diverso rispetto alle richieste a `/a_path/` (quando `/a_path` viene mappato su una directory esistente).
+Il dispatcher non intercetta la correzione `mod_dir`, ma gestisce completamente la richiesta all&#39;URL reindirizzato (ad es. con l&#39;aggiunta di `/`). Ciò potrebbe causare un problema se il server remoto (ad es. AEM) gestisce le richieste a `/a_path` in modo diverso rispetto alle richieste a `/a_path/` (quando `/a_path` viene mappato su una directory esistente).
 
 In questo caso è necessario:
 
-* disable `mod_dir` for the `Directory` or subtree Handcher by the dispatcher (Disabilita per il sottoalbero `Location` o il sottoalbero gestito dal dispatcher)
+* disabilitare `mod_dir` per il sottoalbero `Directory` o `Location` gestito dal dispatcher
 
 * utilizzare `DirectorySlash Off` per configurare `mod_dir` per non aggiungere `/`
