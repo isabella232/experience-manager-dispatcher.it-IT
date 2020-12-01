@@ -39,11 +39,11 @@ Last Modified Date: 2015-06-05T05:14:35.365-0400
 
 >[!CAUTION]
 >
->È inoltre necessario completare l&#39;elenco di controllo di sicurezza della versione di AEM prima di iniziare a vivere. Fare riferimento alla documentazione [](https://helpx.adobe.com/experience-manager/6-3/sites/administering/using/security-checklist.html)Adobe Experience Manager corrispondente.
+>È inoltre necessario completare l&#39;elenco di controllo di sicurezza della versione di AEM prima di iniziare a vivere. Fare riferimento alla [documentazione Adobe Experience Manager ](https://helpx.adobe.com/experience-manager/6-3/sites/administering/using/security-checklist.html) corrispondente.
 
 ## Usa la versione più recente del dispatcher {#use-the-latest-version-of-dispatcher}
 
-Installate la versione più recente disponibile disponibile per la piattaforma in uso. Devi aggiornare l&#39;istanza del dispatcher per utilizzare la versione più recente per sfruttare i miglioramenti apportati a livello di prodotti e sicurezza. Consultate [Installazione del dispatcher](dispatcher-install.md).
+Installate la versione più recente disponibile disponibile per la piattaforma in uso. Devi aggiornare l&#39;istanza del dispatcher per utilizzare la versione più recente per sfruttare i miglioramenti apportati a livello di prodotti e sicurezza. Vedere [Installazione del dispatcher](dispatcher-install.md).
 
 >[!NOTE]
 >
@@ -51,11 +51,11 @@ Installate la versione più recente disponibile disponibile per la piattaforma i
 >
 >`[Thu Apr 30 17:30:49 2015] [I] [23171(140735307338496)] Dispatcher initialized (build 4.1.9)`
 >
->Per trovare il file di registro, ispezionare la configurazione del dispatcher nella `httpd.conf`.
+>Per trovare il file di registro, ispezionare la configurazione del dispatcher nella cartella `httpd.conf`.
 
 ## Limita client in grado di cancellare la cache {#restrict-clients-that-can-flush-your-cache}
 
- Adobe consiglia di [limitare i client in grado di cancellare la cache.](dispatcher-configuration.md#limiting-the-clients-that-can-flush-the-cache)
+ Adobe consiglia di [limitare i client che possono cancellare la cache.](dispatcher-configuration.md#limiting-the-clients-that-can-flush-the-cache)
 
 ## Abilita HTTPS per la sicurezza del livello di trasporto {#enable-https-for-transport-layer-security}
 
@@ -80,15 +80,15 @@ Last Modified Date: 2015-06-26T04:41:28.841-0400
 
 ## Limita accesso {#restrict-access}
 
-Durante la configurazione del dispatcher è necessario limitare il più possibile l&#39;accesso esterno. Consulta [Esempio /filter Section](dispatcher-configuration.md#main-pars_184_1_title) nella documentazione del dispatcher.
+Durante la configurazione del dispatcher è necessario limitare il più possibile l&#39;accesso esterno. Vedere [Esempio /filter Section](dispatcher-configuration.md#main-pars_184_1_title) nella documentazione del dispatcher.
 
-## Assicurati che l’accesso agli URL amministrativi sia negato {#make-sure-access-to-administrative-urls-is-denied}
+## Assicurarsi che l&#39;accesso agli URL amministrativi sia negato {#make-sure-access-to-administrative-urls-is-denied}
 
 Accertatevi di utilizzare i filtri per bloccare l&#39;accesso esterno a qualsiasi URL amministrativo, come la console Web.
 
-Consultate [Verifica della sicurezza](dispatcher-configuration.md#testing-dispatcher-security) del dispatcher per un elenco di URL da bloccare.
+Per un elenco degli URL da bloccare, consultate [Verifica della protezione del dispatcher](dispatcher-configuration.md#testing-dispatcher-security).
 
-## Usa  Inseriti nell&#39;elenco Consentiti invece di  Inserire nell&#39;elenco Bloccati {#use-allowlists-instead-of-blocklists}
+## Utilizzare  Inseriti nell&#39;elenco Consentiti invece di  Inseriti nell&#39;elenco Bloccati {#use-allowlists-instead-of-blocklists}
 
  Inseriti nell&#39;elenco Consentiti sono un modo migliore per fornire il controllo dell&#39;accesso, poiché di per sé, presuppongono che tutte le richieste di accesso debbano essere negate a meno che non facciano parte esplicitamente del inserire nell&#39;elenco Consentiti . Questo modello offre un controllo più restrittivo sulle nuove richieste che potrebbero non essere state ancora esaminate o prese in considerazione durante una determinata fase di configurazione.
 
@@ -98,7 +98,7 @@ Durante la configurazione del dispatcher, accertatevi che il server Web sia eseg
 
 Inoltre, gli utenti IIS devono configurare il proprio sito Web come segue:
 
-1. Nell’impostazione del percorso fisico per il sito Web, selezionate **Connect come utente** specifico.
+1. Nell&#39;impostazione del percorso fisico per il sito Web, selezionare **Connetti come utente specifico**.
 1. Impostate l’utente.
 
 ## Impedire attacchi Denial of Service (DoS) {#prevent-denial-of-service-dos-attacks}
@@ -109,7 +109,7 @@ A livello di dispatcher, sono disponibili due metodi di configurazione per preve
 
 * Utilizzate il modulo mod_rewrite (ad esempio, [Apache 2.4](https://httpd.apache.org/docs/2.4/mod/mod_rewrite.html)) per eseguire convalide URL (se le regole del pattern URL non sono troppo complesse).
 
-* Impedisci al dispatcher di memorizzare nella cache gli URL con estensioni spurie utilizzando [i filtri](dispatcher-configuration.md#configuring-access-to-conten-tfilter).\
+* Impedisci al dispatcher di memorizzare nella cache gli URL con estensioni spurie utilizzando [filtri](dispatcher-configuration.md#configuring-access-to-conten-tfilter).\
    Ad esempio, modificate le regole di caching per limitare il caching ai tipi mime previsti, ad esempio:
 
    * `.html`
@@ -121,7 +121,7 @@ A livello di dispatcher, sono disponibili due metodi di configurazione per preve
    * `.pdf`
    * `.ppt`
 
-   Un file di configurazione di esempio può essere visualizzato per [limitare l&#39;accesso](#restrict-access)esterno, che include restrizioni per i tipi mime.
+   Un file di configurazione di esempio può essere visualizzato per [limitare l&#39;accesso esterno](#restrict-access), che include restrizioni per i tipi mime.
 
 Per abilitare tutte le funzionalità nelle istanze di pubblicazione, configurate i filtri in modo da impedire l’accesso ai seguenti nodi:
 
@@ -151,18 +151,18 @@ Last Modified Date: 2015-06-26T04:38:17.016-0400
 
  -->
 
-## Configure Dispatcher to prevent CSRF Attacks {#configure-dispatcher-to-prevent-csrf-attacks}
+## Configurare il dispatcher per impedire attacchi CSRF {#configure-dispatcher-to-prevent-csrf-attacks}
 
-AEM fornisce un [framework](https://helpx.adobe.com/experience-manager/6-3/sites/administering/using/security-checklist.html#verification-steps) per prevenire attacchi di contraffazione delle richieste cross-site. Per utilizzare correttamente questo framework, è necessario  inserire nell&#39;elenco Consentiti supporto token CSRF nel dispatcher. È possibile eseguire questa operazione tramite:
+AEM fornisce un [framework](https://helpx.adobe.com/experience-manager/6-3/sites/administering/using/security-checklist.html#verification-steps) volto a prevenire attacchi di contraffazione delle richieste tra siti. Per utilizzare correttamente questo framework, è necessario  inserire nell&#39;elenco Consentiti supporto token CSRF nel dispatcher. È possibile eseguire questa operazione tramite:
 
-1. Creazione di un filtro per consentire il `/libs/granite/csrf/token.json` percorso;
-1. Aggiungete l’ `CSRF-Token` intestazione alla `clientheaders` sezione della configurazione del dispatcher.
+1. creazione di un filtro per consentire il percorso `/libs/granite/csrf/token.json`;
+1. Aggiungete l&#39;intestazione `CSRF-Token` alla sezione `clientheaders` della configurazione del dispatcher.
 
 ## Impedisci il clickjacking {#prevent-clickjacking}
 
-Per evitare il clickjacking, si consiglia di configurare il server Web in modo che fornisca l’intestazione `X-FRAME-OPTIONS` HTTP impostata su `SAMEORIGIN`.
+Per evitare il clickjacking, si consiglia di configurare il server Web in modo che fornisca l&#39;intestazione HTTP `X-FRAME-OPTIONS` impostata su `SAMEORIGIN`.
 
-Per ulteriori [informazioni sul clickjacking, vedere il sito](https://www.owasp.org/index.php/Clickjacking)OWASP.
+Per ulteriori [informazioni sul clickjacking, vedere il sito OWASP](https://www.owasp.org/index.php/Clickjacking).
 
 ## Eseguire un test di penetrazione {#perform-a-penetration-test}
 
