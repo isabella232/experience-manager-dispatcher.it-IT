@@ -4,7 +4,7 @@ product: experience manager
 sub-product: experience manager dispatcher
 archetype: Administrator
 user-guide-title: Aiuto di Experience Manager Dispatcher
-breadcrumb-title: Guida a Dispatcher
+breadcrumb-title: Guida di Dispatcher
 user-guide-description: Scopri come utilizzare Dispatcher per memorizzare nella cache, bilanciare il carico e migliorare la sicurezza del server AEM.
 translation-type: tm+mt
 source-git-commit: 5765970c0335df084b5d49efae60997b3a021c47
