@@ -1,96 +1,95 @@
 ---
 title: Caching di contenuto protetto
-seo-title: Memorizzazione del contenuto protetto nella cache in AEM Dispatcher
+seo-title: Caching di contenuto protetto in AEM Dispatcher
 description: Scopri come funziona il caching sensibile alle autorizzazioni in Dispatcher.
-seo-description: Scoprite come funziona il caching sensibile alle autorizzazioni in AEM Dispatcher.
+seo-description: Scopri come funziona il caching sensibile alle autorizzazioni in AEM Dispatcher.
 uuid: abfed68a-2efe-45f6-bdf7-2284931629d6
 contentOwner: User
 products: SG_EXPERIENCEMANAGER/DISPATCHER
 topic-tags: dispatcher
 content-type: reference
 discoiquuid: 4f9b2bc8-a309-47bc-b70d-a1c0da78d464
-translation-type: tm+mt
-source-git-commit: 8dd56f8b90331f0da43852e25893bc6f3e606a97
-workflow-type: tm+mt
+exl-id: 3d8d8204-7e0d-44ad-b41b-6fec2689c6a6
+source-git-commit: 3a0e237278079a3885e527d7f86989f8ac91e09d
+workflow-type: ht
 source-wordcount: '762'
-ht-degree: 0%
+ht-degree: 100%
 
 ---
 
-
 # Caching di contenuto protetto {#caching-secured-content}
 
-Il caching sensibile alle autorizzazioni consente di memorizzare nella cache le pagine protette. Il dispatcher controlla le autorizzazioni di accesso dell&#39;utente per una pagina prima di distribuirla nella cache.
+Il caching sensibile alle autorizzazioni consente di memorizzare in cache le pagine protette. Dispatcher controlla che l’utente sia autorizzato ad accedere a una pagina memorizzata in cache prima di distribuirla.
 
-Dispatcher include il modulo AuthChecker che implementa il caching sensibile alle autorizzazioni. Quando il modulo è attivato, il rendering chiama un servlet AEM per eseguire l&#39;autenticazione utente e l&#39;autorizzazione per il contenuto richiesto. La risposta del servlet determina se il contenuto viene inviato al browser Web.
+Dispatcher include il modulo AuthChecker che implementa il caching sensibile alle autorizzazioni. Quando il modulo viene attivato, il rendering richiama un servlet AEM per eseguire l’autenticazione e l’autorizzazione dell’utente per il contenuto richiesto. La risposta del servlet determina se il contenuto viene distribuito al browser web.
 
-Poiché i metodi di autenticazione e autorizzazione sono specifici per la distribuzione AEM, è necessario creare il servlet.
+Poiché i metodi di autenticazione e autorizzazione sono specifici per la distribuzione AEM, è assolutamente necessario creare il servlet.
 
 >[!NOTE]
 >
->Utilizzate i filtri `deny` per applicare restrizioni di protezione predefinite. Utilizzate il caching sensibile alle autorizzazioni per le pagine configurate per consentire l&#39;accesso a un sottoinsieme di utenti o gruppi.
+>Utilizza i filtri `deny` per applicare le restrizioni di sicurezza predefinite. Utilizza il caching sensibile alle autorizzazioni per le pagine configurate per consentire l’accesso a un sottoinsieme di utenti o gruppi.
 
-I diagrammi seguenti illustrano l&#39;ordine degli eventi che si verificano quando un browser Web richiede una pagina per la quale viene utilizzato il caching sensibile alle autorizzazioni.
+I diagrammi seguenti illustrano l’ordine degli eventi che si verificano quando un browser web richiede una pagina per la quale viene utilizzato il caching sensibile alle autorizzazioni.
 
-## La pagina è memorizzata nella cache e l&#39;utente è autorizzato {#page-is-cached-and-user-is-authorized}
+## La pagina viene memorizzata in cache e l’utente viene autorizzato {#page-is-cached-and-user-is-authorized}
 
 ![](assets/chlimage_1.png)
 
-1. Il dispatcher determina che il contenuto richiesto è memorizzato nella cache e valido.
-1. Il dispatcher invia un messaggio di richiesta al rendering. La sezione HEAD include tutte le righe di intestazione della richiesta del browser.
-1. Il rendering chiama l’autore per eseguire il controllo di sicurezza e risponde al dispatcher. Il messaggio di risposta include un codice di stato HTTP pari a 200 per indicare che l&#39;utente è autorizzato.
-1. Il dispatcher invia un messaggio di risposta al browser composto dalle righe di intestazione della risposta di rendering e dal contenuto memorizzato nella cache del corpo.
+1. Dispatcher stabilisce che il contenuto richiesto è memorizzato in cache ed è valido.
+1. Dispatcher invia un messaggio di richiesta al rendering. La sezione HEAD include tutte le righe di intestazione della richiesta del browser.
+1. Il rendering richiama il servlet di authoring per eseguire il controllo di sicurezza e risponde a Dispatcher. Il messaggio di risposta include il codice di stato HTTP 200 per indicare che l’utente è autorizzato.
+1. Dispatcher invia al browser un messaggio di risposta costituito dalle righe di intestazione della risposta del rendering e dal contenuto memorizzato in cache come corpo del messaggio.
 
-## La pagina non è memorizzata nella cache e l&#39;utente è autorizzato {#page-is-not-cached-and-user-is-authorized}
+## La pagina non viene memorizzata in cache e l’utente viene autorizzato {#page-is-not-cached-and-user-is-authorized}
 
 ![](assets/chlimage_1-1.png)
 
-1. Il dispatcher determina che il contenuto non è memorizzato nella cache o richiede un aggiornamento.
-1. Il dispatcher inoltra la richiesta originale al rendering.
-1. Il rendering chiama il servlet dell’autore per eseguire un controllo di sicurezza. Quando l’utente è autorizzato, il rendering include la pagina di cui è stato effettuato il rendering nel corpo del messaggio di risposta.
-1. Il dispatcher inoltra la risposta al browser. Dispatcher aggiunge il corpo del messaggio di risposta del rendering alla cache.
+1. Dispatcher stabilisce che il contenuto non viene memorizzato in cache o che richiede un aggiornamento.
+1. Dispatcher inoltra la richiesta originale al rendering.
+1. Il rendering richiama il servlet di authoring per eseguire un controllo di sicurezza. Quando l’utente viene autorizzato, il rendering include la pagina sottoposta a rendering nel corpo del messaggio di risposta.
+1. Dispatcher inoltra la risposta al browser. Dispatcher memorizza in cache il corpo del messaggio di risposta del rendering.
 
-## Utente non autorizzato {#user-is-not-authorized}
+## L’utente non viene autorizzato {#user-is-not-authorized}
 
 ![](assets/chlimage_1-2.png)
 
-1. Il dispatcher controlla la cache.
-1. Il dispatcher invia al rendering un messaggio di richiesta che include tutte le righe di intestazione della richiesta del browser.
-1. Il rendering chiama il servlet dell’autore per eseguire un controllo di sicurezza che non riesce e il rendering inoltra la richiesta originale al dispatcher.
+1. Dispatcher controlla la cache.
+1. Dispatcher invia al rendering un messaggio di richiesta che include tutte le righe di intestazione della richiesta del browser.
+1. Il rendering richiama il servlet di authoring per eseguire un controllo di sicurezza che ha esito negativo e inoltra la richiesta originale a Dispatcher.
 
 ## Implementazione del caching sensibile alle autorizzazioni {#implementing-permission-sensitive-caching}
 
-Per implementare il caching sensibile alle autorizzazioni, effettuate le seguenti operazioni:
+Per implementare il caching sensibile alle autorizzazioni, esegui le operazioni sotto riportate:
 
-* Sviluppare un servlet che esegue l&#39;autenticazione e l&#39;autorizzazione
-* Configurare il dispatcher
+* Sviluppa un servlet che esegua l’autenticazione e l’autorizzazione
+* Configura Dispatcher
 
 >[!NOTE]
 >
->In genere, le risorse protette vengono memorizzate in una cartella separata rispetto ai file non protetti. Ad esempio, /content/secure/
+>In genere, le risorse protette vengono memorizzate in una cartella separata rispetto ai file non protetti. Ad esempio, /contenuto/protetto/
 
 
-## Creare il servlet di autorizzazione {#create-the-authorization-servlet}
+## Crea il servlet di autorizzazione {#create-the-authorization-servlet}
 
-Creare e distribuire un servlet che esegue l&#39;autenticazione e l&#39;autorizzazione dell&#39;utente che richiede il contenuto Web. Il servlet può utilizzare qualsiasi metodo di autenticazione e autorizzazione, ad esempio l&#39;account utente AEM e gli ACL dell&#39;archivio oppure un servizio di ricerca LDAP. Distribuite il servlet nell&#39;istanza AEM utilizzata da Dispatcher come rendering.
+Crea e distribuisci un servlet che esegua l’autenticazione e l’autorizzazione dell’utente che richiede il contenuto web. Il servlet può utilizzare qualsiasi metodo di autenticazione e autorizzazione, come l’account utente AEM e le ACL dell’archivio oppure un servizio di ricerca LDAP. Distribuisci il servlet all’istanza AEM utilizzata da Dispatcher come rendering.
 
-Il servlet deve essere accessibile a tutti gli utenti. Pertanto, il servlet deve estendere la classe `org.apache.sling.api.servlets.SlingSafeMethodsServlet`, che fornisce l&#39;accesso in sola lettura al sistema.
+Il servlet deve essere accessibile a tutti gli utenti. Pertanto, il tuo servlet deve estendere la classe `org.apache.sling.api.servlets.SlingSafeMethodsServlet` che fornisce l’accesso in sola lettura al sistema.
 
-Il servlet riceve solo le richieste HEAD dal rendering, pertanto è necessario implementare solo il metodo `doHead`.
+Il servlet riceve solo richieste HEAD dal rendering, pertanto devi semplicemente implementare il metodo `doHead`.
 
-Il rendering include l’URI della risorsa richiesta come parametro della richiesta HTTP. Ad esempio, un servlet di autorizzazione è accessibile tramite `/bin/permissioncheck`. Per eseguire un controllo di sicurezza nella pagina /content/geometrixx-outdoors/en.html, il rendering include il seguente URL nella richiesta HTTP:
+Il rendering include l’URI della risorsa richiesta come parametro della richiesta HTTP. Ad esempio, un servlet di autorizzazione è accessibile tramite `/bin/permissioncheck`. Per eseguire un controllo di sicurezza sulla pagina /content/geometrixx-outdoors/en.html, il rendering include il seguente URL nella richiesta HTTP:
 
 `/bin/permissioncheck?uri=/content/geometrixx-outdoors/en.html`
 
 Il messaggio di risposta del servlet deve contenere i seguenti codici di stato HTTP:
 
-* 200: Autenticazione e autorizzazione passate.
+* 200: autenticazione e autorizzazione eseguite con esito positivo.
 
-Il servlet di esempio seguente ottiene l’URL della risorsa richiesta dalla richiesta HTTP. Il codice utilizza l&#39;annotazione Felix SCR `Property` per impostare il valore della proprietà `sling.servlet.paths` su /bin/permissioncheck. Nel metodo `doHead`, il servlet ottiene l&#39;oggetto session e utilizza il metodo `checkPermission` per determinare il codice di risposta appropriato.
+Il seguente esempio di servlet ottiene l’URL della risorsa richiesta dalla richiesta HTTP. Il codice utilizza l’annotazione Felix SCR `Property` per impostare il valore della proprietà `sling.servlet.paths` su /bin/permissioncheck. Nel metodo `doHead`, il servlet ottiene l’oggetto sessione e utilizza il metodo `checkPermission` per determinare il codice di risposta appropriato.
 
 >[!NOTE]
 >
->Il valore della proprietà sling.servlet.paths deve essere attivato nel servizio Sling Servlet Resolver (org.apache.sling.servlets.resolver.SlingServletResolver).
+>Il valore della proprietà sling.servlet.paths deve essere abilitato nel servizio Sling Servlet Resolver (org.apache.sling.servlets.resolver.SlingServletResolver).
 
 ### Esempio di servlet {#example-servlet}
 
@@ -141,23 +140,23 @@ public class AuthcheckerServlet extends SlingSafeMethodsServlet {
 }
 ```
 
-## Configurare il dispatcher per il caching sensibile alle autorizzazioni {#configure-dispatcher-for-permission-sensitive-caching}
+## Configura Dispatcher per il caching sensibile alle autorizzazioni {#configure-dispatcher-for-permission-sensitive-caching}
 
-La sezione auth_checker del file dispatcher.any controlla il funzionamento del caching sensibile alle autorizzazioni. La sezione auth_checker include le seguenti sottosezioni:
+La sezione auth_checker del file dispatcher.any controlla il comportamento del caching sensibile alle autorizzazioni. La sezione auth_checker include le seguenti sottosezioni:
 
-* `url`: Il valore della  `sling.servlet.paths` proprietà del servlet che esegue il controllo di sicurezza.
+* `url`: il valore della proprietà `sling.servlet.paths` del servlet che esegue il controllo di sicurezza.
 
-* `filter`: Filtri che specificano le cartelle a cui viene applicato il caching sensibile alle autorizzazioni. In genere, un filtro `deny` viene applicato a tutte le cartelle e i filtri `allow` vengono applicati alle cartelle protette.
+* `filter`: filtri che specificano le cartelle alle quali viene applicato il caching sensibile alle autorizzazioni. In genere, il filtro `deny` viene applicato a tutte le cartelle, mentre i filtri `allow` vengono applicati alle cartelle protette.
 
-* `headers`: Specifica le intestazioni HTTP incluse nel servlet di autorizzazione nella risposta.
+* `headers`: specifica le intestazioni HTTP che il servlet di autorizzazione include nella risposta.
 
-All&#39;avvio del dispatcher, il file di registro del dispatcher include il seguente messaggio a livello di debug:
+Quando Dispatcher viene avviato, il file di registro di Dispatcher include il seguente messaggio a livello di debug:
 
 `AuthChecker: initialized with URL 'configured_url'.`
 
-La sezione auth_checker di esempio seguente configura Dispatcher per l’utilizzo del servlet dell’argomento precedente. La sezione del filtro determina l&#39;esecuzione dei controlli delle autorizzazioni solo per le risorse HTML protette.
+Nell’esempio che segue, la sezione auth_checker configura Dispatcher per l’utilizzo del servlet trattato nell’argomento precedente. La sezione dei filtri stabilisce che i controlli delle autorizzazioni vengano eseguiti solo sulle risorse HTML protette.
 
-### Configurazione esempio {#example-configuration}
+### Esempio di configurazione {#example-configuration}
 
 ```xml
 /auth_checker
@@ -197,4 +196,3 @@ La sezione auth_checker di esempio seguente configura Dispatcher per l’utilizz
     }
   }
 ```
-
