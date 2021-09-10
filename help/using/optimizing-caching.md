@@ -1,8 +1,8 @@
 ---
-title: Ottimizzazione di un sito Web per le prestazioni della cache
-seo-title: Ottimizzazione di un sito Web per le prestazioni della cache
-description: Scoprite come progettare il sito Web per massimizzare i vantaggi della memorizzazione nella cache.
-seo-description: Dispatcher offre una serie di meccanismi incorporati che è possibile utilizzare per ottimizzare le prestazioni. Scoprite come progettare il sito Web per massimizzare i vantaggi della memorizzazione nella cache.
+title: Ottimizzazione delle prestazioni della cache di un sito web
+seo-title: Ottimizzazione delle prestazioni della cache di un sito web
+description: Scopri come progettare il sito web per massimizzare i vantaggi del caching.
+seo-description: Dispatcher offre una serie di meccanismi incorporati che si possono utilizzare per ottimizzare le prestazioni. Scopri come progettare il sito web per massimizzare i vantaggi del caching.
 uuid: 2d4114d1-f464-4e10-b25c-a1b9a9c715d1
 contentOwner: User
 products: SG_EXPERIENCEMANAGER/DISPATCHER
@@ -13,16 +13,15 @@ redirecttarget: https://helpx.adobe.com/experience-manager/6-4/sites/deploying/u
 index: y
 internal: n
 snippet: y
-translation-type: tm+mt
 source-git-commit: 2ca816ac0776d72be651b76ff4f45e0c3ed1450f
-workflow-type: tm+mt
+workflow-type: ht
 source-wordcount: '1167'
-ht-degree: 3%
+ht-degree: 100%
 
 ---
 
 
-# Ottimizzazione di un sito Web per le prestazioni della cache {#optimizing-a-website-for-cache-performance}
+# Ottimizzazione delle prestazioni della cache di un sito web {#optimizing-a-website-for-cache-performance}
 
 <!-- 
 
@@ -38,39 +37,39 @@ Last Modified Date: 2017-10-25T04:13:34.919-0400
 >
 >Le versioni di Dispatcher sono indipendenti da AEM. Potresti essere stato reindirizzato a questa pagina se hai seguito un collegamento alla documentazione di Dispatcher incorporato nella documentazione di una versione precedente di AEM.
 
-Dispatcher offre una serie di meccanismi incorporati che è possibile utilizzare per ottimizzare le prestazioni. In questa sezione viene illustrato come progettare il sito Web per massimizzare i vantaggi della memorizzazione nella cache.
+Dispatcher offre una serie di meccanismi incorporati che si possono utilizzare per ottimizzare le prestazioni. Questa sezione spiega come progettare il sito web per massimizzare i vantaggi del caching.
 
 >[!NOTE]
 >
->Potrebbe essere utile ricordare che il Dispatcher memorizza la cache su un server Web standard. Ciò significa che:
+>Può essere utile ricordare che Dispatcher memorizza la cache su un server web standard. Ciò significa che:
 >
->* è possibile memorizzare nella cache tutto ciò che è possibile memorizzare come pagina e richiederlo utilizzando un URL
->* non è in grado di memorizzare altri elementi, ad esempio intestazioni HTTP, cookie, dati di sessione e dati del modulo.
+>* Puoi memorizzare in cache tutto ciò che può essere archiviato come pagina e si può richiedere tramite un URL
+>* Non puoi memorizzare altri elementi, ad esempio intestazioni HTTP, cookie, dati di sessione e dati di moduli.
 
 >
 >
-In generale, molte strategie di caching richiedono la selezione di buoni URL e non affidarsi a questi dati aggiuntivi.
+In generale, molte strategie di caching richiedono la selezione di URL validi e non utilizzano questi dati aggiuntivi.
 
-## Utilizzo della codifica di pagina coerente {#using-consistent-page-encoding}
+## Utilizzo di una codifica coerente delle pagine {#using-consistent-page-encoding}
 
-Le intestazioni delle richieste HTTP non sono memorizzate nella cache, pertanto si possono verificare problemi se si memorizzano le informazioni di codifica delle pagine nell’intestazione. In questa situazione, quando Dispatcher invia una pagina dalla cache, per la pagina viene utilizzata la codifica predefinita del server Web. Esistono due modi per evitare questo problema:
+Le intestazioni delle richieste HTTP non vengono memorizzate in cache, pertanto possono verificarsi dei problemi, se si memorizzano le informazioni di codifica della pagina nell’intestazione. In questa situazione, quando Dispatcher richiama una pagina dalla cache, per essa viene utilizzata la codifica predefinita del server web. Esistono due modi per evitare questo problema:
 
-* Se utilizzate una sola codifica, accertatevi che la codifica utilizzata sul server Web sia la stessa della codifica predefinita del sito Web AEM.
-* Utilizzate un tag `<META>` nella sezione HTML `head` per impostare la codifica, come nell&#39;esempio seguente:
+* Se utilizzi una sola codifica, accertati che la codifica utilizzata sul server web sia la stessa della codifica predefinita del sito web AEM.
+* Utilizza un tag `<META>` nella sezione HTML `head` per impostare la codifica, come nell’esempio seguente:
 
 ```xml
         <META http-equiv="Content-Type" content="text/html; charset=EUC-JP">
 ```
 
-## Evitare i parametri URL {#avoid-url-parameters}
+## Evita i parametri URL {#avoid-url-parameters}
 
-Se possibile, evitate i parametri URL per le pagine che desiderate memorizzare nella cache. Ad esempio, se disponete di una raccolta immagini, l&#39;URL seguente non viene mai memorizzato nella cache (a meno che Dispatcher non sia [configurato di conseguenza](dispatcher-configuration.md#main-pars_title_24)):
+Se possibile, evita i parametri URL per le pagine che vuoi memorizzare in cache. Ad esempio, se hai una galleria di immagini, il seguente URL non viene mai memorizzato in cache (a meno che Dispatcher non sia [configurato per farlo](dispatcher-configuration.md#main-pars_title_24)):
 
 ```xml
 www.myCompany.com/pictures/gallery.html?event=christmas&amp;page=1
 ```
 
-Tuttavia, potete inserire questi parametri nell’URL della pagina, come segue:
+Tuttavia, puoi inserire questi parametri nell’URL della pagina nel modo che segue:
 
 ```xml
 www.myCompany.com/pictures/gallery.christmas.1.html
@@ -78,15 +77,15 @@ www.myCompany.com/pictures/gallery.christmas.1.html
 
 >[!NOTE]
 >
->Questo URL richiama la stessa pagina e lo stesso modello di galleria.html. Nella definizione del modello, è possibile specificare quale script esegue il rendering della pagina oppure utilizzare lo stesso script per tutte le pagine.
+>Questo URL richiama la stessa pagina e lo stesso modello del file gallery.html. Nella definizione del modello, è possibile specificare quale script esegue il rendering della pagina oppure utilizzare lo stesso script per tutte le pagine.
 
-## Personalizza per URL {#customize-by-url}
+## Personalizza in base all&#39;URL {#customize-by-url}
 
-Se consentite agli utenti di modificare la dimensione del font (o qualsiasi altra personalizzazione del layout), accertatevi che le diverse personalizzazioni siano riportate nell’URL.
+Se consenti agli utenti di modificare la dimensione del font (o di effettuare qualunque altra personalizzazione del layout), accertati che le diverse personalizzazioni siano poi riportate nell’URL.
 
-Ad esempio, i cookie non sono memorizzati nella cache, pertanto se si memorizzano le dimensioni del font in un cookie (o in un meccanismo simile), la dimensione del font non viene mantenuta per la pagina memorizzata nella cache. Di conseguenza, il dispatcher restituisce i documenti di qualsiasi dimensione di font a caso.
+Ad esempio, i cookie non vengono memorizzati in cache, quindi se memorizzi la dimensione del font in un cookie (o in un meccanismo simile), essa non viene mantenuta per la pagina memorizzata in cache. Di conseguenza, Dispatcher restituisce documenti con qualunque dimensione del font, a caso.
 
-L&#39;inclusione della dimensione del font nell&#39;URL come selettore evita questo problema:
+L’inclusione della dimensione del font nell’URL come selettore evita questo problema:
 
 ```xml
 www.myCompany.com/news/main.large.html
@@ -94,56 +93,56 @@ www.myCompany.com/news/main.large.html
 
 >[!NOTE]
 >
->Per la maggior parte degli aspetti del layout, è anche possibile utilizzare fogli di stile e/o script sul lato client. Questi di solito funzionano molto bene con la cache.
+>Per la maggior parte degli aspetti del layout, è inoltre possibile utilizzare fogli di stile e/o script dal lato client. Questi di solito funzionano molto bene con il caching.
 >
->Questa funzione è utile anche per una versione di stampa in cui potete usare un URL come: &quot;
+>Questa funzione è utile anche per la versione stampata, in cui è possibile utilizzare un URL come: ``
 >
 >`www.myCompany.com/news/main.print.html`
 >
->Utilizzando la combinazione di script della definizione del modello, potete specificare uno script separato che esegue il rendering delle pagine di stampa.
+>Utilizzando il globbing dello script della definizione del modello, puoi specificare uno script separato che esegue il rendering delle pagine da stampare.
 
-## Annullamento della convalida dei file immagine utilizzati come titoli {#invalidating-image-files-used-as-titles}
+## Annullamento della validità dei file di immagine utilizzati come titoli {#invalidating-image-files-used-as-titles}
 
-Se eseguite il rendering dei titoli di pagina o di altro testo come immagini, si consiglia di memorizzare i file in modo che vengano eliminati in seguito a un aggiornamento del contenuto sulla pagina:
+Se esegui il rendering dei titoli di pagina, o di altro testo, come immagini, si consiglia di memorizzare i file in modo che vengano eliminati al momento di un aggiornamento del contenuto della pagina:
 
-1. Inserite il file immagine nella stessa cartella della pagina.
-1. Usate il seguente formato di denominazione per il file immagine:
+1. Posiziona il file di immagine nella stessa cartella della pagina.
+1. Utilizza il seguente formato di denominazione per il file di immagine:
 
    `<page file name>.<image file name>`
 
-Ad esempio, è possibile memorizzare il titolo della pagina myPage.html nel file myPage.title.gif. Questo file viene eliminato automaticamente se la pagina viene aggiornata, pertanto qualsiasi modifica al titolo della pagina viene automaticamente riflessa nella cache.
+Ad esempio, puoi memorizzare il titolo della pagina myPage.html nel file myPage.title.gif. Questo file viene eliminato automaticamente, se la pagina viene aggiornata, quindi qualsiasi modifica al titolo della pagina viene automaticamente riportata nella cache.
 
 >[!NOTE]
 >
->Il file immagine non esiste necessariamente fisicamente nell&#39;istanza AEM. È possibile utilizzare uno script che crea in modo dinamico il file immagine. Il dispatcher memorizza quindi il file sul server Web.
+>Il file di immagine non esiste necessariamente come elemento fisico nell’istanza AEM. Puoi utilizzare uno script che crea il file di immagine in modo dinamico. Dispatcher memorizza quindi il file sul server web.
 
-## Annullamento della convalida dei file immagine utilizzati per la navigazione {#invalidating-image-files-used-for-navigation}
+## Annullamento della validità dei file di immagine utilizzati per la navigazione {#invalidating-image-files-used-for-navigation}
 
-Se si utilizzano le immagini per le voci di navigazione, il metodo è sostanzialmente lo stesso che con i titoli, leggermente più complessi. Archiviate tutte le immagini di navigazione con le pagine di destinazione. Se si utilizzano due immagini per la modalità normale e attiva, è possibile utilizzare i seguenti script:
+Se utilizzi le immagini per le voci di navigazione, il metodo è sostanzialmente lo stesso utilizzato per i titoli, anche se leggermente più complesso. Memorizza tutte le immagini di navigazione con le pagine di destinazione. Se utilizzi due immagini per la modalità normale e attiva, puoi utilizzare i seguenti script:
 
-* Uno script che visualizza la pagina come normale.
-* Uno script che elabora richieste &quot;.normal&quot; e restituisce l&#39;immagine normale.
-* Uno script che elabora &quot;.active&quot; richiede e restituisce l&#39;immagine attivata.
+* Uno script che visualizza la pagina, come normale.
+* Uno script che elabora le richieste “.normal” e restituisce l’immagine normale.
+* Uno script che elabora le richieste “.active” e restituisce l’immagine attivata.
 
-È importante creare queste immagini con lo stesso handle di denominazione della pagina, per fare in modo che un aggiornamento del contenuto elimini sia queste immagini che la pagina.
+È importante creare queste immagini con lo stesso handle di denominazione della pagina, per avere la certezza che un aggiornamento del contenuto elimini queste immagini insieme alla pagina.
 
-Per le pagine che non vengono modificate, le immagini rimangono nella cache, anche se le pagine stesse vengono in genere invalidate automaticamente.
+Per le pagine non modificate, le immagini rimangono comunque nella cache, sebbene le pagine stesse vengano di solito invalidate automaticamente.
 
 ## Personalizzazione {#personalization}
 
-Il Dispatcher non è in grado di memorizzare nella cache i dati personalizzati, pertanto si consiglia di limitare la personalizzazione a dove necessario. Per illustrare i motivi:
+Dispatcher non può memorizzare in cache dati personalizzati, pertanto si consiglia di limitare la personalizzazione ai casi strettamente necessari. Ecco il perché:
 
-* Se utilizzate una pagina iniziale liberamente personalizzabile, tale pagina deve essere composta ogni volta che un utente la richiede.
-* Se, invece, si offre una scelta di 10 pagine iniziali diverse, è possibile memorizzare nella cache ciascuna di esse, migliorando così le prestazioni.
+* Se utilizzi una pagina iniziale liberamente personalizzabile, questa pagina deve essere composta ogni volta che un utente la richiede.
+* Se invece offri una scelta tra 10 pagine iniziali diverse, puoi memorizzare in cache ciascuna di esse, migliorando così le prestazioni.
 
 >[!NOTE]
 >
->Se personalizzate ciascuna pagina (ad esempio inserendo il nome dell’utente nella barra del titolo) non potete memorizzarla nella cache, il che può avere un impatto maggiore sulle prestazioni.
+>Se personalizzi ogni pagina (ad esempio, inserendo il nome dell’utente nella barra del titolo), non puoi più memorizzarla in cache e ciò può determinare un notevole impatto sulle prestazioni.
 >
->Tuttavia, se dovete eseguire questa operazione, potete:
+>Tuttavia, se proprio devi farlo, puoi:
 >
->* utilizzate iFrame per dividere la pagina in una parte identica per tutti gli utenti e in una parte identica per tutte le pagine dell&#39;utente. Potete quindi memorizzare nella cache entrambe le parti.
->* utilizzate JavaScript lato client per visualizzare informazioni personalizzate. Tuttavia, è necessario verificare che la pagina venga visualizzata correttamente anche se l&#39;utente disattiva JavaScript.
+>* Utilizzare iFrames per dividere la pagina in modo che una parte sia identica per tutti gli utenti e l’altra parte sia identica per tutte le pagine dell’utente. A questo punto, puoi memorizzare in cache entrambe le parti.
+>* Utilizzare JavaScript lato client per visualizzare le informazioni personalizzate. Tuttavia, devi accertarti che la pagina venga comunque visualizzata correttamente anche se un utente disattiva JavaScript.
 
 >
 
@@ -151,26 +150,26 @@ Il Dispatcher non è in grado di memorizzare nella cache i dati personalizzati, 
 
 ## Connessioni permanenti {#sticky-connections}
 
-[Connessione ](dispatcher.md#TheBenefitsofLoadBalancing) fissa, assicurarsi che i documenti per un utente siano tutti composti sullo stesso server. Se un utente lascia la cartella e successivamente vi ritorna, la connessione rimane fissa. Definite una cartella per contenere tutti i documenti che richiedono connessioni permanenti per il sito Web. Cercate di non inserire altri documenti. Questo influisce sul bilanciamento del carico se utilizzate pagine personalizzate e dati di sessione.
+[Le connessioni permanenti](dispatcher.md#TheBenefitsofLoadBalancing) garantiscono che di un utente siano composti tutti sullo stesso server. Se un utente esce da questa cartella e successivamente vi rientra, la connessione è ancora attiva. Definisci una cartella in modo che contenga tutti i documenti che richiedono connessioni permanenti per il sito web. Cerca di non avere altri documenti in quella cartella. Ciò impatta sul bilancimento del carico, se utilizzi pagine e dati di sessione personalizzati.
 
 ## Tipi MIME {#mime-types}
 
 Esistono due modi in cui un browser può determinare il tipo di file:
 
-1. Per estensione (ad esempio .html, .gif, .jpg, ecc.)
-1. Per tipo MIME inviato dal server con il file.
+1. In base alla sua estensione (ad esempio, .html, .gif, .jpg, ecc.)
+1. In base al tipo MIME che il server invia con il file.
 
-Per la maggior parte dei file, il tipo MIME è implicito nell&#39;estensione del file. i.e.:
+Per la maggior parte dei file, il tipo MIME è implicito nell’estensione del file. Ovvero:
 
-1. Per estensione (ad esempio .html, .gif, .jpg, ecc.)
-1. Per tipo MIME inviato dal server con il file.
+1. In base alla sua estensione (ad esempio, .html, .gif, .jpg, ecc.)
+1. In base al tipo MIME che il server invia con il file.
 
 Se il nome del file non ha estensione, viene visualizzato come testo normale.
 
-Il tipo MIME fa parte dell&#39;intestazione HTTP e, come tale, il dispatcher non la memorizza nella cache. Se l&#39;applicazione AEM restituisce file che non hanno una fine riconosciuta ma che fanno affidamento sul tipo MIME, questi file potrebbero essere visualizzati in modo non corretto.
+Il tipo MIME fa parte dell’intestazione HTTP e, come tale, Dispatcher non la memorizza in cache. Se l’applicazione AEM restituisce file che non hanno un’estensione di file riconosciuta e il riconoscimento si basa solo sul tipo MIME, questi file potrebbero non essere visualizzati correttamente.
 
-Per essere certi che i file siano memorizzati nella cache in modo corretto, attenetevi alle seguenti linee guida:
+Per avere la certezza i file siano memorizzati in cache correttamente, attieniti alle seguenti linee guida:
 
-* Accertatevi che i file abbiano sempre l&#39;estensione corretta.
-* Evitate gli script di server di file generici, con URL quali download.jsp?file=2214. riscrivere lo script per utilizzare gli URL contenenti la specifica del file; nell’esempio precedente, questo sarà download.2214.pdf.
+* Verifica che i file abbiano sempre l’estensione corretta.
+* Evita gli script di server di file generici che hanno URL del tipo download.jsp?file=2214. Riscrivi lo script in modo da utilizzare URL contenenti la specifica del file; nell’esempio precedente, sarebbe download.2214.pdf.
 
