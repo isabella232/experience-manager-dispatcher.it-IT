@@ -1340,10 +1340,8 @@ Di seguito è riportato un esempio di configurazione predefinita:
 >
 >* Aggiungi il nome dell’intestazione nella sezione `/cache/headers`.
 >* Aggiungi la seguente [direttiva Apache](https://httpd.apache.org/docs/2.4/mod/core.html#fileetag) nella sezione relativa a Dispatcher:
-
 >
->
-```xml
+>```xml
 >FileETag none
 >```
 
