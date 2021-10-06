@@ -1,8 +1,8 @@
 ---
 title: Ottimizzazione delle prestazioni della cache di un sito web
-seo-title: Ottimizzazione delle prestazioni della cache di un sito web
+seo-title: Optimizing a Website for Cache Performance
 description: Scopri come progettare il sito web per massimizzare i vantaggi del caching.
-seo-description: Dispatcher offre una serie di meccanismi incorporati che si possono utilizzare per ottimizzare le prestazioni. Scopri come progettare il sito web per massimizzare i vantaggi del caching.
+seo-description: Dispatcher offers a number of built-in mechanisms that you can use to optimize performance. Learn how to design your web site to maximize the benefits of caching.
 uuid: 2d4114d1-f464-4e10-b25c-a1b9a9c715d1
 contentOwner: User
 products: SG_EXPERIENCEMANAGER/DISPATCHER
@@ -15,7 +15,7 @@ internal: n
 snippet: y
 source-git-commit: 2ca816ac0776d72be651b76ff4f45e0c3ed1450f
 workflow-type: ht
-source-wordcount: '1167'
+source-wordcount: '1134'
 ht-degree: 100%
 
 ---
@@ -45,6 +45,7 @@ Dispatcher offre una serie di meccanismi incorporati che si possono utilizzare p
 >
 >* Puoi memorizzare in cache tutto ciò che può essere archiviato come pagina e si può richiedere tramite un URL
 >* Non puoi memorizzare altri elementi, ad esempio intestazioni HTTP, cookie, dati di sessione e dati di moduli.
+
 >
 >In generale, molte strategie di caching richiedono la selezione di URL validi e non utilizzano questi dati aggiuntivi.
 
@@ -93,7 +94,7 @@ www.myCompany.com/news/main.large.html
 >
 >Per la maggior parte degli aspetti del layout, è inoltre possibile utilizzare fogli di stile e/o script dal lato client. Questi di solito funzionano molto bene con il caching.
 >
->Questa funzione è utile anche per la versione stampata, in cui è possibile utilizzare un URL come: &grave;&grave;
+>Questa funzione è utile anche per la versione stampata, in cui è possibile utilizzare un URL come: ``
 >
 >`www.myCompany.com/news/main.print.html`
 >
@@ -141,8 +142,8 @@ Dispatcher non può memorizzare in cache dati personalizzati, pertanto si consig
 >
 >* Utilizzare iFrames per dividere la pagina in modo che una parte sia identica per tutti gli utenti e l’altra parte sia identica per tutte le pagine dell’utente. A questo punto, puoi memorizzare in cache entrambe le parti.
 >* Utilizzare JavaScript lato client per visualizzare le informazioni personalizzate. Tuttavia, devi accertarti che la pagina venga comunque visualizzata correttamente anche se un utente disattiva JavaScript.
->
 
+>
 
 
 ## Connessioni permanenti {#sticky-connections}
