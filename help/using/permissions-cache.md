@@ -1,8 +1,8 @@
 ---
 title: Caching di contenuto protetto
-seo-title: Caching di contenuto protetto in AEM Dispatcher
+seo-title: Caching Secured Content in AEM Dispatcher
 description: Scopri come funziona il caching sensibile alle autorizzazioni in Dispatcher.
-seo-description: Scopri come funziona il caching sensibile alle autorizzazioni in AEM Dispatcher.
+seo-description: Learn how permission-sensitive caching works in AEM Dispatcher.
 uuid: abfed68a-2efe-45f6-bdf7-2284931629d6
 contentOwner: User
 products: SG_EXPERIENCEMANAGER/DISPATCHER
@@ -12,7 +12,7 @@ discoiquuid: 4f9b2bc8-a309-47bc-b70d-a1c0da78d464
 exl-id: 3d8d8204-7e0d-44ad-b41b-6fec2689c6a6
 source-git-commit: 3a0e237278079a3885e527d7f86989f8ac91e09d
 workflow-type: ht
-source-wordcount: '762'
+source-wordcount: '748'
 ht-degree: 100%
 
 ---
@@ -67,7 +67,6 @@ Per implementare il caching sensibile alle autorizzazioni, esegui le operazioni 
 >[!NOTE]
 >
 >In genere, le risorse protette vengono memorizzate in una cartella separata rispetto ai file non protetti. Ad esempio, /contenuto/protetto/
-
 
 ## Crea il servlet di autorizzazione {#create-the-authorization-servlet}
 
