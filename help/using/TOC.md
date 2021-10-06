@@ -8,11 +8,11 @@ breadcrumb-title: Guida di Dispatcher
 user-guide-description: Scopri come utilizzare Dispatcher per memorizzare in cache, bilanciare il carico e migliorare la sicurezza del server AEM.
 feature-set: Experience Manager
 feature: Dispatcher
-topic: Amministrazione
+topic: Administration
 role: Admin
 source-git-commit: 4439a4f0adfb8e2e0d08636225d2399638d27af3
 workflow-type: ht
-source-wordcount: '89'
+source-wordcount: '84'
 ht-degree: 100%
 
 ---
