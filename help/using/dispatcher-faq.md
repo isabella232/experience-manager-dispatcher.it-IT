@@ -1,12 +1,12 @@
 ---
 title: Problemi principali di Dispatcher
-seo-title: Problemi principali di AEM Dispatcher
+seo-title: Top issues for AEM Dispatcher
 description: Problemi principali di AEM Dispatcher
-seo-description: Problemi principali di Adobe AEM Dispatcher
+seo-description: Top issues for Adobe AEM Dispatcher
 exl-id: 4dcc7318-aba5-4b17-8cf4-190ffefbba75
 source-git-commit: 3a0e237278079a3885e527d7f86989f8ac91e09d
 workflow-type: ht
-source-wordcount: '1644'
+source-wordcount: '1633'
 ht-degree: 100%
 
 ---
