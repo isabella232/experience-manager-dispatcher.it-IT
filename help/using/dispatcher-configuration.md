@@ -825,7 +825,6 @@ Una singola voce può avere `glob` o una combinazione di `method`, `url`, `query
 >
 >Nell’esempio precedente, se anche le richieste a `/etc` prive di stringa di query devono essere consentite, sono necessarie le seguenti regole:
 
-
 ```xml
 /filter {  
 >/0001 { /type "deny" /method “*" /url "/path/*" }  
@@ -1153,7 +1152,7 @@ Utilizza la proprietà `/statfileslevel` per annullare la validità dei file mem
 
 * Quando un file che si trova a un determinato livello viene invalidato, vengono toccati **tutti** i file `.stat` a partire dalla directory principale dei documenti **fino al** livello del file invalidato o della proprietà `statsfilevel` configurata (a seconda di quale dei due valori è più basso).
 
-   * Ad esempio: se imposti la proprietà `statfileslevel` su 6 e un file viene invalidato al livello 5, verrà toccato ogni file `.stat` a partire dalla directory principale dei documenti fino al livello 5. Continuando con questo esempio, se un file viene invalidato al livello 7, ogni file `stat` a partire dalla directory principale dei documenti al livello 6 verrà toccato (in quanto `/statfileslevel = "6"`).
+   * Ad esempio: se imposti la proprietà `statfileslevel` su 6 e un file viene invalidato al livello 5, verrà toccato ogni file `.stat` a partire dalla directory principale dei documenti fino al livello 5. Continuando con questo esempio, se un file viene invalidato al livello 7, ogni file .`stat` a partire dalla directory principale dei documenti al livello 6 verrà toccato (in quanto `/statfileslevel = "6"`).
 
 Sono interessate solo le risorse **lungo il percorso** del file invalidato. Prendi in considerazione l’esempio seguente: un sito web utilizza la struttura `/content/myWebsite/xx/.`. Se imposti `statfileslevel` su 3, viene creato un file `.stat` come segue:
 
@@ -1340,6 +1339,7 @@ Di seguito è riportato un esempio di configurazione predefinita:
 >
 >* Aggiungi il nome dell’intestazione nella sezione `/cache/headers`.
 >* Aggiungi la seguente [direttiva Apache](https://httpd.apache.org/docs/2.4/mod/core.html#fileetag) nella sezione relativa a Dispatcher:
+
 >
 >```xml
 >FileETag none
