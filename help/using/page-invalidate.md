@@ -1,8 +1,8 @@
 ---
 title: Annullamento della validità delle pagine in cache da AEM
-seo-title: Annullamento della validità delle pagine in cache da Adobe AEM
+seo-title: Invalidating Cached Pages From Adobe AEM
 description: Scopri come configurare l’interazione tra Dispatcher e AEM per garantire un’efficace gestione della cache.
-seo-description: Scopri come configurare l’interazione tra Adobe AEM Dispatcher e AEM per garantire un’efficace gestione della cache.
+seo-description: Learn how to configure the interaction between Adobe AEM Dispatcher and AEM to ensure effective cache management.
 uuid: 66533299-55c0-4864-9beb-77e281af9359
 cmgrlastmodified: 01.11.2007 08 22 29 [aheimoz]
 pageversionid: 1193211344162
@@ -15,7 +15,7 @@ discoiquuid: 79cd94be-a6bc-4d34-bfe9-393b4107925c
 exl-id: 90eb6a78-e867-456d-b1cf-f62f49c91851
 source-git-commit: 3a0e237278079a3885e527d7f86989f8ac91e09d
 workflow-type: ht
-source-wordcount: '1427'
+source-wordcount: '1404'
 ht-degree: 100%
 
 ---
@@ -192,7 +192,6 @@ Quando il servlet viene distribuito all’istanza Publish, il seguente URL induc
 >[!NOTE]
 >
 >Questo esempio di servlet non è sicuro e serve solo a illustrare l’utilizzo del messaggio di richiesta HTTP Post. La tua soluzione deve proteggere l’accesso al servlet.
-
 
 ```java
 package com.adobe.example;
