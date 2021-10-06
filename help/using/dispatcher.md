@@ -1,8 +1,8 @@
 ---
 title: Panoramica di Dispatcher
-seo-title: Panoramica di Adobe AEM Dispatcher
+seo-title: Adobe AEM Dispatcher Overview
 description: Questo articolo fornisce una panoramica generale di Dispatcher.
-seo-description: Questo articolo fornisce una panoramica generale di Adobe Experience Manager Dispatcher.
+seo-description: This article provides a general overview of Adobe Experience Manager Dispatcher.
 uuid: 71766f86-5e91-446b-a078-061b179d090d
 pageversionid: 1193211344162
 topic-tags: dispatcher
@@ -11,7 +11,7 @@ discoiquuid: 1d449ee2-4cdd-4b7a-8b4e-7e6fc0a1d7ee
 exl-id: c9266683-6890-4359-96db-054b7e856dd0
 source-git-commit: 3a0e237278079a3885e527d7f86989f8ac91e09d
 workflow-type: ht
-source-wordcount: '3199'
+source-wordcount: '3184'
 ht-degree: 100%
 
 ---
