@@ -45,7 +45,6 @@ Dispatcher offre una serie di meccanismi incorporati che si possono utilizzare p
 >
 >* Puoi memorizzare in cache tutto ciò che può essere archiviato come pagina e si può richiedere tramite un URL
 >* Non puoi memorizzare altri elementi, ad esempio intestazioni HTTP, cookie, dati di sessione e dati di moduli.
-
 >
 >In generale, molte strategie di caching richiedono la selezione di URL validi e non utilizzano questi dati aggiuntivi.
 
@@ -94,7 +93,7 @@ www.myCompany.com/news/main.large.html
 >
 >Per la maggior parte degli aspetti del layout, è inoltre possibile utilizzare fogli di stile e/o script dal lato client. Questi di solito funzionano molto bene con il caching.
 >
->Questa funzione è utile anche per la versione stampata, in cui è possibile utilizzare un URL come: ``
+>Questa funzione è utile anche per la versione stampata, in cui è possibile utilizzare un URL come: &grave;&grave;
 >
 >`www.myCompany.com/news/main.print.html`
 >
@@ -142,7 +141,6 @@ Dispatcher non può memorizzare in cache dati personalizzati, pertanto si consig
 >
 >* Utilizzare iFrames per dividere la pagina in modo che una parte sia identica per tutti gli utenti e l’altra parte sia identica per tutte le pagine dell’utente. A questo punto, puoi memorizzare in cache entrambe le parti.
 >* Utilizzare JavaScript lato client per visualizzare le informazioni personalizzate. Tuttavia, devi accertarti che la pagina venga comunque visualizzata correttamente anche se un utente disattiva JavaScript.
-
 >
 
 
