@@ -3,9 +3,9 @@ title: Configurazione di Dispatcher
 description: Scopri come configurare Dispatcher.
 exl-id: 91159de3-4ccb-43d3-899f-9806265ff132
 source-git-commit: 9ad35121bde90916a0376b33853e190b382ce5cd
-workflow-type: tm+mt
+workflow-type: ht
 source-wordcount: '8528'
-ht-degree: 99%
+ht-degree: 100%
 
 ---
 
@@ -568,7 +568,7 @@ La sezione `/filter` consiste di una serie di regole che negano o consentono l�
 
 >[!NOTE]
 >
->Si consiglia di eliminare la cache ogni volta che si verificano modifiche nelle regole del filtro.
+>Si consiglia di eliminare la cache ogni volta che si effettuano modifiche nelle regole del filtro.
 
 ### Definizione di un filtro {#defining-a-filter}
 
@@ -1591,7 +1591,7 @@ I valori `glob` possono includere caratteri jolly e caratteri alfanumerici per d
 | `*` | Corrisponde a zero o più istanze contigue di qualsiasi carattere nella stringa. Il carattere finale della corrispondenza è determinato da una delle seguenti situazioni: <br/>Un carattere nella stringa corrisponde al carattere successivo nel modello e il carattere del modello ha le seguenti caratteristiche:<br/><ul><li>Non è un *</li><li>Non è un ?</li><li>Un carattere letterale (incluso uno spazio) o una classe di caratteri.</li><li>Viene raggiunta la fine del modello.</li></ul>All’interno di una classe di caratteri, il carattere viene interpretato letteralmente. | `*/geo*` Corrisponde a qualsiasi pagina sotto i nodi `/content/geometrixx` e `/content/geometrixx-outdoors`. Le seguenti richieste HTTP corrispondono al modello glob: <br/><ul><li>`"GET /content/geometrixx/en.html"`</li><li>`"GET /content/geometrixx-outdoors/en.html"` </li></ul><br/> `*outdoors/*` <br/>Corrisponde a qualsiasi pagina sotto il nodo `/content/geometrixx-outdoors`. Ad esempio, la seguente richiesta HTTP corrisponde al modello glob: <br/><ul><li>`"GET /content/geometrixx-outdoors/en.html"`</li></ul> |
 | `?` | Corrisponde a qualsiasi carattere singolo. Da utilizzare al di fuori delle classi di caratteri. All’interno di una classe di caratteri, questo carattere viene interpretato letteralmente. | `*outdoors/??/*`<br/> Corrisponde alle pagine in qualsiasi lingua del sito geometrixx-outdoors. Ad esempio, la seguente richiesta HTTP corrisponde al modello glob: <br/><ul><li>`"GET /content/geometrixx-outdoors/en/men.html"`</li></ul><br/>La seguente richiesta non corrisponde al modello glob: <br/><ul><li>“GET /content/geometrixx-outdoors/en.html”</li></ul> |
 | `[ and ]` | Richiama l’inizio e la fine di una classe di caratteri. Le classi di caratteri possono includere uno o più intervalli di caratteri e caratteri singoli.<br/>Una corrispondenza si verifica, se il carattere di destinazione corrisponde a uno qualsiasi dei caratteri della classe di caratteri o dei caratteri all’interno di un intervallo definito.<br/>Se si omette la parentesi quadra di chiusura, il modello non produce alcuna corrispondenza. | `*[o]men.html*`<br/> Corrisponde alla seguente richiesta HTTP:<br/><ul><li>`"GET /content/geometrixx-outdoors/en/women.html"`</li></ul><br/>Non corrisponde alla seguente richiesta HTTP:<br/><ul><li>`"GET /content/geometrixx-outdoors/en/men.html"`</li></ul><br/> `*[o/]men.html*` <br/>Corrisponde alle seguenti richieste HTTP: <br/><ul><li>`"GET /content/geometrixx-outdoors/en/women.html"`</li><li>`"GET /content/geometrixx-outdoors/en/men.html"`</li></ul> |
-| `-` | Indica un intervallo di caratteri. Da utilizzare nelle classi di caratteri. Al di fuori di una classe di caratteri, questo carattere viene interpretato letteralmente. | `*[m-p]men.html*` Corrisponde alla seguente richiesta HTTP: <br/><ul><li>`"GET /content/geometrixx-outdoors/en/women.html"`</li></ul>Non corrisponde alla seguente richiesta HTTP:<br/><ul><li>`"GET /content/geometrixx-outdoors/en/men.html"`</li></ul> |
+| `-` | Indica un intervallo di caratteri. Da utilizzare nelle classi di caratteri.  Al di fuori di una classe di caratteri, questo carattere viene interpretato letteralmente. | `*[m-p]men.html*` Corrisponde alla seguente richiesta HTTP: <br/><ul><li>`"GET /content/geometrixx-outdoors/en/women.html"`</li></ul>Non corrisponde alla seguente richiesta HTTP:<br/><ul><li>`"GET /content/geometrixx-outdoors/en/men.html"`</li></ul> |
 | `!` | Ignora il carattere o la classe di che segue. Da utilizzare solo per ignorare caratteri e intervalli di caratteri all’interno delle classi di caratteri. Equivalente a `^ wildcard`. <br/>Al di fuori di una classe di caratteri, questo carattere viene interpretato letteralmente. | `*[!o]men.html*`<br/> Corrisponde alla seguente richiesta HTTP: <br/><ul><li>`"GET /content/geometrixx-outdoors/en/men.html"`</li></ul><br/>Non corrisponde alla seguente richiesta HTTP:<br/><ul><li>`"GET /content/geometrixx-outdoors/en/women.html"`</li></ul><br/>`*[!o!/]men.html*`<br/>Non corrisponde alla seguente richiesta HTTP:<br/><ul><li>`"GET /content/geometrixx-outdoors/en/women.html"` oppure `"GET /content/geometrixx-outdoors/en/men. html"`</li></ul> |
 | `^` | Ignora il carattere o l’intervallo di caratteri che segue. Da utilizzare solo per ignorare caratteri e intervalli di caratteri all’interno delle classi di caratteri. Equivalente al carattere jolly `!`. <br/>Al di fuori di una classe di caratteri, questo carattere viene interpretato letteralmente. | Gli esempi relativi al carattere jolly `!` valgono, ma previa sostituzione, negli esempi di modelli, dei caratteri `!` con i caratteri `^`. |
 
