@@ -14,7 +14,7 @@ index: y
 internal: n
 snippet: y
 source-git-commit: 762f575a58f53d25565fb9f67537e372c760674f
-workflow-type: tm+mt
+workflow-type: ht
 source-wordcount: '1134'
 ht-degree: 100%
 
@@ -45,6 +45,7 @@ Dispatcher offre una serie di meccanismi incorporati che si possono utilizzare p
 >
 >* Puoi memorizzare in cache tutto ciò che può essere archiviato come pagina e si può richiedere tramite un URL
 >* Non puoi memorizzare altri elementi, ad esempio intestazioni HTTP, cookie, dati di sessione e dati di moduli.
+
 >
 >In generale, molte strategie di caching richiedono la selezione di URL validi e non utilizzano questi dati aggiuntivi.
 
@@ -141,6 +142,7 @@ Dispatcher non può memorizzare in cache dati personalizzati, pertanto si consig
 >
 >* Utilizzare iFrames per dividere la pagina in modo che una parte sia identica per tutti gli utenti e l’altra parte sia identica per tutte le pagine dell’utente. A questo punto, puoi memorizzare in cache entrambe le parti.
 >* Utilizzare JavaScript lato client per visualizzare le informazioni personalizzate. Tuttavia, devi accertarti che la pagina venga comunque visualizzata correttamente anche se un utente disattiva JavaScript.
+
 >
 
 
