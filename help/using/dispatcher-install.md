@@ -10,8 +10,8 @@ topic-tags: dispatcher
 content-type: reference
 discoiquuid: f00ad751-6b95-4365-8500-e1e0108d9536
 exl-id: 9375d1c0-8d9e-46cb-9810-fa4162a8c1ba
-source-git-commit: bd03499fae4096fe5642735eb466276f1a179dec
-workflow-type: ht
+source-git-commit: d19a27256c44ec00fd440b2f8a2fe408a4a4b7c8
+workflow-type: tm+mt
 source-wordcount: '3693'
 ht-degree: 100%
 
@@ -306,7 +306,7 @@ L’archivio di installazione contiene i seguenti file, a seconda che sia stato 
 | http.conf.disp&lt;x> | Un esempio di file di configurazione del server Apache. |
 | dispatcher.any | Esempio di file di configurazione per Dispatcher. |
 | README | File Readme contenente istruzioni di installazione e informazioni dell’ultimo minuto. **Nota**: leggere questo file prima di iniziare l’installazione. |
-| CHANGES | Il file Changes in cui sono elencati i problemi risolti in questa e nelle precedenti versioni. |
+| MODIFICHE | Il file Changes in cui sono elencati i problemi risolti in questa e nelle precedenti versioni. |
 
 Per aggiungere Dispatcher al server web Apache, fai quanto segue:
 
@@ -390,7 +390,7 @@ Le voci di configurazione specifiche per Dispatcher vanno inserite dopo la voce 
 
 ```
 ...
-<fModule disp_apache2.c>
+<IfModule disp_apache2.c>
 DispatcherConfig conf/dispatcher.any
 DispatcherLog logs/dispatcher.log DispatcherLogLevel 3
 DispatcherNoServerHeader 0 DispatcherDeclineRoot 0
@@ -593,7 +593,7 @@ L’archivio di installazione contiene i seguenti file, a seconda che sia stato 
 | `obj.conf.disp` | Esempio di file di configurazione per Sun Java System Web Server / iPlanet. |
 | `dispatcher.any` | Esempio di file di configurazione per Dispatcher. |
 | README | File Readme contenente istruzioni di installazione e informazioni dell’ultimo minuto. Nota: leggere questo file prima di iniziare l’installazione. |
-| CHANGES | Il file Changes in cui sono elencati i problemi risolti in questa e nelle precedenti versioni. |
+| MODIFICHE | Il file Changes in cui sono elencati i problemi risolti in questa e nelle precedenti versioni. |
 
 Per aggiungere Dispatcher al server web, fai quanto segue:
 
@@ -642,7 +642,7 @@ Dove:
 | Parametro | Descrizione |
 |--- |--- |
 | config | Posizione e nome del file di configurazione `dispatcher.any.` |
-| logfile | Posizione e nome del file di registro. |
+| file di registro | Posizione e nome del file di registro. |
 | loglevel | Livello di registro per la scrittura dei messaggi nel file di registro: <br/>**0** Errori <br/>**1** Avvisi <br/>**2** Informazioni <br/>**3** Debug <br/>**Nota:** si consiglia di impostare il livello di registro su 3 durante l’installazione e il test e su 0 quando l’esecuzione avviene in un ambiente di produzione. |
 | keepalivetimeout | Specifica il timeout keep-alive espresso in secondi. A partire dalla versione 4.2.0 di Dispatcher, il valore keep-alive predefinito è 60. Il valore 0 disattiva keep-alive. |
 
