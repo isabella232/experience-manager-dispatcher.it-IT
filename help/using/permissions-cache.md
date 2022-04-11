@@ -10,9 +10,9 @@ topic-tags: dispatcher
 content-type: reference
 discoiquuid: 4f9b2bc8-a309-47bc-b70d-a1c0da78d464
 exl-id: 3d8d8204-7e0d-44ad-b41b-6fec2689c6a6
-source-git-commit: 753f9fc35968996ee83d5947585fd52f2b981632
+source-git-commit: 11c3d7d627c96bb6ef647b5a067d3926eca347fc
 workflow-type: tm+mt
-source-wordcount: '827'
+source-wordcount: '829'
 ht-degree: 85%
 
 ---
@@ -46,7 +46,7 @@ I diagrammi seguenti illustrano l’ordine degli eventi che si verificano quando
 
 1. Dispatcher stabilisce che il contenuto non viene memorizzato in cache o che richiede un aggiornamento.
 1. Dispatcher inoltra la richiesta originale al rendering.
-1. Il rendering chiama il servlet di authoring AEM (che non è il servlet AuthChcker di Dispatcher) per eseguire un controllo di sicurezza. Quando l’utente viene autorizzato, il rendering include la pagina sottoposta a rendering nel corpo del messaggio di risposta.
+1. Il rendering chiama il servlet di authoring di AEM (non è il servlet AuthChcker di Dispatcher) per eseguire un controllo di sicurezza. Quando l’utente viene autorizzato, il rendering include la pagina sottoposta a rendering nel corpo del messaggio di risposta.
 1. Dispatcher inoltra la risposta al browser. Dispatcher memorizza in cache il corpo del messaggio di risposta del rendering.
 
 ## L’utente non viene autorizzato {#user-is-not-authorized}
@@ -57,7 +57,7 @@ I diagrammi seguenti illustrano l’ordine degli eventi che si verificano quando
 1. Dispatcher invia al rendering un messaggio di richiesta che include tutte le righe di intestazione della richiesta del browser.
 1. Il rendering chiama il servlet Auth Checker per eseguire un controllo di sicurezza che non riesce e il rendering inoltra la richiesta originale a Dispatcher.
 1. Dispatcher inoltra la richiesta originale al rendering.
-1. Il rendering chiama il servlet di authoring AEM (che non è il servlet AuthChcker di Dispatcher) per eseguire un controllo di sicurezza. Quando l’utente viene autorizzato, il rendering include la pagina sottoposta a rendering nel corpo del messaggio di risposta.
+1. Il rendering chiama il servlet di authoring di AEM (non è il servlet AuthChcker di Dispatcher) per eseguire un controllo di sicurezza. Quando l’utente viene autorizzato, il rendering include la pagina sottoposta a rendering nel corpo del messaggio di risposta.
 1. Dispatcher inoltra la risposta al browser. Dispatcher memorizza in cache il corpo del messaggio di risposta del rendering.
 
 
