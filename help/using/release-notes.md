@@ -12,7 +12,7 @@ exl-id: b55c7a34-d57b-4d45-bd83-29890f1524de
 source-git-commit: 377a104f7e8e506e2f61002d90851a38657e8fe5
 workflow-type: tm+mt
 source-wordcount: '977'
-ht-degree: 94%
+ht-degree: 97%
 
 ---
 
@@ -25,7 +25,7 @@ ht-degree: 94%
 | Prodotti | Adobe Experience Manager (AEM) Dispatcher |
 | Versione | 4.3.5 |
 | Tipo | Versione secondaria |
-| Data | 04 aprile 2022 |
+| Data | 4 aprile 2022 |
 | URL di download | <ul><li>[Apache 2.4](release-notes.md#apache)</li><li>[Microsoft Internet Information Services (IIS)](release-notes.md#iis)</li></ul> |
 | Compatibilità | AEM 6.1 o superiore |
 
@@ -41,11 +41,11 @@ Per istruzioni dettagliate, vedi [Installazione di Dispatcher](dispatcher-instal
 
 ## Cronologia delle versioni {#release-history}
 
-### Versione 4.3.5 (2022-Apr-04) {#apr}
+### Versione 4.3.5 (04 aprile 2022) {#apr}
 
 **Miglioramenti**:
 
-* DISP-954 - Supporta l&#39;invalidazione anche se la scadenza non è stata superata
+* DISP-954 - supporta l’invalidazione anche se la scadenza non è stata superata
 * DISP-949 - Dispatcher restituisce 200 invece di 404 anche se la richiesta POST è bloccata dal filtro
 
 ### Versione 4.3.4 (29 novembre 2021) {#nov}
