@@ -13,7 +13,7 @@ exl-id: 3d8d8204-7e0d-44ad-b41b-6fec2689c6a6
 source-git-commit: 18fa55f4be3a93b5484c3a0fa408031a43944f27
 workflow-type: tm+mt
 source-wordcount: '829'
-ht-degree: 83%
+ht-degree: 98%
 
 ---
 
@@ -21,7 +21,7 @@ ht-degree: 83%
 
 Il caching sensibile alle autorizzazioni consente di memorizzare in cache le pagine protette. Dispatcher controlla che l’utente sia autorizzato ad accedere a una pagina memorizzata in cache prima di distribuirla.
 
-Dispatcher include il modulo AuthChecker che implementa il caching sensibile alle autorizzazioni. Quando il modulo viene attivato, Dispatcher chiama un servlet AEM per eseguire l’autenticazione e l’autorizzazione dell’utente per il contenuto richiesto. La risposta del servlet determina se il contenuto viene consegnato o meno al browser Web dalla cache.
+Dispatcher include il modulo AuthChecker che implementa il caching sensibile alle autorizzazioni. Quando il modulo viene attivato, Dispatcher richiama un servlet AEM per eseguire l’autenticazione e l’autorizzazione dell’utente per il contenuto richiesto. La risposta del servlet determina se il contenuto viene consegnato o meno dalla cache al browser web.
 
 Poiché i metodi di autenticazione e autorizzazione sono specifici per la distribuzione AEM, è assolutamente necessario creare il servlet.
 
@@ -37,7 +37,7 @@ I diagrammi seguenti illustrano l’ordine degli eventi che si verificano quando
 
 1. Dispatcher stabilisce che il contenuto richiesto è memorizzato in cache ed è valido.
 1. Dispatcher invia un messaggio di richiesta al rendering. La sezione HEAD include tutte le righe di intestazione della richiesta del browser.
-1. Il rendering chiama il servlet di controllo dell’autenticazione per eseguire il controllo di sicurezza e risponde a Dispatcher. Il messaggio di risposta include il codice di stato HTTP 200 per indicare che l’utente è autorizzato.
+1. Il rendering richiama il servlet Auth Checker per eseguire il controllo di sicurezza e risponde a Dispatcher. Il messaggio di risposta include il codice di stato HTTP 200 per indicare che l’utente è autorizzato.
 1. Dispatcher invia al browser un messaggio di risposta costituito dalle righe di intestazione della risposta del rendering e dal contenuto memorizzato in cache come corpo del messaggio.
 
 ## La pagina non viene memorizzata in cache e l’utente viene autorizzato {#page-is-not-cached-and-user-is-authorized}
@@ -46,7 +46,7 @@ I diagrammi seguenti illustrano l’ordine degli eventi che si verificano quando
 
 1. Dispatcher stabilisce che il contenuto non viene memorizzato in cache o che richiede un aggiornamento.
 1. Dispatcher inoltra la richiesta originale al rendering.
-1. Il rendering chiama il servlet di authoring di AEM (non è il servlet AuthChcker di Dispatcher) per eseguire un controllo di sicurezza. Quando l’utente viene autorizzato, il rendering include la pagina sottoposta a rendering nel corpo del messaggio di risposta.
+1. Il rendering chiama il servlet di autorizzazione di AEM (non il servlet AuthChcker di Dispatcher) per eseguire un controllo di sicurezza. Quando l’utente viene autorizzato, il rendering include la pagina sottoposta a rendering nel corpo del messaggio di risposta.
 1. Dispatcher inoltra la risposta al browser. Dispatcher memorizza in cache il corpo del messaggio di risposta del rendering.
 
 ## L’utente non viene autorizzato {#user-is-not-authorized}
@@ -55,9 +55,9 @@ I diagrammi seguenti illustrano l’ordine degli eventi che si verificano quando
 
 1. Dispatcher controlla la cache.
 1. Dispatcher invia al rendering un messaggio di richiesta che include tutte le righe di intestazione della richiesta del browser.
-1. Il rendering chiama il servlet Auth Checker per eseguire un controllo di sicurezza che non riesce e il rendering inoltra la richiesta originale a Dispatcher.
+1. Il rendering richiama il servlet Auth Checker per eseguire un controllo di sicurezza che ha esito negativo e inoltra la richiesta originale a Dispatcher.
 1. Dispatcher inoltra la richiesta originale al rendering.
-1. Il rendering chiama il servlet di authoring di AEM (non è il servlet AuthChcker di Dispatcher) per eseguire un controllo di sicurezza. Quando l’utente viene autorizzato, il rendering include la pagina sottoposta a rendering nel corpo del messaggio di risposta.
+1. Il rendering chiama il servlet di autorizzazione di AEM (non il servlet AuthChcker di Dispatcher) per eseguire un controllo di sicurezza. Quando l’utente viene autorizzato, il rendering include la pagina sottoposta a rendering nel corpo del messaggio di risposta.
 1. Dispatcher inoltra la risposta al browser. Dispatcher memorizza in cache il corpo del messaggio di risposta del rendering.
 
 
@@ -70,9 +70,9 @@ Per implementare il caching sensibile alle autorizzazioni, esegui le operazioni 
 
 >[!NOTE]
 >
->In genere, le risorse protette vengono memorizzate in una cartella separata rispetto ai file non protetti. Ad esempio, /contenuto/protetto/
+>In genere, le risorse protette vengono memorizzate in una cartella separata rispetto ai file non protetti. Ad esempio, /content/secure/
 
-## Crea il servlet Controllo di autenticità {#create-the-auth-checker-servlet}
+## Crea il servlet Auth Checker {#create-the-auth-checker-servlet}
 
 Crea e distribuisci un servlet che esegua l’autenticazione e l’autorizzazione dell’utente che richiede il contenuto web. Il servlet può utilizzare qualsiasi metodo di autenticazione e autorizzazione, come l’account utente AEM e le ACL dell’archivio oppure un servizio di ricerca LDAP. Distribuisci il servlet all’istanza AEM utilizzata da Dispatcher come rendering.
 

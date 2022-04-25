@@ -12,7 +12,7 @@ exl-id: b55c7a34-d57b-4d45-bd83-29890f1524de
 source-git-commit: 5430d53571414cf3bf764bb8523c252bb77a3bf2
 workflow-type: tm+mt
 source-wordcount: '1037'
-ht-degree: 92%
+ht-degree: 94%
 
 ---
 
@@ -33,7 +33,7 @@ ht-degree: 92%
 
 Per ulteriori informazioni sui requisiti e prerequisiti, visita la pagina [Piattaforme supportate](https://helpx.adobe.com/it/experience-manager/6-4/sites/deploying/using/technical-requirements.html).
 
-L’Adobe consiglia vivamente di utilizzare l’ultima versione di AEM Dispatcher per usufruire delle funzionalità più recenti, delle correzioni di bug più recenti e delle migliori prestazioni possibili.
+Adobe consiglia vivamente di utilizzare l’ultima versione di AEM Dispatcher per usufruire delle funzionalità e delle correzioni di bug più recenti e delle migliori prestazioni possibili.
 
 ## Istruzioni di installazione {#installation-instructions}
 
@@ -41,7 +41,7 @@ Per istruzioni dettagliate, vedi [Installazione di Dispatcher](dispatcher-instal
 
 ## Cronologia delle versioni {#release-history}
 
-### Versione 4.3.5 (04 aprile 2022) {#apr}
+### Versione 4.3.5 (4 aprile 2022) {#apr}
 
 **Miglioramenti**:
 
@@ -94,7 +94,7 @@ Per istruzioni dettagliate, vedi [Installazione di Dispatcher](dispatcher-instal
 * DISP-734 - Dispatcher causa un arresto anomalo in insert_output_filter se non viene impostato come handler
 * DISP-735 - I RE non funzionano su Alpine Linux
 * DISP-740 - Il caricamento di Dispatcher in macOS Mojave è disabilitato per impostazione predefinita
-* DISP-742 - Le richieste bloccate potrebbero causare la perdita di informazioni alle risorse protette da controllo di authoring
+* DISP-742 - Le richieste bloccate potrebbero causare la perdita di informazioni alle risorse protette da Auth Checker
 
 **Miglioramenti**:
 
