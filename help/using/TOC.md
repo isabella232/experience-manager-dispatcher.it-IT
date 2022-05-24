@@ -10,8 +10,8 @@ feature-set: Experience Manager
 feature: Dispatcher
 topic: Administration
 role: Admin
-source-git-commit: 4439a4f0adfb8e2e0d08636225d2399638d27af3
-workflow-type: ht
+source-git-commit: a21b527700b3a5c3a11eadaefc729e754ba2b37b
+workflow-type: tm+mt
 source-wordcount: '84'
 ht-degree: 100%
 
@@ -28,7 +28,7 @@ ht-degree: 100%
 + Configurazione {#configuring}
    + [Configurazione di Dispatcher](dispatcher-configuration.md)
    + [Annullamento della validità delle pagine in cache da AEM](page-invalidate.md)
-   + [Ottimizzazione delle prestazioni della cache di un sito web](https://helpx.adobe.com/it/experience-manager/6-4/sites/deploying/using/configuring-performance.html)
+   + [Ottimizzazione delle prestazioni della cache di un sito web](https://helpx.adobe.com/it/experience-manager/6-5/sites/deploying/using/configuring-performance.html)
    + [Caching di contenuto protetto](permissions-cache.md)
    + [Utilizzo di Dispatcher con più domini ](dispatcher-domains.md)
    + [Utilizzo di SSL con Dispatcher](dispatcher-ssl.md)

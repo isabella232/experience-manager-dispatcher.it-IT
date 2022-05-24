@@ -14,10 +14,10 @@ index: y
 internal: n
 snippet: y
 exl-id: 49009810-b5bf-41fd-b544-19dd0c06b013
-source-git-commit: 3a0e237278079a3885e527d7f86989f8ac91e09d
-workflow-type: ht
+source-git-commit: a21b527700b3a5c3a11eadaefc729e754ba2b37b
+workflow-type: tm+mt
 source-wordcount: '638'
-ht-degree: 100%
+ht-degree: 98%
 
 ---
 
@@ -38,7 +38,7 @@ Adobe consiglia vivamente di completare il seguente elenco di controllo prima di
 
 >[!CAUTION]
 >
->Devi anche completare l’elenco di controllo della sicurezza della tua versione di AEM prima di andare “live”. Fare riferimento alla corrispondente [documentazione di Adobe Experience Manager](https://experienceleague.adobe.com/docs/experience-manager-release-information/aem-release-updates/previous-updates/aem-previous-versions.html?lang=it).
+>Devi anche completare l’elenco di controllo della sicurezza della tua versione di AEM prima di andare “live”. Fare riferimento alla corrispondente [documentazione di Adobe Experience Manager](https://helpx.adobe.com/experience-manager/6-5/sites/administering/using/security-checklist.html).
 
 ## Utilizza la versione più recente di Dispatcher {#use-the-latest-version-of-dispatcher}
 
