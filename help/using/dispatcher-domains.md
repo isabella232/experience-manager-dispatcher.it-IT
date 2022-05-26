@@ -12,7 +12,7 @@ content-type: reference
 discoiquuid: 40d91d66-c99b-422d-8e61-c0ced23272ef
 exl-id: 1470b636-7e60-48cc-8c31-899f8785dafa
 source-git-commit: 9d168ab7139e46b0c768fc3bab37245459eca002
-workflow-type: tm+mt
+workflow-type: ht
 source-wordcount: '2965'
 ht-degree: 100%
 
@@ -352,7 +352,7 @@ Il seguente esempio di file httpd.conf configura due host virtuali per un server
 
 * La directory principale dei documenti di ciascun dominio virtuale è la directory nella cache di Dispatcher che contiene le pagine del sito (righe 20 e 33).
 * La regola di riscrittura URL per ciascun dominio virtuale è un’espressione regolare che aggiunge il percorso delle pagine nella cache come prefisso del percorso della pagina richiesta (righe 19 e 35).
-* La proprietà `DispatherUseProcessedURL` è impostata su `1` (riga 10).
+* La proprietà `DispatherUseProcessedURL` è impostata su `1`. (riga 10).
 
 Ad esempio, il server web esegue le seguenti azioni sotto indicate quando riceve una richiesta con l’URL `https://brandA.com/en/products.html`:
 
@@ -421,7 +421,7 @@ Quando il server web riscrive gli URL, Dispatcher richiede una singola farm defi
 
 Il seguente file di configurazione di esempio si basa sul file di esempio `dispatcher.any` che viene installato con Dispatcher. Per supportare le configurazioni del server web del file `httpd.conf` precedente sono necessarie le seguenti modifiche:
 
-* La proprietà `/virtualhosts` consente a Dispatcher di gestire le richieste per i domini `brandA.com` e `brandB.com` (riga 12).
+* La proprietà `/virtualhosts` consente a Dispatcher di gestire le richieste per i domini `brandA.com` e `brandB.com`. (riga 12).
 * La proprietà `/statfileslevel` è impostata su 2, in modo che i file .stat vengano creati in ciascuna directory che contiene il contenuto web del dominio (riga 41): `/statfileslevel "2"`
 
 Come sempre, la directory principale dei documenti nella cache è la stessa della directory principale dei documenti sul server web (riga 40): `/usr/lib/apache/httpd-2.4.3/htdocs`
@@ -504,7 +504,7 @@ Come sempre, la directory principale dei documenti nella cache è la stessa dell
 
 Per riscrivere i riferimenti ai file con estensioni diverse da .html o .htm, crea un componente trasformatore del rewriter Sling e aggiungilo alla pipeline predefinita del rewriter.
 
-Riscrivi i riferimenti nel caso in cui i percorsi delle risorse non vengano risolti correttamente nel contesto del server web. Ad esempio, è necessario un trasformatore quando i componenti che generano immagini creano collegamenti del tipo /content/sitea/en/products.navimage.png. Il componente topnav indicato ini [Come creare un sito web Internet completo](https://helpx.adobe.com/experience-manager/6-5/sites/developing/using/the-basics.html) crea questi collegamenti.
+Riscrivi i riferimenti nel caso in cui i percorsi delle risorse non vengano risolti correttamente nel contesto del server web. Ad esempio, è necessario un trasformatore quando i componenti che generano immagini creano collegamenti del tipo /content/sitea/en/products.navimage.png. Il componente topnav indicato ini [Come creare un sito web Internet completo](https://helpx.adobe.com/it/experience-manager/6-5/sites/developing/using/the-basics.html) crea questi collegamenti.
 
 Il [rewriter di Sling](https://sling.apache.org/documentation/bundles/output-rewriting-pipelines-org-apache-sling-rewriter.html) è un modulo che esegue la post-elaborazione dell’output di Sling. Le implementazioni della pipeline SAX del rewriter sono costituite da un generatore, uno o più trasformatori e un serializzatore:
 
