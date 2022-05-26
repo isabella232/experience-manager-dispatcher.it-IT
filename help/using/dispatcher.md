@@ -9,7 +9,7 @@ topic-tags: dispatcher
 content-type: reference
 discoiquuid: 1d449ee2-4cdd-4b7a-8b4e-7e6fc0a1d7ee
 exl-id: c9266683-6890-4359-96db-054b7e856dd0
-source-git-commit: 76f7a3fc8d98657c5f46912f452c05fce1b5be61
+source-git-commit: 85a7f38ecb5f5fe620ff51a7cdbe29f546559288
 workflow-type: tm+mt
 source-wordcount: '3190'
 ht-degree: 99%
@@ -27,7 +27,7 @@ Dispatcher è uno strumento di caching e/o bilanciamento del carico di Adobe Exp
 Il processo di distribuzione di Dispatcher è indipendente dal server web e dalla piattaforma del sistema operativo scelti:
 
 1. Scopri di più su Dispatcher (questa pagina). Inoltre, vedi le [domande frequenti su Dispatcher](https://helpx.adobe.com/it/experience-manager/using/dispatcher-faq.html).
-1. Installa un [server web supportato](https://helpx.adobe.com/it/experience-manager/6-3/sites/deploying/using/technical-requirements.html) in base alla documentazione di quel server web.
+1. Installa un [server web supportato](https://helpx.adobe.com/it/experience-manager/6-5/sites/deploying/using/technical-requirements.html) in base alla documentazione di quel server web.
 1. [Installa il modulo Dispatcher](dispatcher-install.md) nel server web e configura di conseguenza il server web.
 1. [Configura Dispatcher](dispatcher-configuration.md) (il file dispatcher.any).
 1. [Configura AEM](page-invalidate.md) in modo che gli aggiornamenti del contenuto invalidino la cache.
