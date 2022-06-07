@@ -1,7 +1,7 @@
 ---
 title: Panoramica di Dispatcher
 seo-title: Adobe AEM Dispatcher Overview
-description: Scopri come utilizzare Dispatcher per migliorare la sicurezza, la memorizzazione in cache e altro ancora su AEM Cloud Services.
+description: Scopri come utilizzare Dispatcher per migliorare la sicurezza, la memorizzazione in cache e altro ancora in AEM Cloud Services.
 seo-description: This article provides a general overview of Adobe Experience Manager Dispatcher.
 uuid: 71766f86-5e91-446b-a078-061b179d090d
 pageversionid: 1193211344162
@@ -12,7 +12,7 @@ exl-id: c9266683-6890-4359-96db-054b7e856dd0
 source-git-commit: 85a7f38ecb5f5fe620ff51a7cdbe29f546559288
 workflow-type: tm+mt
 source-wordcount: '3190'
-ht-degree: 99%
+ht-degree: 100%
 
 ---
 
@@ -282,7 +282,7 @@ In una tipica configurazione di AEM, la configurazione per estensione e/o per pe
 
 Se si utilizza questo approccio per memorizzare in cache il contenuto gestito, le modifiche apportate al contenuto sono visibili solo agli utenti finali dopo la scadenza del periodo di caching configurato e il documento viene di nuovo recuperato da Dispatcher.
 
-Per un controllo più granulare, l’annullamento della validità basato su API consente di annullare la validità della cache di una rete CDN appena viene annullata la validità della cache di Dispatcher. In base all’API della rete CDN, puoi implementare versioni personalizzate di [ContentBuilder](https://helpx.adobe.com/it/experience-manager/6-5/sites/developing/using/reference-materials/javadoc/com/day/cq/replication/ContentBuilder.html) e [TransportHandler](https://helpx.adobe.com/experience-manager/6-5/sites/developing/using/reference-materials/javadoc/com/day/cq/replication/TransportHandler.html) (se l’API non è basata su REST) e configurare un’agente di replica che le userà per annullare la validità della cache della rete CDN.
+Per un controllo più granulare, l’annullamento della validità basato su API consente di annullare la validità della cache di una rete CDN appena viene annullata la validità della cache di Dispatcher. In base all’API della rete CDN, puoi implementare versioni personalizzate di [ContentBuilder](https://helpx.adobe.com/experience-manager/6-5/sites/developing/using/reference-materials/javadoc/com/day/cq/replication/ContentBuilder.html) e [TransportHandler](https://helpx.adobe.com/experience-manager/6-5/sites/developing/using/reference-materials/javadoc/com/day/cq/replication/TransportHandler.html) (se l’API non è basata su REST) e configurare un’agente di replica che le userà per annullare la validità della cache della rete CDN.
 
 >[!NOTE]
 >
