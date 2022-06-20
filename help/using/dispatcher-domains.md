@@ -11,9 +11,9 @@ topic-tags: dispatcher
 content-type: reference
 discoiquuid: 40d91d66-c99b-422d-8e61-c0ced23272ef
 exl-id: 1470b636-7e60-48cc-8c31-899f8785dafa
-source-git-commit: 2aed8101766363834c2fb5b27e0dbd004fc5daf9
-workflow-type: tm+mt
-source-wordcount: '2965'
+source-git-commit: 7d2d1cbbb2fb444769239d48c9fbff4cfd2373a2
+workflow-type: ht
+source-wordcount: '0'
 ht-degree: 100%
 
 ---
@@ -62,9 +62,11 @@ Quando gli agenti di replica Dispatcher Flush richiedono che Dispatcher invalidi
 
 ![](assets/chlimage_1-9.png)
 
-1. Viene attivata una pagina nell’istanza Autore AEM e il contenuto viene replicato nell’istanza Publish.
-1. L’agente di Dispatcher Flush attiva Dispatcher per invalidare la cache per il contenuto replicato.
-1. Dispatcher utilizza uno o più file .stat per invalidare i file memorizzati in cache.
+<ol type="a">
+  <li>Viene attivata una pagina nell’istanza Autore AEM e il contenuto viene replicato nell’istanza Publish.</li>
+  <li>L’agente di Dispatcher Flush attiva Dispatcher per invalidare la cache per il contenuto replicato.</li>
+  <li>Dispatcher utilizza uno o più file .stat per invalidare i file memorizzati in cache.</li>
+</ol>
 
 Per utilizzare Dispatcher con più domini, devi configurare AEM, Dispatcher e il server web. Le soluzioni descritte in questa pagina sono generali e si applicano alla maggior parte degli ambienti. A causa della complessità di alcune topologie AEM, la soluzione può richiedere ulteriori configurazioni personalizzate per risolvere problemi particolari. È probabile che sarà necessario adattare gli esempi per soddisfare le policy di gestione e l’infrastruttura IT esistenti.
 
