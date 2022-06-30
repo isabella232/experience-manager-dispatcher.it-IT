@@ -12,9 +12,9 @@ content-type: reference
 discoiquuid: 40d91d66-c99b-422d-8e61-c0ced23272ef
 exl-id: 1470b636-7e60-48cc-8c31-899f8785dafa
 source-git-commit: c7af1a042b0106fa0a559448398a8dd636d920c2
-workflow-type: tm+mt
+workflow-type: ht
 source-wordcount: '2968'
-ht-degree: 98%
+ht-degree: 100%
 
 ---
 
@@ -62,9 +62,9 @@ Quando gli agenti di replica Dispatcher Flush richiedono che Dispatcher invalidi
 
 ![](assets/chlimage_1-9.png)
 
-* a - Viene attivata una pagina nell&#39;istanza di authoring AEM e il contenuto viene replicato nell&#39;istanza di pubblicazione.
-* b: Dispatcher Flush Agent chiama Dispatcher per annullare la validità della cache per il contenuto replicato.
-* c - Dispatcher tocca uno o più file .stat per annullare la validità dei file memorizzati nella cache.
+* a - Viene attivata una pagina nell’istanza di authoring di AEM e il contenuto viene replicato nell’istanza di pubblicazione.
+* b - L’agente di svuotamento del Dispatcher invia una chiamata al Dispatcher per invalidare la cache per il contenuto replicato.
+* c - Il Dispatcher utilizza uno o più file .stat per invalidare i file memorizzati nella cache.
 
 Per utilizzare Dispatcher con più domini, devi configurare AEM, Dispatcher e il server web. Le soluzioni descritte in questa pagina sono generali e si applicano alla maggior parte degli ambienti. A causa della complessità di alcune topologie AEM, la soluzione può richiedere ulteriori configurazioni personalizzate per risolvere problemi particolari. È probabile che sarà necessario adattare gli esempi per soddisfare le policy di gestione e l’infrastruttura IT esistenti.
 
