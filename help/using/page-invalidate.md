@@ -14,9 +14,9 @@ content-type: reference
 discoiquuid: 79cd94be-a6bc-4d34-bfe9-393b4107925c
 exl-id: 90eb6a78-e867-456d-b1cf-f62f49c91851
 source-git-commit: 25f8569bdeb6b675038bea02637900e9d0fc1f27
-workflow-type: tm+mt
-source-wordcount: '0'
-ht-degree: 0%
+workflow-type: ht
+source-wordcount: '1404'
+ht-degree: 100%
 
 ---
 
@@ -28,7 +28,7 @@ Quando utilizzi Dispatcher con AEM, l’interazione deve essere configurata per 
 
 L’account utente predefinito `admin` viene utilizzato per autenticare gli agenti di replica installati per impostazione predefinita. Devi creare un account utente dedicato da utilizzare con gli agenti di replica.
 
-Per ulteriori informazioni, vedi la sezione [Configurazione degli utenti di replica e trasporto](https://experienceleague.adobe.com/docs/experience-manager-release-information/aem-release-updates/previous-updates/aem-previous-versions.html?lang=it) dell’elenco di controllo della sicurezza di AEM.
+Per ulteriori informazioni, vedi la sezione [Configurazione degli utenti di replica e trasporto](https://helpx.adobe.com/it/experience-manager/6-3/sites/administering/using/security-checklist.html#VerificationSteps) dell’elenco di controllo della sicurezza di AEM.
 
 ## Annullamento della validità della cache di Dispatcher dall’ambiente di authoring {#invalidating-dispatcher-cache-from-the-authoring-environment}
 
@@ -67,7 +67,7 @@ Per configurare un agente di replica nell’istanza Autore AEM per annullare la 
 1. Configura altri parametri come richiesto.
 1. Fai clic su OK per attivare l’agente.
 
-In alternativa, puoi anche accedere e configurare l’agente di Dispatcher Flush dall’[interfaccia utente di AEM Touch](https://experienceleague.adobe.com/docs/experience-manager-65/deploying/configuring/replication.html#configuring-a-dispatcher-flush-agent).
+In alternativa, puoi anche accedere e configurare l’agente di Dispatcher Flush dall’[interfaccia utente di AEM Touch](https://experienceleague.adobe.com/docs/experience-manager-65/deploying/configuring/replication.html?lang=it#configuring-a-dispatcher-flush-agent).
 
 Per ulteriori dettagli su come abilitare l’accesso agli URL personalizzati, vedi [Abilitazione dell’accesso agli URL personalizzati](dispatcher-configuration.md#enabling-access-to-vanity-urls-vanity-urls).
 
