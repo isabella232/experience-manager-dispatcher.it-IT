@@ -2,9 +2,9 @@
 title: Configurazione di Dispatcher
 description: Scopri come configurare Dispatcher. Scopri il supporto per IPv4 e IPv6, i file di configurazione, le variabili di ambiente, la denominazione dell’istanza, la definizione delle farm, l’identificazione degli host virtuali e altro ancora.
 exl-id: 91159de3-4ccb-43d3-899f-9806265ff132
-source-git-commit: 385495c76cd770409e9a002c685e8d375b159207
+source-git-commit: d7045fd779bf2c59034247266930e4b79ec2156f
 workflow-type: tm+mt
-source-wordcount: '8573'
+source-wordcount: '8572'
 ht-degree: 99%
 
 ---
@@ -1374,7 +1374,7 @@ Per ulteriori informazioni, vedi anche le precedenti sezioni `/invalidate` e `/s
 
 ### Configurazione dell’annullamento della validità della cache basata sul tempo: /enableTTL {#configuring-time-based-cache-invalidation-enablettl}
 
-Se impostato su 1 (/enableTTL &quot;1&quot;), il `/enableTTL` valuterà le intestazioni di risposta dal backend e se contengono un `Cache-Control` età massima o `Expires` data, viene creato un file ausiliario vuoto accanto al file della cache, con un tempo di modifica uguale alla data di scadenza. Quando il file memorizzato in cache viene richiesto in un tempo superiore a quello di modifica, quel file viene automaticamente richiesto nuovamente dal backend.
+Se impostato su 1 (`/enableTTL "1"`), `/enableTTL` valuterà le intestazioni di risposta dal backend e se contengono un `Cache-Control` età massima o `Expires` data, viene creato un file ausiliario vuoto accanto al file della cache, con un tempo di modifica uguale alla data di scadenza. Quando il file memorizzato in cache viene richiesto in un tempo superiore a quello di modifica, quel file viene automaticamente richiesto nuovamente dal backend.
 
 >[!NOTE]
 >
