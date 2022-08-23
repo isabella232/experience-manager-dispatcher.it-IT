@@ -2,9 +2,9 @@
 title: Configurazione di Dispatcher
 description: Scopri come configurare Dispatcher. Scopri il supporto per IPv4 e IPv6, i file di configurazione, le variabili di ambiente, la denominazione dell’istanza, la definizione delle farm, l’identificazione degli host virtuali e altro ancora.
 exl-id: 91159de3-4ccb-43d3-899f-9806265ff132
-source-git-commit: aed3c791a308b37ac493a78e918da3a4db1c8a64
+source-git-commit: 385495c76cd770409e9a002c685e8d375b159207
 workflow-type: tm+mt
-source-wordcount: '8549'
+source-wordcount: '8573'
 ht-degree: 99%
 
 ---
@@ -1374,7 +1374,11 @@ Per ulteriori informazioni, vedi anche le precedenti sezioni `/invalidate` e `/s
 
 ### Configurazione dell’annullamento della validità della cache basata sul tempo: /enableTTL {#configuring-time-based-cache-invalidation-enablettl}
 
-Se impostata, la proprietà `/enableTTL` valuterà le intestazioni di risposta provenienti dal backend e, se contengono un’età massima `Cache-Control` oppure una data di scadenza `Expires`, viene creato un file ausiliario vuoto accanto al file della cache, con un tempo di modifica uguale alla data di scadenza. Quando il file memorizzato in cache viene richiesto in un tempo superiore a quello di modifica, quel file viene automaticamente richiesto nuovamente dal backend.
+Se impostato su 1 (/enableTTL &quot;1&quot;), il `/enableTTL` valuterà le intestazioni di risposta dal backend e se contengono un `Cache-Control` età massima o `Expires` data, viene creato un file ausiliario vuoto accanto al file della cache, con un tempo di modifica uguale alla data di scadenza. Quando il file memorizzato in cache viene richiesto in un tempo superiore a quello di modifica, quel file viene automaticamente richiesto nuovamente dal backend.
+
+>[!NOTE]
+>
+>La memorizzazione in cache basata su TTL è un superset di header caching e come tale il `/headers` anche la proprietà deve essere configurata correttamente.
 
 >[!NOTE]
 >
