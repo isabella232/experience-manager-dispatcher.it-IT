@@ -2,9 +2,9 @@
 title: Configurazione di Dispatcher
 description: Scopri come configurare Dispatcher. Scopri il supporto per IPv4 e IPv6, i file di configurazione, le variabili di ambiente, la denominazione dell’istanza, la definizione delle farm, l’identificazione degli host virtuali e altro ancora.
 exl-id: 91159de3-4ccb-43d3-899f-9806265ff132
-source-git-commit: d7045fd779bf2c59034247266930e4b79ec2156f
+source-git-commit: 3455a90308d8661725850e19b67d7ff65f6f662f
 workflow-type: tm+mt
-source-wordcount: '8572'
+source-wordcount: '8561'
 ht-degree: 99%
 
 ---
@@ -782,9 +782,10 @@ Last Modified Date: 2015-06-26T04:32:37.986-0400
 >
 >Se utilizzato con Apache, progetta i modelli di URL del filtro in base alla proprietà DispatcherUseProcessedURL del modulo Dispatcher. (Vedi [Server web Apache - configurare il server web Apache per Dispatcher](dispatcher-install.md##apache-web-server-configure-apache-web-server-for-dispatcher).)
 
+<!----
 >[!NOTE]
 >
->I filtri `0030` e `0031` relativi a Dynamic Media sono applicabili ad AEM 6.0 e versioni successive.
+>Filters `0030` and `0031` regarding Dynamic Media are applicable to AEM 6.0 and higher. -->
 
 Se scegli di estendere l’accesso, considera le seguenti raccomandazioni:
 
