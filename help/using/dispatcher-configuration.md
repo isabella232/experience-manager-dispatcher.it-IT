@@ -3,9 +3,9 @@ title: Configurazione di Dispatcher
 description: Scopri come configurare Dispatcher. Scopri il supporto per IPv4 e IPv6, i file di configurazione, le variabili di ambiente, la denominazione dell’istanza, la definizione delle farm, l’identificazione degli host virtuali e altro ancora.
 exl-id: 91159de3-4ccb-43d3-899f-9806265ff132
 source-git-commit: 3455a90308d8661725850e19b67d7ff65f6f662f
-workflow-type: tm+mt
-source-wordcount: '8561'
-ht-degree: 99%
+workflow-type: ht
+source-wordcount: '0'
+ht-degree: 100%
 
 ---
 
@@ -1375,11 +1375,11 @@ Per ulteriori informazioni, vedi anche le precedenti sezioni `/invalidate` e `/s
 
 ### Configurazione dell’annullamento della validità della cache basata sul tempo: /enableTTL {#configuring-time-based-cache-invalidation-enablettl}
 
-Se impostato su 1 (`/enableTTL "1"`), `/enableTTL` valuterà le intestazioni di risposta dal backend e se contengono un `Cache-Control` età massima o `Expires` data, viene creato un file ausiliario vuoto accanto al file della cache, con un tempo di modifica uguale alla data di scadenza. Quando il file memorizzato in cache viene richiesto in un tempo superiore a quello di modifica, quel file viene automaticamente richiesto nuovamente dal backend.
+Se impostata su 1 (`/enableTTL "1"`), la proprietà `/enableTTL` valuterà le intestazioni di risposta provenienti dal back-end e, se contengono un’età massima `Cache-Control` oppure una data `Expires`, viene creato un file ausiliario vuoto accanto al file della cache, con un tempo di modifica uguale alla data di scadenza. Quando il file memorizzato in cache viene richiesto oltre il tempo di modifica, viene automaticamente richiesto nuovamente dal back-end.
 
 >[!NOTE]
 >
->La memorizzazione in cache basata su TTL è un superset di header caching e come tale il `/headers` anche la proprietà deve essere configurata correttamente.
+>La memorizzazione in cache basata su TTL è un superset di memorizzazione in cache delle intestazioni e come tale anche la proprietà `/headers` deve essere configurata correttamente.
 
 >[!NOTE]
 >
