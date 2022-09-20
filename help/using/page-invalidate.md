@@ -13,10 +13,10 @@ topic-tags: dispatcher
 content-type: reference
 discoiquuid: 79cd94be-a6bc-4d34-bfe9-393b4107925c
 exl-id: 90eb6a78-e867-456d-b1cf-f62f49c91851
-source-git-commit: f447ff9b3785248a4906c1c9abdcbd18576aa36d
+source-git-commit: f255701f23a628ba0d8b6cd91228462e1b552ffa
 workflow-type: tm+mt
-source-wordcount: '1404'
-ht-degree: 100%
+source-wordcount: '1421'
+ht-degree: 98%
 
 ---
 
@@ -114,6 +114,7 @@ Il flushing di Dispatcher è controllato da un agente di replica che agisce sull
    **Nota:** per gli agenti di Dispatcher Flush, la proprietà URI viene utilizzata solo se usi voci virtualhost basate sul percorso per differenziare le farm. Utilizza questo campo per individuare la farm da invalidare. Ad esempio, la farm n. 1 ha l’host virtuale `www.mysite.com/path1/*` e la farm n. 2 ha l’host virtuale `www.mysite.com/path2/*`. Puoi utilizzare l’URL `/path1/invalidate.cache` per individuare la prima farm e `/path2/invalidate.cache` per individuare la seconda farm. Per ulteriori informazioni, vedi [Utilizzo di Dispatcher con più domini](dispatcher-domains.md).
 
 1. Configura altri parametri come richiesto.
+1. Accedi all’istanza di pubblicazione e convalida la configurazione dell’agente di flush. Inoltre, assicurati che sia abilitato.
 1. Ripeti per ogni istanza Publish interessata.
 
 Dopo la configurazione, quando attivi una pagina da Autore a Publish, questo agente avvia una replica standard. Il registro include messaggi che indicano le richieste provenienti dal server di pubblicazione, come nell’esempio seguente:
