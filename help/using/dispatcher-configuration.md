@@ -3,9 +3,9 @@ title: Configurazione di Dispatcher
 description: Scopri come configurare Dispatcher. Scopri il supporto per IPv4 e IPv6, i file di configurazione, le variabili di ambiente, la denominazione dell’istanza, la definizione delle farm, l’identificazione degli host virtuali e altro ancora.
 exl-id: 91159de3-4ccb-43d3-899f-9806265ff132
 source-git-commit: f379daec71240150706eb90d930dbc756bbf8eb1
-workflow-type: tm+mt
+workflow-type: ht
 source-wordcount: '8636'
-ht-degree: 98%
+ht-degree: 100%
 
 ---
 
@@ -1282,14 +1282,14 @@ Quando un parametro viene ignorato per una pagina, questa pagine viene memorizza
 
 >[!NOTE]
 >
->È consigliabile configurare la `ignoreUrlParams` in modo inserire nell&#39;elenco Consentiti. Di conseguenza, tutti i parametri di query vengono ignorati e solo i parametri di query noti o previsti sono esenti (&quot;negati&quot;) dall’essere ignorati. Per ulteriori dettagli ed esempi consulta [questa pagina](https://github.com/adobe/aem-dispatcher-optimizer-tool/blob/main/docs/Rules.md#dot---the-dispatcher-publish-farm-cache-should-have-its-ignoreurlparams-rules-configured-in-an-allow-list-manner).
+>È consigliabile configurare l’impostazione `ignoreUrlParams` come per creare un elenco Consentiti. In tal modo, tutti i parametri di query verranno ignorati e solo i parametri di query noti o previsti saranno esenti dall’essere ignorati. Per ulteriori dettagli ed esempi consulta [questa pagina](https://github.com/adobe/aem-dispatcher-optimizer-tool/blob/main/docs/Rules.md#dot—the-dispatcher-publish-farm-cache-should-have-its-ignoreurlparams-rules-configure-in-an-allow-list-mode).
 
-Per specificare quali parametri vengono ignorati, aggiungi regole glob alla proprietà `ignoreUrlParams`:
+Per specificare quali parametri ignorare, aggiungi regole glob alla proprietà `ignoreUrlParams`:
 
-* Per memorizzare in cache una pagina nonostante la richiesta contenente un parametro URL, crea una proprietà glob che consenta al parametro di essere ignorato.
-* Per evitare che la pagina venga memorizzata nella cache, crea una proprietà glob che nega il parametro (da ignorare).
+* Per memorizzare in cache una pagina nonostante la richiesta contenga un parametro URL, crea una proprietà glob di tipo “allow” per consentire al parametro di essere ignorato.
+* Per evitare che la pagina venga memorizzata nella cache, crea una proprietà glob di tipo “deny” per impedire al parametro di essere ignorato.
 
-L’esempio seguente fa sì che Dispatcher ignori tutti i parametri, tranne il `nocache` parametro . Di conseguenza, richiedi gli URL che includono `nocache` I parametri non vengono mai memorizzati nella cache dal dispatcher:
+Il codice di esempio seguente fa sì che Dispatcher ignori tutti i parametri, tranne il parametro `nocache`. In tal modo, gli URL di una richiesta che includono il parametro `nocache` non verranno mai memorizzati nella cache dal dispatcher:
 
 ```xml
 /ignoreUrlParams
@@ -1301,13 +1301,13 @@ L’esempio seguente fa sì che Dispatcher ignori tutti i parametri, tranne il `
 }
 ```
 
-Nel contesto della `ignoreUrlParams` nell&#39;esempio di configurazione precedente, la seguente richiesta HTTP causa la memorizzazione nella cache della pagina perché il `willbecached` parametro ignorato:
+Nell’esempio della configurazione di `ignoreUrlParams` precedente, la seguente richiesta HTTP causa la memorizzazione nella cache della pagina perché il parametro `willbecached` viene ignorato:
 
 ```xml
 GET /mypage.html?willbecached=true
 ```
 
-Nel contesto della `ignoreUrlParams` esempio di configurazione, la seguente richiesta HTTP fa sì che la pagina sia **not** perché `nocache` Il parametro non viene ignorato:
+Nell’esempio della configurazione di `ignoreUrlParams`, la seguente richiesta HTTP fa in modo che la pagina **non** venga memorizzata nella cache, perché il parametro `nocache` non viene ignorato:
 
 ```xml
 GET /mypage.html?nocache=true
