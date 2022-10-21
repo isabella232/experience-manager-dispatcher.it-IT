@@ -3,9 +3,9 @@ title: Configurazione di Dispatcher
 description: Scopri come configurare Dispatcher. Scopri il supporto per IPv4 e IPv6, i file di configurazione, le variabili di ambiente, la denominazione dell’istanza, la definizione delle farm, l’identificazione degli host virtuali e altro ancora.
 exl-id: 91159de3-4ccb-43d3-899f-9806265ff132
 source-git-commit: 112aa011e7a338be2b397d0c9b785fc2d9905b5d
-workflow-type: tm+mt
+workflow-type: ht
 source-wordcount: '8675'
-ht-degree: 99%
+ht-degree: 100%
 
 ---
 
@@ -406,7 +406,7 @@ Utilizzando questo esempio, la tabella che segue mostra gli host virtuali risolt
 
 >[!CAUTION]
 >
->Per abilitare questa funzione, la proprietà `/allowAuthorized` **deve** essere impostata su `"0"` nella sezione `/cache`. Come descritto in [Memorizzazione in cache quando si utilizza l&#39;autenticazione](#caching-when-authentication-is-used) sezione quando si imposta `/allowAuthorized 0 ` le richieste che includono informazioni di autenticazione sono **not** memorizzati nella cache. Se è necessario utilizzare la memorizzazione in cache sensibile alle autorizzazioni, consulta la sezione [Memorizzazione in cache di contenuti protetti](https://experienceleague.adobe.com/docs/experience-manager-dispatcher/using/configuring/permissions-cache.html) pagina.
+>Per abilitare questa funzione, la proprietà `/allowAuthorized` **deve** essere impostata su `"0"` nella sezione `/cache`. Come descritto nella sezione [Caching quando si utilizza l’autenticazione](#caching-when-authentication-is-used), quando si imposta `/allowAuthorized 0 ` le richieste che includono informazioni di autenticazione **non** vengono memorizzate nella cache. Se viene richiesta la memorizzazione in cache sensibile alle autorizzazioni, consulta la pagina [Caching di contenuto protetto](https://experienceleague.adobe.com/docs/experience-manager-dispatcher/using/configuring/permissions-cache.html?lang=it).
 
 Crea una sessione protetta per l’accesso alla farm di rendering, in modo che gli utenti debbano effettuare il login per accedere a qualsiasi pagina della farm. Una volta effettuato il login, gli utenti possono accedere alle pagine della farm. Per informazioni sull’utilizzo di questa funzione con i gruppi utenti chiusi (CUG), vedi [Creazione di un gruppo utenti chiuso](https://experienceleague.adobe.com/docs/experience-manager-65/administering/security/cug.html?lang=it#creating-the-user-group-to-be-used). Inoltre, vedi [Elenco di controllo della sicurezza](/help/using/security-checklist.md) di Dispatcher prima di andare “live”.
 
