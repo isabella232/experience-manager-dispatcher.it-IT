@@ -14,9 +14,9 @@ internal: n
 snippet: y
 exl-id: ec378409-ddb7-4917-981d-dbf2198aca98
 source-git-commit: 0debee043078b869d0af3258075bd83bf0312c8f
-workflow-type: ht
-source-wordcount: '1359'
-ht-degree: 100%
+workflow-type: tm+mt
+source-wordcount: '0'
+ht-degree: 0%
 
 ---
 
@@ -253,9 +253,9 @@ Last Modified Date: 2014-08-12T13:11:21.401-0400
 
 Utilizza il certificato di rendering con le istruzioni contenute nella sezione *Abilita SSL nell&#39;istanza Publish* per configurare il servizio HTTP dell&#39;istanza di rendering in modo che utilizzi SSL:
 
-* AEM 6.2: [abilitazione di HTTP su SSL](https://experienceleague.adobe.com/docs/experience-manager-release-information/aem-release-updates/previous-updates/aem-previous-versions.html?lang=it)
-* AEM 6.1: [abilitazione di HTTP su SSL](https://experienceleague.adobe.com/docs/experience-manager-release-information/aem-release-updates/previous-updates/aem-previous-versions.html?lang=it)
-* Versioni precedenti di AEM: visita [questa pagina.](https://helpx.adobe.com/it/experience-manager/aem-previous-versions.html)
+* AEM 6.2: [abilitazione di HTTP su SSL](https://helpx.adobe.com/experience-manager/6-2/sites/deploying/using/config-ssl.html)
+* AEM 6.1: [abilitazione di HTTP su SSL](https://docs.adobe.com/content/docs/en/aem/6-1/deploy/configuring/config-ssl.html)
+* Versioni precedenti di AEM: visita [questa pagina.](https://helpx.adobe.com/experience-manager/aem-previous-versions.html)
 
 ### Configurazione di SSL per il modulo Dispatcher {#configuring-ssl-for-the-dispatcher-module}
 
