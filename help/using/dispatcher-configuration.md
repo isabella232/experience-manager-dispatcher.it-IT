@@ -2,8 +2,8 @@
 title: Configurazione di Dispatcher
 description: Scopri come configurare Dispatcher. Scopri il supporto per IPv4 e IPv6, i file di configurazione, le variabili di ambiente, la denominazione dell’istanza, la definizione delle farm, l’identificazione degli host virtuali e altro ancora.
 exl-id: 91159de3-4ccb-43d3-899f-9806265ff132
-source-git-commit: 112aa011e7a338be2b397d0c9b785fc2d9905b5d
-workflow-type: ht
+source-git-commit: 0debee043078b869d0af3258075bd83bf0312c8f
+workflow-type: tm+mt
 source-wordcount: '8675'
 ht-degree: 100%
 
@@ -841,7 +841,7 @@ Una singola voce può avere `glob` o una combinazione di `method`, `url`, `query
 
 ### Verifica della sicurezza di Dispatcher {#testing-dispatcher-security}
 
-I filtri di Dispatcher devono bloccare l’accesso alle pagine e agli script seguenti sulle istanze di AEM Publish. Prova ad aprire le pagine seguenti in un browser web, come farebbe un visitatore del sito, e verifica che venga restituito il codice 403. Se viene restituito un qualunque altro risultato, regola i filtri.
+I filtri di Dispatcher devono bloccare l’accesso alle pagine e agli script seguenti sulle istanze di AEM Publish. Utilizza un browser web per tentare di aprire le pagine seguenti come farebbe un visitatore del sito e verifica che venga restituito il codice 404. Se ottiene qualunque altro risultato, regola i filtri.
 
 Tieni presente che dovresti vedere il normale rendering della pagina per `/content/add_valid_page.html?debug=layout`.
 
@@ -901,7 +901,7 @@ Esegui il comando sotto riportato su un terminale o in un prompt dei comandi per
 
 `curl -X POST "https://anonymous:anonymous@hostname:port/content/usergenerated/mytestnode"`
 
-Esegui il comando sotto riportato su un terminale o in un prompt dei comandi per tentare di invalidare la cache di Dispatcher e accertati di ricevere in risposta il codice 404:
+Esegui il comando sotto riportato su un terminale o in un prompt dei comandi per tentare di invalidare la cache di Dispatcher e accertati di ricevere in risposta il codice 403:
 
 `curl -H "CQ-Handle: /content" -H "CQ-Path: /content" https://yourhostname/dispatcher/invalidate.cache`
 
