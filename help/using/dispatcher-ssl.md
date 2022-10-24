@@ -13,7 +13,7 @@ index: y
 internal: n
 snippet: y
 exl-id: ec378409-ddb7-4917-981d-dbf2198aca98
-source-git-commit: 3a0e237278079a3885e527d7f86989f8ac91e09d
+source-git-commit: 0debee043078b869d0af3258075bd83bf0312c8f
 workflow-type: ht
 source-wordcount: '1359'
 ht-degree: 100%
@@ -77,7 +77,7 @@ Il seguente esempio di file dispatcher.any mostra i valori delle proprietà per 
    { 
       /virtualhosts
       {
-         # select this farm for all incoming HTTPS requestss
+         # select this farm for all incoming HTTPS requests
          "https://*"
       }
       /renders
@@ -100,7 +100,7 @@ Il seguente esempio di file dispatcher.any mostra i valori delle proprietà per 
       /virtualhosts
       {
          # select this farm for all incoming HTTP requests
-         "https://*"
+         "http://*"
       }
       /renders
       {
