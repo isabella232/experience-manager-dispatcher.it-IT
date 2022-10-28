@@ -10,8 +10,8 @@ topic-tags: dispatcher
 content-type: reference
 discoiquuid: f00ad751-6b95-4365-8500-e1e0108d9536
 exl-id: 9375d1c0-8d9e-46cb-9810-fa4162a8c1ba
-source-git-commit: 63dc6184b502b517238c60ef6223b39bd7594306
-workflow-type: ht
+source-git-commit: 663e493f3e1ae26c264e574cec4e0b271a971809
+workflow-type: tm+mt
 source-wordcount: '3693'
 ht-degree: 100%
 
@@ -306,7 +306,7 @@ L’archivio di installazione contiene i seguenti file, a seconda che sia stato 
 | http.conf.disp&lt;x> | Un esempio di file di configurazione del server Apache. |
 | dispatcher.any | Esempio di file di configurazione per Dispatcher. |
 | README | File Readme contenente istruzioni di installazione e informazioni dell’ultimo minuto. **Nota**: leggere questo file prima di iniziare l’installazione. |
-| CHANGES | Il file Changes in cui sono elencati i problemi risolti in questa e nelle precedenti versioni. |
+| MODIFICHE | Il file Changes in cui sono elencati i problemi risolti in questa e nelle precedenti versioni. |
 
 Per aggiungere Dispatcher al server web Apache, fai quanto segue:
 
@@ -339,8 +339,8 @@ Immettere i seguenti comandi in una finestra del terminale, sostituendo `[path t
 ```shell
 semanage fcontext -a -t httpd_modules_t [path to the dispatcher.so file]
 setsebool -P httpd_can_network_connect on
-chcon -R --type httpd_sys_content_t [path to the docroot]
-semanage fcontext -a -t httpd_sys_content_t "[path to the docroot](/.*)?"
+chcon -R --type httpd_sys_rw_content_t [path to the docroot]
+semanage fcontext -a -t httpd_sys_rw_content_t "[path to the docroot](/.*)?"
 ```
 
 ### Server web Apache: configurazione del server web Apache per Dispatcher {#apache-web-server-configure-apache-web-server-for-dispatcher}
@@ -593,7 +593,7 @@ L’archivio di installazione contiene i seguenti file, a seconda che sia stato 
 | `obj.conf.disp` | Esempio di file di configurazione per Sun Java System Web Server / iPlanet. |
 | `dispatcher.any` | Esempio di file di configurazione per Dispatcher. |
 | README | File Readme contenente istruzioni di installazione e informazioni dell’ultimo minuto. Nota: leggere questo file prima di iniziare l’installazione. |
-| CHANGES | Il file Changes in cui sono elencati i problemi risolti in questa e nelle precedenti versioni. |
+| MODIFICHE | Il file Changes in cui sono elencati i problemi risolti in questa e nelle precedenti versioni. |
 
 Per aggiungere Dispatcher al server web, fai quanto segue:
 
@@ -642,7 +642,7 @@ Dove:
 | Parametro | Descrizione |
 |--- |--- |
 | config | Posizione e nome del file di configurazione `dispatcher.any.` |
-| logfile | Posizione e nome del file di registro. |
+| file di registro | Posizione e nome del file di registro. |
 | loglevel | Livello di registro per la scrittura dei messaggi nel file di registro: <br/>**0** Errori <br/>**1** Avvisi <br/>**2** Informazioni <br/>**3** Debug <br/>**Nota:** si consiglia di impostare il livello di registro su 3 durante l’installazione e il test e su 0 quando l’esecuzione avviene in un ambiente di produzione. |
 | keepalivetimeout | Specifica il timeout keep-alive espresso in secondi. A partire dalla versione 4.2.0 di Dispatcher, il valore keep-alive predefinito è 60. Il valore 0 disattiva keep-alive. |
 
