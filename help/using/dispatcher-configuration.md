@@ -3,7 +3,7 @@ title: Configurazione di Dispatcher
 description: Scopri come configurare Dispatcher. Scopri il supporto per IPv4 e IPv6, i file di configurazione, le variabili di ambiente, la denominazione dell’istanza, la definizione delle farm, l’identificazione degli host virtuali e altro ancora.
 exl-id: 91159de3-4ccb-43d3-899f-9806265ff132
 source-git-commit: 51be516f90587ceda19180f13727c8372a794261
-workflow-type: ht
+workflow-type: tm+mt
 source-wordcount: '8675'
 ht-degree: 100%
 
