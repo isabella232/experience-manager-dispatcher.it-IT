@@ -2,7 +2,7 @@
 title: Configurazione di Dispatcher
 description: Scopri come configurare Dispatcher. Scopri il supporto per IPv4 e IPv6, i file di configurazione, le variabili di ambiente, la denominazione dell’istanza, la definizione delle farm, l’identificazione degli host virtuali e altro ancora.
 exl-id: 91159de3-4ccb-43d3-899f-9806265ff132
-source-git-commit: 0debee043078b869d0af3258075bd83bf0312c8f
+source-git-commit: 9ee19d28b9d18f2ffd4f45129e48b5431beacc77
 workflow-type: ht
 source-wordcount: '8675'
 ht-degree: 100%
@@ -625,7 +625,7 @@ Se i filtri non si attivano come previsto, abilita la [registrazione della tracc
 Il seguente esempio di sezione di filtro induce Dispatcher a rifiutare tutte le richieste di file. È necessario negare l’accesso a tutti i file e quindi consentire l’accesso ad aree specifiche.
 
 ```xml
-  /0001  { /glob "*" /type "deny" }
+/0001  { /type "deny" /url "*"  }
 ```
 
 Le richieste inviate a un’area negata in modo esplicito causano la restituzione del codice di errore 404 (pagina non trovata).
@@ -692,8 +692,8 @@ Di seguito è riportato un esempio di regola che blocca l’acquisizione del con
 /006 {
         /type "deny"
         /path "/content/*"
-        /selectors '(feed|rss|pages|languages|blueprint|infinity|tidy)'
-        /extension '(json|xml|html)'
+        /selectors '(feed|rss|pages|languages|blueprint|infinity|tidy|sysview|docview|query|jcr:content|_jcr_content|search|childrenlist|ext|assets|assetsearch|[0-9-]+)'
+        /extension '(json|xml|html|feed))'
         }
 ```
 
@@ -729,7 +729,7 @@ Last Modified Date: 2015-06-26T04:32:37.986-0400
   /filter
       {
       # Deny everything first and then allow specific entries
-      /0001 { /type "deny" /glob "*" }
+      /0001  { /type "deny" /url "*"  }
 
       # Open consoles
 #     /0011 { /type "allow" /url "/admin/*"  }  # allow servlet engine admin
