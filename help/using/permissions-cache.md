@@ -10,10 +10,10 @@ topic-tags: dispatcher
 content-type: reference
 discoiquuid: 4f9b2bc8-a309-47bc-b70d-a1c0da78d464
 exl-id: 3d8d8204-7e0d-44ad-b41b-6fec2689c6a6
-source-git-commit: ef395d122b1f248cbcdad5a74ff111872c4d2b00
+source-git-commit: 31eaa42b17838d97cacd5c535e04be01a3eb6807
 workflow-type: tm+mt
-source-wordcount: '856'
-ht-degree: 96%
+source-wordcount: '918'
+ht-degree: 90%
 
 ---
 
@@ -60,7 +60,6 @@ I diagrammi seguenti illustrano l’ordine degli eventi che si verificano quando
 1. Il rendering chiama il servlet di autorizzazione di AEM (non il servlet AuthChcker di Dispatcher) per eseguire un controllo di sicurezza. Quando l’utente viene autorizzato, il rendering include la pagina sottoposta a rendering nel corpo del messaggio di risposta.
 1. Dispatcher inoltra la risposta al browser. Dispatcher memorizza in cache il corpo del messaggio di risposta del rendering.
 
-
 ## Implementazione del caching sensibile alle autorizzazioni {#implementing-permission-sensitive-caching}
 
 Per implementare il caching sensibile alle autorizzazioni, esegui le operazioni sotto riportate:
@@ -71,6 +70,11 @@ Per implementare il caching sensibile alle autorizzazioni, esegui le operazioni 
 >[!NOTE]
 >
 >In genere, le risorse protette vengono memorizzate in una cartella separata rispetto ai file non protetti. Ad esempio, /content/secure/
+
+>[!NOTE]
+>
+>Quando è presente una CDN (o qualsiasi altra cache) davanti al dispatcher, devi impostare le intestazioni di memorizzazione nella cache di conseguenza in modo che la CDN non memorizzi nella cache il contenuto privato. Esempio: `Header always set Cache-Control private`.
+>Per AEM as a Cloud Service consulta la sezione [Memorizzazione in cache](https://experienceleague.adobe.com/docs/experience-manager-cloud-service/content/implementing/content-delivery/caching.html) per ulteriori dettagli su come impostare intestazioni private di memorizzazione in cache.
 
 ## Crea il servlet Auth Checker {#create-the-auth-checker-servlet}
 
