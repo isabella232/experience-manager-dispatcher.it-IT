@@ -11,9 +11,9 @@ content-type: reference
 discoiquuid: 4f9b2bc8-a309-47bc-b70d-a1c0da78d464
 exl-id: 3d8d8204-7e0d-44ad-b41b-6fec2689c6a6
 source-git-commit: 31eaa42b17838d97cacd5c535e04be01a3eb6807
-workflow-type: tm+mt
+workflow-type: ht
 source-wordcount: '918'
-ht-degree: 90%
+ht-degree: 100%
 
 ---
 
@@ -73,8 +73,8 @@ Per implementare il caching sensibile alle autorizzazioni, esegui le operazioni 
 
 >[!NOTE]
 >
->Quando è presente una CDN (o qualsiasi altra cache) davanti al dispatcher, devi impostare le intestazioni di memorizzazione nella cache di conseguenza in modo che la CDN non memorizzi nella cache il contenuto privato. Esempio: `Header always set Cache-Control private`.
->Per AEM as a Cloud Service consulta la sezione [Memorizzazione in cache](https://experienceleague.adobe.com/docs/experience-manager-cloud-service/content/implementing/content-delivery/caching.html) per ulteriori dettagli su come impostare intestazioni private di memorizzazione in cache.
+>Quando è presente una CDN (o qualsiasi altra cache) davanti al dispatcher, è consigliabile impostare le intestazioni di memorizzazione nella cache in modo tale che la CDN non memorizzi nella cache il contenuto privato. Esempio: `Header always set Cache-Control private`.
+>Per AEM as a Cloud Service consulta la pagina [Memorizzazione in cache](https://experienceleague.adobe.com/docs/experience-manager-cloud-service/content/implementing/content-delivery/caching.html?lang=it) per ulteriori dettagli su come impostare intestazioni private di memorizzazione in cache.
 
 ## Crea il servlet Auth Checker {#create-the-auth-checker-servlet}
 
@@ -151,7 +151,7 @@ public class AuthcheckerServlet extends SlingSafeMethodsServlet {
 
 >[!NOTE]
 >
->Se i tuoi requisiti consentono il caching dei documenti autenticati, imposta la proprietà /allowAuthorized sotto la sezione /cache su `/allowAuthorized 1`. Vedi [Memorizzazione in cache quando viene utilizzata l&#39;autenticazione](/help/using/dispatcher-configuration.md) per ulteriori dettagli.
+>Se i tuoi requisiti consentono la memorizzazione in cache dei documenti autenticati, imposta la proprietà /allowAuthorized sotto la sezione /cache su `/allowAuthorized 1`. Consulta [Memorizzazione in cache quando viene utilizzata l’autenticazione](/help/using/dispatcher-configuration.md) per ulteriori dettagli.
 
 La sezione auth_checker del file dispatcher.any controlla il comportamento del caching sensibile alle autorizzazioni. La sezione auth_checker include le seguenti sottosezioni:
 
