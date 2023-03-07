@@ -2,10 +2,10 @@
 title: Configurazione di Dispatcher
 description: Scopri come configurare Dispatcher. Scopri il supporto per IPv4 e IPv6, i file di configurazione, le variabili di ambiente, la denominazione dell’istanza, la definizione delle farm, l’identificazione degli host virtuali e altro ancora.
 exl-id: 91159de3-4ccb-43d3-899f-9806265ff132
-source-git-commit: 0378cfc2585339920894dd354c59929ef2bf49e0
-workflow-type: ht
-source-wordcount: '8710'
-ht-degree: 100%
+source-git-commit: 0ac7c1cf3fc9330665b7a758cea38410c1958f1c
+workflow-type: tm+mt
+source-wordcount: '8984'
+ht-degree: 96%
 
 ---
 
@@ -1383,7 +1383,31 @@ Per ulteriori informazioni, vedi anche le precedenti sezioni `/invalidate` e `/s
 
 ### Configurazione dell’annullamento della validità della cache basata sul tempo: /enableTTL {#configuring-time-based-cache-invalidation-enablettl}
 
-Se impostata su 1 (`/enableTTL "1"`), la proprietà `/enableTTL` valuterà le intestazioni di risposta provenienti dal back-end e, se contengono un’età massima `Cache-Control` oppure una data `Expires`, viene creato un file ausiliario vuoto accanto al file della cache, con un tempo di modifica uguale alla data di scadenza. Quando il file memorizzato in cache viene richiesto oltre il tempo di modifica, viene automaticamente richiesto nuovamente dal back-end.
+L’annullamento della validità della cache in base al tempo dipende da `/enableTTL` e la presenza di intestazioni di scadenza regolari dallo standard HTTP. Se si imposta la proprietà su 1 (`/enableTTL "1"`), valuta le intestazioni di risposta dal backend e, se le intestazioni contengono un `Cache-Control`, `max-age` o `Expires` viene creato un file ausiliario vuoto accanto al file memorizzato in cache, con un tempo di modifica uguale alla data di scadenza. Quando il file memorizzato in cache viene richiesto oltre il tempo di modifica, viene automaticamente richiesto nuovamente dal back-end.
+
+Prima della versione 4.3.5 di Dispatcher, la logica di invalidazione TTL si basava solo sul valore TTL configurato. Con la versione di Dispatcher 4.3.5, entrambi i valori TTL impostati **e** vengono prese in considerazione le regole di invalidazione della cache di dispatcher. Di conseguenza, per un file memorizzato in cache:
+
+1. Se `/enableTTL` è impostato su 1, viene controllata la scadenza del file. Se il file è scaduto in base al TTL impostato, non vengono eseguiti altri controlli e il file memorizzato in cache viene richiesto nuovamente dal backend.
+2. Se il file non è scaduto o `/enableTTL` non è configurato, vengono applicate le regole standard di invalidazione della cache, ad esempio quelle impostate da [/statfileslevel](#invalidating-files-by-folder-level) e [/invalidate](#automatically-invalidating-cached-files). Questo significa che Dispatcher può annullare la validità dei file per i quali il TTL non è scaduto.
+
+Questa nuova implementazione supporta i casi di utilizzo in cui i file hanno un TTL più lungo (ad esempio, sulla rete CDN) ma possono ancora essere invalidati anche se il TTL non è scaduto. Favorisce l’aggiornamento dei contenuti rispetto al rapporto cache-hit sul dispatcher.
+
+Al contrario, nel caso in cui **solo** la logica di scadenza applicata a un file e quindi impostata `/enableTTL` a 1 ed esclude tale file dal meccanismo standard di invalidazione della cache. Ad esempio:
+
+* Configurare [regole di invalidazione](#automatically-invalidating-cached-files) nella sezione cache per ignorare il file. Nel frammento seguente, tutti i file che terminano con `.example.html` vengono ignorati e scadranno solo quando il valore TTL impostato viene superato.
+
+```xml
+  /invalidate
+  {
+   /0000  { /glob "*" /type "deny" }
+   /0001  { /glob "*.html" /type "allow" }
+   /0002  { /glob "*.example.html" /type "deny" }
+  }
+```
+
+* Progettare la struttura del contenuto in modo da poter impostare un valore [/statfilelevel](#invalidating-files-by-folder-level) in modo che il file non venga invalidato automaticamente.
+
+Ciò assicura che `.stat` l&#39;annullamento della validità del file non viene utilizzato e per i file specificati è attiva solo la scadenza TTL.
 
 >[!NOTE]
 >
