@@ -4,10 +4,10 @@ seo-title: Top issues for AEM Dispatcher
 description: Problemi principali di AEM Dispatcher
 seo-description: Top issues for Adobe AEM Dispatcher
 exl-id: 4dcc7318-aba5-4b17-8cf4-190ffefbba75
-source-git-commit: 3a0e237278079a3885e527d7f86989f8ac91e09d
-workflow-type: ht
-source-wordcount: '1633'
-ht-degree: 100%
+source-git-commit: 26c8edbb142297830c7c8bd068502263c9f0e7eb
+workflow-type: tm+mt
+source-wordcount: '1578'
+ht-degree: 74%
 
 ---
 
@@ -19,23 +19,23 @@ ht-degree: 100%
 
 ### Cos’è Dispatcher?
 
-Dispatcher è uno strumento di caching e/o bilanciamento del carico di Adobe Experience Manager che consente di realizzare un ambiente di authoring web veloce e dinamico. Per il caching, Dispatcher funziona come parte di un server HTTP, come Apache, allo scopo di memorizzare (o “memorizzare in cache”) la maggior parte del contenuto statico del sito web e di accedere al motore di layout del sito web il più raramente possibile. In un ruolo di bilanciamento del carico, Dispatcher distribuisce le richieste degli utenti (carico) tra le diverse istanze di AEM (rendering).
+Dispatcher è uno strumento di caching e/o bilanciamento del carico di Adobe Experience Manager che consente di realizzare un ambiente di authoring Web veloce e dinamico. Per il caching, Dispatcher funziona come parte di un server HTTP, come Apache. Ha lo scopo di memorizzare (o &quot;caching&quot;) la maggior parte del contenuto statico del sito web possibile e di accedere al motore di layout del sito web il più raramente possibile. In un ruolo di bilanciamento del carico, Dispatcher distribuisce le richieste degli utenti (caricare) tra diverse istanze AEM (render).
 
 Per il caching, il modulo Dispatcher utilizza la funzionalità del server web che consente di gestire il contenuto statico. Dispatcher inserisce i documenti memorizzati in cache nella directory principale dei documenti del server web.
 
 ### Come viene eseguito il caching in Dispatcher?
 
-Dispatcher utilizza la funzionalità del server web che consente di gestire il contenuto statico. Dispatcher archivia i documenti memorizzati in cache nella directory principale dei documenti del server web. In Dispatcher sono disponibili due metodi principali per aggiornare il contenuto della cache quando vengono apportate modifiche al sito web.
+Dispatcher utilizza la funzionalità del server web che consente di gestire il contenuto statico. Dispatcher archivia i documenti memorizzati nella directory principale dei documenti del server Web. In Dispatcher sono disponibili due metodi principali per aggiornare il contenuto della cache quando vengono apportate modifiche al sito web.
 
-* **Aggiornamenti del contenuto**: le pagine modificate e i file che sono direttamente associati ad esse vengono rimossi.
+* **Aggiornamenti del contenuto** rimuovi le pagine modificate e i file direttamente associati ad esse.
 * **Annullamento automatico della validità**: le parti della cache che potrebbero risultare obsolete dopo un aggiornamento vengono invalidate automaticamente. Ad esempio, le pagine ritenute obsolete vengono chiaramente contrassegnate, ma non eliminate.
 
 ### Quali sono i vantaggi del bilanciamento del carico?
 
-Il bilanciamento del carico distribuisce le richieste degli utenti (carico) tra le diverse istanze AEM. L’elenco che segue descrive i vantaggi del bilanciamento del carico:
+Il bilanciamento del carico distribuisce le richieste degli utenti (carico) in diverse istanze AEM. L&#39;elenco seguente descrive i vantaggi del bilanciamento del carico:
 
-* **Maggiore potenza di elaborazione**: in pratica Dispatcher condivide le richieste di documenti con diverse istanze di AEM. Poiché ciascuna istanza ha meno documenti da elaborare, i tempi di risposta sono più rapidi. Dispatcher mantiene statistiche interne per ogni categoria di documenti, in modo da poter stimare il carico e distribuire le query in modo efficiente.
-* **Maggiore copertura in caso di errore**: se Dispatcher non riceve risposte da un’istanza, inoltra automaticamente le richieste a una delle altre istanze. Pertanto, se un’istanza risulta non disponibile, l’unico effetto è un rallentamento del sito, proporzionato alla potenza di elaborazione persa.
+* **Maggiore potenza di elaborazione**: In pratica, questo metodo significa che Dispatcher condivide le richieste di documenti tra più istanze di AEM. Poiché ciascuna istanza ha meno documenti da elaborare, i tempi di risposta sono più rapidi. Dispatcher mantiene statistiche interne per ogni categoria di documenti, in modo da poter stimare il carico e distribuire le query in modo efficiente.
+* **Maggiore copertura in caso di errore**: Se Dispatcher non riceve risposte da un’istanza, invia automaticamente le richieste a una delle altre istanze. Pertanto, se un’istanza risulta non disponibile, l’unico effetto è un rallentamento del sito, proporzionato alla potenza di elaborazione persa.
 
 >[!NOTE]
 >
@@ -105,9 +105,8 @@ Content-Length: 0
 
 Dispatcher elimina i file e le cartelle memorizzati in cache con nomi che corrispondono al valore dell’intestazione CQ-Handle. Ad esempio, il CQ-Handle `/content/geomtrixx-outdoors/en` corrisponde ai seguenti elementi:
 
-Tutti i file (con qualsiasi estensione) denominati en nella directory geometrixx-outdoors
-Qualunque directory denominata `_jcr_content` sotto la directory en (che, se esiste, contiene i rendering memorizzati in cache dei sottonodi della pagina)
-La directory en verrà eliminata solo se `CQ-Action` è `Delete` o `Deactivate`.
+Tutti i file (di qualsiasi estensione di file) denominati en nella directory geometrixx-outdoors. Qualsiasi directory denominata `_jcr_content` sotto la directory en (che, se esiste, contiene rendering memorizzati nella cache dei sottonodi della pagina).
+La directory `en` viene eliminato solo se `CQ-Action` è `Delete` o `Deactivate`.
 
 Per ulteriori dettagli su questo argomento, vedi [Annullamento manuale della validità della cache di Dispatcher](page-invalidate.md).
 
@@ -117,13 +116,13 @@ Visita la pagina [Caching di contenuto protetto](permissions-cache.md).
 
 ### Come posso proteggere le comunicazioni tra le istanze Dispatcher e CQ?
 
-Visita le pagine [Elenco di controllo di protezione di Dispatcher](security-checklist.md) e [Elenco di controllo di protezione di AEM](https://experienceleague.adobe.com/docs/experience-manager-64/administering/security/security-checklist.html?lang=it).
+Visita le pagine [Elenco di controllo di protezione di Dispatcher](security-checklist.md) e [Elenco di controllo di protezione di AEM](https://experienceleague.adobe.com/docs/experience-manager-64/administering/security/security-checklist.html?lang=en).
 
 ### Problema di Dispatcher `jcr:content` modificato in `jcr%3acontent`
 
-**Domanda**: di recente abbiamo riscontrato un problema a livello di Dispatcher, in cui una delle chiamate AJAX che stava richiamando dati dall’archivio CQ `jcr:content` in Dispatcher è stata codificata come `jcr%3acontent` causando un set di risultati errato.
+**Domanda**: Il business ha recentemente affrontato un problema a livello di Dispatcher. Una delle chiamate AJAX che otteneva alcuni dati dall&#39;archivio CQ aveva `jcr:content` in esso. È stato codificato in `jcr%3acontent` risultando in un set di risultati errato.
 
-**Risposta**: utilizza il metodo `ResourceResolver.map()` per ottenere un URL “descrittivo” da usare/inviare per ottenere richieste da Dispatcher e anche risolvere il relativo problema di caching. Il metodo map() codifica i due punti `:` in caratteri di sottolineatura e il metodo resolve() li decodifica nel formato leggibile SLING JCR. È necessario usare il metodo map() per generare l’URL utilizzato nella chiamata AJAX.
+**Risposta**: Utilizzo `ResourceResolver.map()` per ottenere un URL &quot;descrittivo&quot; da utilizzare / emettere richieste get da e anche per risolvere il problema di caching con Dispatcher. Il metodo map() codifica il `:` due punti da sottolineare e il metodo resolve() li decodifica nel formato leggibile SLING JCR. Utilizza il metodo map() per generare l’URL utilizzato nella chiamata Ajax .
 
 Ulteriori informazioni: [https://sling.apache.org/documentation/the-sling-engine/mappings-for-resource-resolution.html#namespace-mangling](https://sling.apache.org/documentation/the-sling-engine/mappings-for-resource-resolution.html#namespace-mangling)
 
@@ -131,26 +130,22 @@ Ulteriori informazioni: [https://sling.apache.org/documentation/the-sling-engine
 
 ### Come si configurano gli agenti di Dispatcher Flush su un’istanza Publish?
 
-Visita la pagina [Replica](https://helpx.adobe.com/content/help/it/experience-manager/6-4/sites/deploying/using/replication.html#ConfiguringyourReplicationAgents).
+Visita la pagina [Replica](https://experienceleague.adobe.com/docs/experience-manager-64/deploying/configuring/replication.html?lang=en#configuring-your-replication-agents).
 
 ### Come si risolvono i problemi di flushing di Dispatcher?
 
-[Vedi questo articolo per la risoluzione dei problemi](https://helpx.adobe.com/content/help/it/experience-manager/kb/troubleshooting-dispatcher-flushing-issues.html) che risponde alle seguenti domande:
+[Vedi questi articoli per la risoluzione dei problemi](https://experienceleague.adobe.com/search.html?lang=en#q=troubleshooting%20dispatcher%20flushing%20issues&amp;sort=relevancy&amp;f:el_product=[Experience%20Manager]).
 
-* Come si risolve una situazione in cui nessun contenuto viene salvato nella cache di Dispatcher?
-* Come si risolve una situazione in cui i file della cache non vengono aggiornati?
-* Come si risolve una situazione in cui non funziona nulla che sia correlato a Dispatcher Flush?
-
-Se le operazioni di eliminazione provocano il flush di Dispatcher, [utilizza la soluzione suggerita in questo post di blog della community scritto da Sensei Martin](https://mkalugin-cq.blogspot.in/2012/04/i-have-been-working-on-following.html).
+Se le operazioni di eliminazione provocano il flush di Dispatcher, [utilizza la soluzione suggerita in questo post di blog della community scritto da Sensei Martin](https://mkalugin-cq.blogspot.com/2012/04/i-have-been-working-on-following.html).
 
 ### Come si eliminano le risorse DAM dalla cache di Dispatcher?
 
-È possibile utilizzare la funzione “replica a catena”.  Quando questa funzione è abilitata, l’agente di Dispatcher Flush invia una richiesta di flushing nel momento in cui viene ricevuta una replica inviata dall’Autore.
+È possibile utilizzare la funzione “replica a catena”.  Con questa funzione abilitata, l’agente di flush del Dispatcher invia una richiesta di scaricamento quando viene ricevuta una replica dall’autore.
 
 Per abilitare questa funzione:
 
 1. [Segui questi passaggi](page-invalidate.md#invalidating-dispatcher-cache-from-a-publishing-instance) per creare agenti Flush su Publish
-1. Vai alla configurazione di ciascuno di questi agenti e nella scheda **Attivatori** seleziona la casella **Alla ricezione**.
+1. Vai alla configurazione di ogni agente e alla **Triggers** controlla la **Al ricevimento** scatola.
 
 ## Varie
 
@@ -166,11 +161,11 @@ Puoi definire se Dispatcher memorizza in cache un documento utilizzando il file 
 
 La proprietà `/rules` definisce quali documenti vengono memorizzati in cache in base al percorso del documento. Indipendentemente dalla proprietà `/rules`, Dispatcher non memorizza mai in cache un documento nelle seguenti circostanze:
 
-* Se l’URI della richiesta contiene un punto interrogativo `(?)`.
-* In genere, ciò indica una pagina dinamica, ad esempio il risultato di una ricerca che non richiede di essere memorizzata in cache.
+* L&#39;URI della richiesta contiene un `(?)` punto interrogativo.
+* Indica una pagina dinamica, ad esempio un risultato di ricerca che non deve essere memorizzato nella cache.
 * Se manca l’estensione del file.
 * Il server web ha bisogno dell’estensione per determinare il tipo di documento (tipo MIME).
-* Se l’intestazione di autenticazione è impostata (configurabile).
+* L&#39;intestazione di autenticazione è impostata (configurabile).
 * Se l’istanza AEM risponde con le seguenti intestazioni:
    * no-cache
    * no-store

@@ -13,10 +13,10 @@ index: y
 internal: n
 snippet: y
 exl-id: ec378409-ddb7-4917-981d-dbf2198aca98
-source-git-commit: 0debee043078b869d0af3258075bd83bf0312c8f
+source-git-commit: e87af532ee3268f0a45679e20031c3febc02de58
 workflow-type: tm+mt
-source-wordcount: '0'
-ht-degree: 0%
+source-wordcount: '1355'
+ht-degree: 69%
 
 ---
 
@@ -39,11 +39,11 @@ Prima di configurare Dispatcher, configura AEM o CQ per l’utilizzo di SSL:
 
 * AEM 6.2: [abilitazione di HTTP su SSL](https://experienceleague.adobe.com/docs/experience-manager-release-information/aem-release-updates/previous-updates/aem-previous-versions.html?lang=it)
 * AEM 6.1: [abilitazione di HTTP su SSL](https://experienceleague.adobe.com/docs/experience-manager-release-information/aem-release-updates/previous-updates/aem-previous-versions.html?lang=it)
-* Versioni precedenti di AEM: visita [questa pagina](https://helpx.adobe.com/it/experience-manager/aem-previous-versions.html).
+* Versioni precedenti di AEM: visita [questa pagina](https://experienceleague.adobe.com/docs/experience-manager-release-information/aem-release-updates/previous-updates/aem-previous-versions.html?lang=it).
 
 ### Intestazioni di richiesta correlate a SSL {#ssl-related-request-headers}
 
-Quando Dispatcher riceve una richiesta HTTPS, include le seguenti intestazioni nella richiesta successiva che invia ad AEM o CQ:
+Quando Dispatcher riceve una richiesta HTTPS, Dispatcher include le seguenti intestazioni nella richiesta successiva che invia a AEM o CQ:
 
 * `X-Forwarded-SSL`
 * `X-Forwarded-SSL-Cipher`
@@ -66,9 +66,9 @@ Per configurare Dispatcher per la connessione con AEM o CQ tramite SSL, il file 
 * La sezione `renders` dell&#39;host virtuale include un elemento che identifica il nome host e la porta dell&#39;istanza CQ o AEM che utilizza HTTPS.
 * L&#39;elemento `renders` include una proprietà denominata `secure` con valore `1`.
 
-Nota: crea un altro host virtuale per la gestione delle richieste HTTP, se necessario.
+Nota: Se necessario, crea un altro host virtuale per la gestione delle richieste HTTP.
 
-Il seguente esempio di file dispatcher.any mostra i valori delle proprietà per la connessione tramite HTTPS a un&#39;istanza CQ in esecuzione sull’host `localhost` e sulla porta `8443`:
+Esempio `dispatcher.any` file mostra i valori delle proprietà per la connessione tramite HTTPS a un&#39;istanza CQ in esecuzione su host `localhost` e la porta `8443`:
 
 ```
 /farms
@@ -118,7 +118,7 @@ Il seguente esempio di file dispatcher.any mostra i valori delle proprietà per 
 
 ## Configurazione di SSL reciproco tra Dispatcher e AEM {#configuring-mutual-ssl-between-dispatcher-and-aem}
 
-Configura le connessioni tra Dispatcher e il computer di rendering (in genere, un’istanza Publish di AEM o CQ) per utilizzare SSL reciproco:
+Per utilizzare SSL reciproco, configura le connessioni tra Dispatcher e il computer di rendering (in genere un’istanza di pubblicazione AEM o CQ):
 
 * Dispatcher si connette all’istanza di rendering tramite SSL.
 * L’istanza di rendering verifica la validità del certificato di Dispatcher.
@@ -131,11 +131,11 @@ Per configurare SSL reciproco, è necessario disporre di certificati firmati da 
 * Certificato CA (se sei tu a fungere da CA)
 * Librerie OpenSSL per la generazione di CA, certificati e richieste di certificati.
 
-Fai quanto segue per configurare SSL reciproco:
+Per configurare SSL reciproco, esegui i seguenti passaggi:
 
 1. [Installa](dispatcher-install.md) la versione più recente di Dispatcher per la piattaforma in uso. Utilizza un file binario di Dispatcher che supporta SSL (SSL compare nel nome file, ad esempio dispatcher-apache2.4-linux-x86-64-ssl10-4.1.7.tar).
 1. [Crea o ottieni un certificato firmato da una CA](dispatcher-ssl.md#main-pars-title-3) per Dispatcher e l’istanza di rendering.
-1. [Crea un keystore contenente il certificato di rendering](dispatcher-ssl.md#main-pars-title-6) e configura il servizio HTTP del rendering in modo che possa utilizzarlo.
+1. [Crea un archivio chiavi contenente il certificato di rendering](dispatcher-ssl.md#main-pars-title-6) e configura il servizio HTTP del rendering.
 1. [Configura il modulo server Web di Dispatcher](dispatcher-ssl.md#main-pars-title-4) per SSL reciproco.
 
 ### Creazione o conseguimento di certificati firmati da una CA {#creating-or-obtaining-ca-signed-certificates}
@@ -146,8 +146,8 @@ Crea o ottieni i certificati firmati da una CA che autentichino l’istanza Publ
 
 Se fungi da CA, utilizza [OpenSSL](https://www.openssl.org/) per creare l’Autorità di certificazione (CA) che firma i certificati per server e client. (È necessario che siano installate le librerie OpenSSL). Se utilizzi una CA di terze parti, non seguire questa procedura.
 
-1. Apri un terminale e cambia la directory corrente con la directory che contiene il file CA.sh, ad esempio `/usr/local/ssl/misc`.
-1. Per creare la CA, immetti il seguente comando, quindi specifica i valori quando ti viene richiesto:
+1. Apri un terminale e cambia la directory corrente nella directory che contiene il `CA.sh` file, ad esempio `/usr/local/ssl/misc`.
+1. Per creare la CA, immettere il seguente comando e quindi specificare i valori quando richiesto:
 
    ```shell
    ./CA.sh -newca
@@ -155,16 +155,16 @@ Se fungi da CA, utilizza [OpenSSL](https://www.openssl.org/) per creare l’Auto
 
    >[!NOTE]
    >
-   >Diverse proprietà nel file openssl.cnf controllano il comportamento dello script CA.sh. Modificare questo file come necessario prima di creare la CA.
+   >Diverse proprietà in `openssl.cnf` il controllo del comportamento dello script CA.sh. Modificare il file come necessario prima di creare la CA.
 
 #### Creazione dei certificati {#creating-the-certificates}
 
 Utilizza OpenSSL per creare le richieste di certificato da inviare alla CA di terze parti o per firmare con la tua CA.
 
-Quando crei un certificato, OpenSSL utilizza la proprietà Common Name per identificare il titolare del certificato. Per il certificato dell’istanza di rendering, utilizza il nome host del computer dell’istanza come Common Name, se stai configurando Dispatcher per accettare il certificato solo se corrisponde al nome host dell’istanza Publish. (Vedi la proprietà [DispatcherCheckPeerCN](dispatcher-ssl.md#main-pars-title-11)).
+Quando crei un certificato, OpenSSL utilizza la proprietà Common Name per identificare il titolare del certificato. Per il certificato dell’istanza di rendering, utilizza il nome host del computer dell’istanza come Nome comune se stai configurando Dispatcher per accettare il certificato e solo se corrisponde al nome host dell’istanza Publish. (Vedi la proprietà [DispatcherCheckPeerCN](dispatcher-ssl.md#main-pars-title-11)).
 
 1. Apri un terminale e cambia la directory corrente con la directory che contiene il file CH.sh delle librerie OpenSSL.
-1. Immetti il seguente comando e fornisci i valori quando richiesto. Se necessario, utilizza il nome host dell’istanza Publish come Common Name. Il nome host è un nome risolvibile DNS per l&#39;indirizzo IP del rendering:
+1. Immetti il seguente comando e fornisci i valori quando richiesto. Se necessario, utilizza il nome host dell’istanza di pubblicazione come Nome comune. Il nome host è un nome risolvibile DNS per l&#39;indirizzo IP del rendering:
 
    ```shell
    ./CA.sh -newreq
@@ -172,40 +172,40 @@ Quando crei un certificato, OpenSSL utilizza la proprietà Common Name per ident
 
    Se utilizzi una CA di terze parti, invia il file newreq.pem alla CA per la firma. Se sei tu a fungere da CA, continua con il passaggio 3.
 
-1. Immetti il comando seguente per firmare il certificato utilizzando il certificato della tua CA:
+1. Per firmare il certificato utilizzando il certificato della CA, immettere il comando seguente:
 
    ```shell
    ./CA.sh -sign
    ```
 
-   Nella directory che contiene i file di gestione della CA vengono creati due file: newcert.pem e newkey.pem. Si tratta rispettivamente del certificato pubblico e della chiave privata per il computer di rendering.
+   Due file denominati `newcert.pem` e `newkey.pem` vengono creati nella directory che contiene i file di gestione CA. Questi due file sono rispettivamente il certificato pubblico e la chiave privata del computer di rendering.
 
-1. Rinomina newcert.pem in rendercert.pem e rinomina newkey.pem in renderkey.pem.
-1. Ripeti i passaggi 2 e 3 per creare un nuovo certificato e una nuova chiave pubblica per il modulo Dispatcher. Utilizzare un Common Name specifico per l’istanza di Dispatcher.
-1. Rinomina newcert.pem in discert.pem e rinomina newkey.pem in diskey.pem.
+1. Rinomina `newcert.pem` a `rendercert.pem`e rinomina `newkey.pem` a `renderkey.pem`.
+1. Ripeti i passaggi 2 e 3 per creare un certificato e una chiave pubblica per il modulo Dispatcher. Utilizzare un Common Name specifico per l’istanza di Dispatcher.
+1. Rinomina `newcert.pem` a `dispcert.pem`e rinomina `newkey.pem` a `dispkey.pem`.
 
 ### Configurazione di SSL sul computer di rendering {#configuring-ssl-on-the-render-computer}
 
-Configura SSL sull’istanza di rendering utilizzando i file rendercert.pem e renderkey.pem.
+Configura SSL sull’istanza di rendering utilizzando `rendercert.pem` e `renderkey.pem` file.
 
-#### Conversione del certificato di rendering in formato JKS {#converting-the-render-certificate-to-jks-format}
+#### Conversione del certificato di rendering in formato JKS (Java™ KeyStore) {#converting-the-render-certificate-to-jks-format}
 
-Utilizza il seguente comando per convertire il certificato di rendering, che è un file PEM, in un file PKCS#12. Includi anche il certificato della CA che ha firmato il certificato di rendering:
+Utilizzare il seguente comando per convertire il certificato di rendering, che è un file PEM, in un file PKCS#12. Includi anche il certificato della CA che ha firmato il certificato di rendering:
 
 1. In una finestra del terminale, cambia la directory corrente con quella che contiene il certificato di rendering e la chiave privata.
-1. Immetti il seguente comando per convertire il certificato di rendering, che è un file PEM, in un file PKCS#12. Includi anche il certificato della CA che ha firmato il certificato di rendering:
+1. Per convertire il certificato di rendering, che è un file PEM, in un file PKCS#12, immettere il comando seguente. Includi anche il certificato della CA che ha firmato il certificato di rendering:
 
    ```shell
    openssl pkcs12 -export -in rendercert.pem -inkey renderkey.pem  -certfile demoCA/cacert.pem -out rendercert.p12
    ```
 
-1. Immetti il seguente comando per convertire il file PKCS#12 in formato Java KeyStore (JKS):
+1. Per convertire il file PKCS#12 in formato Java™ KeyStore (JKS), immetti il seguente comando:
 
    ```shell
    keytool -importkeystore -srckeystore servercert.p12 -srcstoretype pkcs12 -destkeystore render.keystore
    ```
 
-1. Il file Java Keystore viene creato con un alias predefinito. Se vuoi, puoi modificare l’alias:
+1. Java™ Keystore viene creato utilizzando un alias predefinito. Se vuoi, puoi modificare l’alias:
 
    ```shell
    keytool -changealias -alias 1 -destalias jettyhttp -keystore render.keystore
@@ -251,11 +251,11 @@ Last Modified Date: 2014-08-12T13:11:21.401-0400
 
 #### Configurazione dell’istanza di rendering {#configuring-the-render-instance}
 
-Utilizza il certificato di rendering con le istruzioni contenute nella sezione *Abilita SSL nell&#39;istanza Publish* per configurare il servizio HTTP dell&#39;istanza di rendering in modo che utilizzi SSL:
+Per configurare il servizio HTTP dell’istanza di rendering per l’utilizzo di SSL, utilizza il certificato di rendering con le istruzioni contenute nella *Attivare SSL nell’istanza di pubblicazione* sezione:
 
-* AEM 6.2: [abilitazione di HTTP su SSL](https://helpx.adobe.com/experience-manager/6-2/sites/deploying/using/config-ssl.html)
-* AEM 6.1: [abilitazione di HTTP su SSL](https://docs.adobe.com/content/docs/en/aem/6-1/deploy/configuring/config-ssl.html)
-* Versioni precedenti di AEM: visita [questa pagina.](https://helpx.adobe.com/experience-manager/aem-previous-versions.html)
+* AEM 6.2: [abilitazione di HTTP su SSL](https://experienceleague.adobe.com/docs/experience-manager-release-information/aem-release-updates/previous-updates/aem-previous-versions.html?lang=it)
+* AEM 6.1: [abilitazione di HTTP su SSL](https://experienceleague.adobe.com/docs/experience-manager-release-information/aem-release-updates/previous-updates/aem-previous-versions.html?lang=it)
+* Versioni precedenti di AEM: visita [questa pagina.](https://experienceleague.adobe.com/docs/experience-manager-release-information/aem-release-updates/previous-updates/aem-previous-versions.html?lang=it)
 
 ### Configurazione di SSL per il modulo Dispatcher {#configuring-ssl-for-the-dispatcher-module}
 
@@ -263,7 +263,7 @@ Per configurare Dispatcher per l’utilizzo di SSL reciproco, prepara il certifi
 
 ### Creazione di un certificato di Dispatcher unificato {#creating-a-unified-dispatcher-certificate}
 
-Combina il certificato di Dispatcher e la chiave privata non crittografata in un unico file PEM. Utilizza un editor di testo o il comando `cat` per creare un file simile a quello del seguente esempio:
+Combina il certificato Dispatcher e la chiave privata non crittografata in un unico file PEM. Utilizza un editor di testo o il comando `cat` per creare un file simile a quello del seguente esempio:
 
 1. Apri un terminale e cambia la directory corrente con quella che contiene il file dispatkey.pem.
 1. Per decrittografare la chiave privata, immetti il comando seguente:

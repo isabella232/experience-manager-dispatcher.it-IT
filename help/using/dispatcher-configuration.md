@@ -2,10 +2,10 @@
 title: Configurazione di Dispatcher
 description: Scopri come configurare Dispatcher. Scopri il supporto per IPv4 e IPv6, i file di configurazione, le variabili di ambiente, la denominazione dell’istanza, la definizione delle farm, l’identificazione degli host virtuali e altro ancora.
 exl-id: 91159de3-4ccb-43d3-899f-9806265ff132
-source-git-commit: 0ac7c1cf3fc9330665b7a758cea38410c1958f1c
+source-git-commit: 26c8edbb142297830c7c8bd068502263c9f0e7eb
 workflow-type: tm+mt
-source-wordcount: '8984'
-ht-degree: 96%
+source-wordcount: '8900'
+ht-degree: 71%
 
 ---
 
@@ -100,7 +100,7 @@ Esempio di configurazione strutturata come segue:
 
 Puoi includere altri file che contribuiscono alla configurazione:
 
-* Se il file di configurazione è molto grande, puoi suddividerlo in file più piccoli (più facili da gestire) e includerli.
+* Se il file di configurazione è di grandi dimensioni, puoi suddividerlo in più file più piccoli (che sono più facili da gestire) e includerli ciascuno.
 * Per includere i file generati automaticamente.
 
 Ad esempio, per includere il file myFarm.any nella configurazione /farms, utilizza il seguente codice:
@@ -112,7 +112,7 @@ Ad esempio, per includere il file myFarm.any nella configurazione /farms, utiliz
   }
 ```
 
-Utilizza l’asterisco (`*`) come carattere jolly per specificare un intervallo di file da includere.
+Per specificare un intervallo di file da includere, utilizzare l&#39;asterisco (`*`) come carattere jolly.
 
 Ad esempio, se i file da `farm_1.any` a `farm_5.any` contengono la configurazione delle farm da uno a cinque, puoi includerli come segue:
 
@@ -127,7 +127,7 @@ Ad esempio, se i file da `farm_1.any` a `farm_5.any` contengono la configurazion
 
 Puoi utilizzare le variabili di ambiente nelle proprietà con valori stringa nel file dispatcher.any, invece di utilizzare valori a codifica fissa (hard-coding). Per includere il valore di una variabile di ambiente, utilizza il formato `${variable_name}`.
 
-Ad esempio, se il file dispatcher.any si trova nella stessa directory della cache, è possibile utilizzare il seguente valore per la proprietà [docroot](#specifying-the-cache-directory):
+Ad esempio, se il file dispatcher.any si trova nella stessa directory della directory cache, il seguente valore per [docroot](#specifying-the-cache-directory) può essere utilizzata:
 
 ```xml
 /docroot "${PWD}/cache"
@@ -162,7 +162,7 @@ La proprietà `/farmname` ha più valori e contiene altre proprietà che definis
 * Gli URL delle pagine a cui si applica la farm.
 * Uno o più URL di servizio (in genere, istanze AEM Publish) da utilizzare per il rendering dei documenti.
 * Le statistiche da utilizzare per il bilanciamento del carico tra più renderer di documenti.
-* Diversi altri comportamenti, ad esempio quali file memorizzare in cache e dove.
+* Diversi altri comportamenti, ad esempio quali file memorizzare in cache e dove memorizzare in cache.
 
 Il valore può includere qualsiasi carattere alfanumerico (a-z, 0-9). L’esempio che segue mostra la definizione dello scheletro per due farm denominate `/daycom` e `/docsdaycom`:
 
@@ -186,7 +186,7 @@ Il valore può includere qualsiasi carattere alfanumerico (a-z, 0-9). L’esempi
 
 >[!NOTE]
 >
->Se utilizzi più di una farm di rendering, l’elenco viene valutato dal basso verso l’alto. Ciò è particolarmente importante quando definisci [host virtuali](#identifying-virtual-hosts-virtualhosts) per i siti web.
+>Se utilizzi più di una farm di rendering, l’elenco viene valutato dal basso verso l’alto. Questo flusso è rilevante quando si definisce [Host virtuali](#identifying-virtual-hosts-virtualhosts) per i siti web.
 
 Ogni proprietà farm può contenere le seguenti proprietà figlio:
 
@@ -213,9 +213,9 @@ Ogni proprietà farm può contenere le seguenti proprietà figlio:
 
 >[!CAUTION]
 >
->Il parametro `/homepage` (solo IIS) non funziona più. In Alternativa, utilizza [URL Rewrite Module per Microsoft IIS](https://docs.microsoft.com/it-it/iis/extensions/url-rewrite-module/using-the-url-rewrite-module).
+>Il parametro `/homepage` (solo IIS) non funziona più. In Alternativa, utilizza [URL Rewrite Module per Microsoft IIS](https://learn.microsoft.com/en-us/iis/extensions/url-rewrite-module/using-the-url-rewrite-module).
 >
->Se utilizzi Apache, utilizza il modulo `mod_rewrite`. Per informazioni su `mod_rewrite`, vedi la documentazione del sito web di Apache (ad esempio, [Apache 2.4](https://httpd.apache.org/docs/current/mod/mod_rewrite.html)). Quando si utilizza `mod_rewrite`, è consigliabile utilizzare il flag **[‘passthrough|PT’ (passare all’handler successivo)](https://helpx.adobe.com/dispatcher/kb/DispatcherModReWrite.html)** per forzare il motore di riscrittura a impostare il campo `uri` della struttura interna `request_rec` sul valore del campo `filename`.
+>Se utilizzi Apache, utilizza il modulo `mod_rewrite`. Per informazioni su `mod_rewrite`, vedi la documentazione del sito web di Apache (ad esempio, [Apache 2.4](https://httpd.apache.org/docs/current/mod/mod_rewrite.html)). Quando si utilizza `mod_rewrite`, è consigliabile utilizzare il flag ‘passthrough|PT’ (passare all’handler successivo) per forzare il motore di riscrittura a impostare il campo `uri` della struttura interna `request_rec` sul valore del campo `filename`.
 
 <!-- 
 
@@ -262,11 +262,11 @@ La proprietà `/clientheaders` definisce un elenco di intestazioni HTTP che Disp
 Per impostazione predefinita, Dispatcher inoltra le intestazioni HTTP standard all’istanza di AEM. In alcuni casi, potrebbe essere utile inoltrare intestazioni aggiuntive o rimuovere intestazioni specifiche:
 
 * Aggiungi le intestazioni, ad esempio intestazioni personalizzate, che l’istanza di AEM si aspetta di trovare nella richiesta HTTP.
-* Rimuovi le intestazioni, ad esempio intestazioni di autenticazione, che sono rilevanti solo per il server web.
+* Rimuovere le intestazioni, ad esempio le intestazioni di autenticazione rilevanti solo per il server web.
 
-Se personalizzi il set di intestazioni da trasmettere, devi specificare un elenco completo di intestazioni, incluse quelle che sono normalmente già in uso per impostazione predefinita.
+Se si personalizza il set di intestazioni da trasmettere, è necessario specificare un elenco completo di intestazioni, comprese quelle che sono normalmente incluse per impostazione predefinita.
 
-Ad esempio, un’istanza di Dispatcher che gestisce le richieste di attivazione delle pagine per le istanze Publish richiede l’intestazione `PATH` nella sezione `/clientheaders`. L’intestazione `PATH` abilita la comunicazione tra l’agente di replica e Dispatcher.
+Ad esempio, un’istanza di Dispatcher che gestisce le richieste di attivazione delle pagine per le istanze Publish richiede l’intestazione `PATH` nella sezione `/clientheaders`. La `PATH` l’intestazione abilita la comunicazione tra l’agente di replica e il Dispatcher.
 
 Il codice che segue è un esempio di configurazione per `/clientheaders`:
 
@@ -322,7 +322,7 @@ La proprietà `/virtualhosts` definisce un elenco di tutte le combinazioni nome 
 * `host`: nome o indirizzo IP del computer host e, se necessario, numero di porta. (Vedi [https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.23](https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.23))
 * `uri`: (Facoltativo) percorso delle risorse.
 
-Nell’esempio che segue la configurazione gestisce le richieste per i domini .com e .ch di myCompany e per tutti i domini di mySubDivision:
+Nell’esempio seguente la configurazione gestisce le richieste per `.com` e `.ch` domini della mia azienda e tutti i domini della miaSubDivision:
 
 ```xml
    /virtualhosts
@@ -352,7 +352,7 @@ Quando Dispatcher riceve una richiesta HTTP o HTTPS, trova il valore dell’host
 Dispatcher trova il valore dell’host virtuale più corrispondente nel modo seguente:
 
 * Viene utilizzato il primo host virtuale rilevato che corrisponde a tutte e tre le proprietà `host`, `scheme` e `uri` della richiesta.
-* Se nessun valore della proprietà `virtualhosts` contiene parti delle proprietà`scheme` e `uri` corrispondenti alle proprietà `scheme` e `uri` della richiesta, viene utilizzato il primo host virtuale rilevato che corrisponde alla proprietà `host` della richiesta.
+* Se no `virtualhosts` i valori `scheme` e `uri` parti che corrispondono `scheme` e `uri` della richiesta, il primo host virtuale rilevato che corrisponde al `host` della richiesta.
 * Se nessun valore della proprietà `virtualhosts` ha una parte host corrispondente all’host della richiesta, viene utilizzato l’host virtuale più in alto della farm più in alto.
 
 Pertanto, devi posizionare l’host virtuale predefinito nella parte superiore della proprietà `virtualhosts` nella farm più in alto del file `dispatcher.any`.
@@ -402,9 +402,9 @@ Utilizzando questo esempio, la tabella che segue mostra gli host virtuali risolt
 
 >[!CAUTION]
 >
->Per abilitare questa funzione, la proprietà `/allowAuthorized` **deve** essere impostata su `"0"` nella sezione `/cache`. Come descritto nella sezione [Caching quando si utilizza l’autenticazione](#caching-when-authentication-is-used), quando si imposta `/allowAuthorized 0 ` le richieste che includono informazioni di autenticazione **non** vengono memorizzate nella cache. Se viene richiesta la memorizzazione in cache sensibile alle autorizzazioni, consulta la pagina [Caching di contenuto protetto](https://experienceleague.adobe.com/docs/experience-manager-dispatcher/using/configuring/permissions-cache.html?lang=it).
+>`/allowAuthorized` Imposta su `"0"` in `/cache` per abilitare questa funzione. Come descritto nella sezione [Caching quando si utilizza l’autenticazione](#caching-when-authentication-is-used), quando si imposta `/allowAuthorized 0 ` le richieste che includono informazioni di autenticazione **non** vengono memorizzate nella cache. Se viene richiesta la memorizzazione in cache sensibile alle autorizzazioni, consulta la pagina [Caching di contenuto protetto](https://experienceleague.adobe.com/docs/experience-manager-dispatcher/using/configuring/permissions-cache.html?lang=it).
 
-Crea una sessione protetta per l’accesso alla farm di rendering, in modo che gli utenti debbano effettuare il login per accedere a qualsiasi pagina della farm. Una volta effettuato il login, gli utenti possono accedere alle pagine della farm. Per informazioni sull’utilizzo di questa funzione con i gruppi utenti chiusi (CUG), vedi [Creazione di un gruppo utenti chiuso](https://experienceleague.adobe.com/docs/experience-manager-65/administering/security/cug.html?lang=it#creating-the-user-group-to-be-used). Inoltre, vedi [Elenco di controllo della sicurezza](/help/using/security-checklist.md) di Dispatcher prima di andare “live”.
+Crea una sessione protetta per l’accesso alla farm di rendering in modo che gli utenti possano accedere a qualsiasi pagina della farm. Una volta effettuato il login, gli utenti possono accedere alle pagine della farm. Per informazioni sull’utilizzo di questa funzione con i gruppi utenti chiusi (CUG), vedi [Creazione di un gruppo utenti chiuso](https://experienceleague.adobe.com/docs/experience-manager-65/administering/security/cug.html?lang=it#creating-the-user-group-to-be-used). Inoltre, vedi [Elenco di controllo della sicurezza](/help/using/security-checklist.md) di Dispatcher prima di andare “live”.
 
 La proprietà `/sessionmanagement` è una sottoproprietà di `/farms`.
 
@@ -420,7 +420,7 @@ La directory in cui sono memorizzate le informazioni della sessione. Se la direc
 
 >[!CAUTION]
 >
-> Durante la configurazione del sottoparametro della directory **non** puntare alla cartella principale (`/directory "/"`), in quanto ciò può causare gravi problemi. È sempre necessario specificare il percorso della cartella in cui sono memorizzate le informazioni della sessione. Esempio:
+> Quando si configura il sottoparametro della directory, **non** puntare alla cartella principale (`/directory "/"`) in quanto può causare gravi problemi. Specifica sempre il percorso della cartella in cui sono memorizzate le informazioni sulla sessione. Esempio:
 
 ```xml
 /sessionmanagement
@@ -435,7 +435,7 @@ Codifica delle informazioni della sessione. Utilizza `md5` per la crittografia, 
 
 **/header** (facoltativo)
 
-Nome dell’intestazione HTTP o del cookie che memorizza le informazioni di autorizzazione. Se memorizzi le informazioni nell’intestazione http, utilizza `HTTP:<header-name>`. Per memorizzare le informazioni in un cookie, utilizza `Cookie:<header-name>`. Se non specifichi alcun valore, viene utilizzato `HTTP:authorization`.
+Nome dell’intestazione HTTP o del cookie che memorizza le informazioni di autorizzazione. Se memorizzi le informazioni nell’intestazione http, utilizza `HTTP:<header-name>`. Per memorizzare le informazioni in un cookie, utilizza `Cookie:<header-name>`. Se non si specifica un valore, `HTTP:authorization` viene utilizzato.
 
 **/timeout** (facoltativo)
 
@@ -472,7 +472,7 @@ La proprietà /renders definisce l’URL a cui Dispatcher invia le richieste di 
   }
 ```
 
-L’esempio di sezione /renders che segue identifica un’istanza di AEM che viene eseguita sullo stesso computer di Dispatcher:
+La seguente sezione /renders di esempio identifica un&#39;istanza AEM eseguita sullo stesso computer di Dispatcher:
 
 ```xml
 /renders
@@ -511,9 +511,9 @@ Specifica il timeout di connessione per l’accesso all’istanza di AEM espress
 
 **/receiveTimeout**
 
-Specifica il tempo in millisecondi che una risposta può richiedere. Il valore predefinito è `"600000"` e Dispatcher deve attendere 10 minuti. L’impostazione `"0"` elimina completamente il timeout.
+Specifica il tempo in millisecondi che una risposta può richiedere. Il valore predefinito è `"600000"` e Dispatcher deve attendere 10 minuti. Impostazione di `"0"` elimina il timeout .
 
-Se viene raggiunto il timeout durante l’analisi delle intestazioni di risposta, viene restituito lo stato HTTP 504 (Gateway non valido). Se il timeout viene raggiunto durante la lettura del corpo della risposta, Dispatcher restituisce al client la risposta incompleta, ma elimina tutti i file di cache che potrebbero essere stati scritti.
+Se viene raggiunto il timeout durante l’analisi delle intestazioni di risposta, viene restituito lo stato HTTP 504 (Gateway non valido). Se viene raggiunto il timeout durante la lettura del corpo della risposta, Dispatcher restituisce la risposta incompleta al client. Elimina anche eventuali file di cache che potrebbero essere stati scritti.
 
 **/ipv4**
 
@@ -525,14 +525,14 @@ L’ELB (Elastic Load Balancing) di Amazon è un servizio che risponde a getaddr
 
 **/secure**
 
-Se per la proprietà `/secure` è impostato il valore `"1"`, Dispatcher utilizza HTTPS per comunicare con l’istanza di AEM. Per ulteriori dettagli, consulta anche [Configurazione di Dispatcher per utilizzare SSL](dispatcher-ssl.md#configuring-dispatcher-to-use-ssl).
+Se la `/secure` ha un valore di `"1"`, Dispatcher utilizza HTTPS per comunicare con l’istanza AEM. Per ulteriori dettagli, consulta anche [Configurazione di Dispatcher per utilizzare SSL](dispatcher-ssl.md#configuring-dispatcher-to-use-ssl).
 
 **/always-resolve**
 
 Con la versione di Dispatcher **4.1.6**, puoi configurare la proprietà `/always-resolve` come segue:
 
-* Se impostata su `"1"`, risolverà il nome host in ogni richiesta (Dispatcher non memorizzerà mai in cache alcun indirizzo IP). Potrebbe verificarsi un leggero impatto sulle prestazioni a causa della chiamata aggiuntiva necessaria per ottenere le informazioni host per ciascuna richiesta.
-* Se la proprietà non è impostata, l’indirizzo IP verrà memorizzato in cache per impostazione predefinita.
+* Quando è impostato su `"1"`, risolve il nome host su ogni richiesta (Dispatcher non memorizza mai in cache alcun indirizzo IP). Potrebbe verificarsi un leggero impatto sulle prestazioni a causa della chiamata aggiuntiva necessaria per ottenere le informazioni host per ciascuna richiesta.
+* Se la proprietà non è impostata, l’indirizzo IP viene memorizzato nella cache per impostazione predefinita.
 
 Questa proprietà può essere utilizzata anche in caso di problemi di risoluzione degli IP dinamici, come illustrato nell’esempio che segue:
 
@@ -557,14 +557,14 @@ Utilizza la sezione `/filter` per specificare le richieste HTTP che Dispatcher p
 >
 >Per ulteriori considerazioni sulla limitazione dell’accesso tramite Dispatcher, vedi [Elenco di controllo della sicurezza di Dispatcher](security-checklist.md). Inoltre, leggi [Elenco di controllo della sicurezza AEM](https://experienceleague.adobe.com/docs/experience-manager-65/administering/security/security-checklist.html?lang=it#security) per ulteriori dettagli sulla sicurezza relativi all’installazione di AEM.
 
-La sezione `/filter` consiste di una serie di regole che negano o consentono l’accesso al contenuto in base ai modelli presenti nella parte della riga della richiesta HTTP. Utilizza un elenco Consentiti per la sezione `/filter`:
+La `/filter` è costituita da una serie di regole che negano o consentono l’accesso al contenuto in base ai pattern presenti nella riga della richiesta HTTP. Utilizza una strategia di inserire nell&#39;elenco Consentiti per il tuo `/filter` sezione:
 
 * Per prima cosa, nega l’accesso a tutto.
 * Quindi, consenti l’accesso al contenuto in base alle esigenze.
 
 >[!NOTE]
 >
->Si consiglia di eliminare la cache ogni volta che si effettuano modifiche nelle regole del filtro.
+>Elimina la cache ogni volta che si verificano modifiche nelle regole del filtro.
 
 ### Definizione di un filtro {#defining-a-filter}
 
@@ -574,7 +574,7 @@ Ogni elemento della sezione `/filter` include un tipo e un modello corrispondent
 
 * **Elemento della riga di richiesta:** Include `/method`, `/url`, `/query` o `/protocol` e un modello per filtrare le richieste in base a queste parti specifiche della riga di richiesta della richiesta HTTP. Il filtro degli elementi della riga di richiesta (anziché dell’intera riga di richiesta) è il filtro da preferire.
 
-* **Elementi avanzati della riga di richiesta:** a partire da Dispatcher 4.2.0, sono disponibili quattro nuovi elementi che si possono filtrare. Questi nuovi elementi sono rispettivamente `/path`, `/selectors`, `/extension` e `/suffix`. Includi uno o più di questi elementi per controllare ulteriormente i modelli di URL.
+* **Elementi avanzati della riga di richiesta:** a partire da Dispatcher 4.2.0, sono disponibili quattro nuovi elementi che si possono filtrare. Questi nuovi elementi `/path`, `/selectors`, `/extension`e `/suffix` rispettivamente. Includi uno o più di questi elementi per controllare ulteriormente i modelli di URL.
 
 >[!NOTE]
 >
@@ -588,7 +588,7 @@ Ogni elemento della sezione `/filter` include un tipo e un modello corrispondent
 >
 >`/glob "* *.css *"`
 >
->devi utilizzare
+>use
 >
 >`/url "*.css"`
 
@@ -602,7 +602,7 @@ I caratteri `<CRLF>` rappresentano un ritorno a capo seguito da un avanzamento r
 
 `GET /content/wknd/us/en.html HTTP.1.1<CRLF>`
 
-I modelli devono tenere conto dei caratteri di spaziatura nella riga di richiesta e dei caratteri `<CRLF>`.
+I pattern devono tenere conto degli spazi nella riga della richiesta e nella `<CRLF>` caratteri.
 
 #### Virgolette e apici {#double-quotes-vs-single-quotes}
 
@@ -614,11 +614,11 @@ Nelle versioni di Dispatcher successive alla versione 4.2.0, è possibile includ
 
 #### Risoluzione dei problemi dei filtri {#troubleshooting-filters}
 
-Se i filtri non si attivano come previsto, abilita la [registrazione della traccia](#trace-logging) in Dispatcher che ti permette di vedere quale filtro intercetta la richiesta.
+Se i filtri non si attivano come previsto, abilita [Registrazione traccia](#trace-logging) in Dispatcher per vedere quale filtro intercetta la richiesta.
 
 #### Esempio di filtro: rifiuta tutto {#example-filter-deny-all}
 
-Il seguente esempio di sezione di filtro induce Dispatcher a rifiutare tutte le richieste di file. È necessario negare l’accesso a tutti i file e quindi consentire l’accesso ad aree specifiche.
+Il seguente esempio di sezione di filtro induce Dispatcher a rifiutare tutte le richieste di file. Nega l’accesso a tutti i file e quindi consenti l’accesso a aree specifiche.
 
 ```xml
 /0001  { /type "deny" /url "*"  }
@@ -628,7 +628,7 @@ Le richieste inviate a un’area negata in modo esplicito causano la restituzion
 
 #### Esempio di filtro: nega l’accesso ad aree specifiche {#example-filter-deny-access-to-specific-areas}
 
-I filtri consentono anche di negare l’accesso a vari elementi, ad esempio pagine ASP e aree sensibili all’interno di un’istanza Publish. Il filtro che segue nega l’accesso alle pagine ASP:
+I filtri consentono inoltre di negare l’accesso a vari elementi, ad esempio pagine ASP e aree sensibili all’interno di un’istanza di pubblicazione. Il filtro che segue nega l’accesso alle pagine ASP:
 
 ```xml
 /0002  { /type "deny" /url "*.asp"  }
@@ -656,13 +656,13 @@ L’esempio che segue mostra un filtro utilizzato per negare l’accesso esterno
 }
 ```
 
-Se la tua istanza Publish utilizza il contesto di un’applicazione web (ad esempio, per la pubblicazione), anche questa condizione può essere aggiunta alla definizione del filtro.
+Se l’istanza di pubblicazione utilizza un contesto dell’applicazione web (ad esempio pubblica), può essere aggiunta anche alla definizione del filtro.
 
 ```xml
 /0003   { /type "deny"  /url "/publish/libs/cq/workflow/content/console/archive*"  }
 ```
 
-Se hai comunque bisogno di accedere a singole pagine all’interno dell’area riservata, puoi consentire l’accesso a quelle pagine. Ad esempio, per consentire l’accesso alla scheda Archivio nella console del flusso di lavoro, aggiungi la seguente sezione:
+Se è necessario accedere a singole pagine all’interno dell’area riservata, è possibile accedervi. Ad esempio, per consentire l’accesso alla scheda Archivio nella console del flusso di lavoro, aggiungi la seguente sezione:
 
 ```xml
 /0004  { /type "allow"  /url "/libs/cq/workflow/content/console/archive*"   }
@@ -670,7 +670,7 @@ Se hai comunque bisogno di accedere a singole pagine all’interno dell’area r
 
 >[!NOTE]
 >
->Quando a una richiesta sono applicati più modelli di filtri, l’ultimo modello applicato è quello valido.
+>Quando a una richiesta sono applicati più pattern di filtri, l’ultimo pattern di filtro applicato è valido.
 
 #### Esempio di filtro: utilizzo di espressioni regolari {#example-filter-using-regular-expressions}
 
@@ -682,7 +682,7 @@ Questo filtro abilita le estensioni nelle directory di contenuto non pubblico ut
 
 #### Esempio di filtro: filtro per elementi aggiuntivi dell’URL di una richiesta {#example-filter-filter-additional-elements-of-a-request-url}
 
-Di seguito è riportato un esempio di regola che blocca l’acquisizione del contenuto dal percorso `/content` e dalla relativa sottostruttura, utilizzando i filtri per percorso, selettori ed estensioni:
+Di seguito è riportato un esempio di regola che blocca l’acquisizione del contenuto dal `/content` percorso e relativo sottoalbero, utilizzando i filtri per percorso, selettori ed estensioni:
 
 ```xml
 /006 {
@@ -695,21 +695,21 @@ Di seguito è riportato un esempio di regola che blocca l’acquisizione del con
 
 ### Esempio di sezione /filter {#example-filter-section}
 
-Quando configuri Dispatcher, devi limitare il più possibile l’accesso esterno. L’esempio che segue fornisce un accesso minimo per i visitatori esterni:
+Durante la configurazione di Dispatcher, devi limitare il più possibile l’accesso esterno. L’esempio che segue fornisce un accesso minimo per i visitatori esterni:
 
 * `/content`
-* Contenuti vari, quali progetti e librerie client; ad esempio:
+* contenuti vari, ad esempio progetti e librerie client. Ad esempio:
 
    * `/etc/designs/default*`
    * `/etc/designs/mydesign*`
 
-Dopo aver creato i filtri, [verifica l’accesso alla pagina](#testing-dispatcher-security) per garantire la protezione dell’istanza di AEM.
+Dopo aver creato i filtri, [accesso alla pagina di prova](#testing-dispatcher-security) per garantire la protezione dell’istanza AEM.
 
 La seguente sezione `/filter` del file `dispatcher.any` può essere utilizzata come base nel [file di configurazione di Dispatcher.](#dispatcher-configuration-files)
 
-Questo esempio si basa sul file di configurazione predefinito fornito con Dispatcher ed destinato all’utilizzo in un ambiente di produzione. Gli elementi con il prefisso `#` vengono disattivati (esclusi). Fai molta attenzione se decidi di attivarli (rimuovendo il carattere `#` dalla riga corrispondente), in quanto ciò può avere un impatto sulla sicurezza.
+Questo esempio si basa sul file di configurazione predefinito fornito con Dispatcher ed destinato all’utilizzo in un ambiente di produzione. Elementi con prefisso `#` sono disattivati (commentato). Presta attenzione se decidi di attivare uno qualsiasi di questi elementi (rimuovendo la `#` su quella linea). Questo può avere un impatto sulla sicurezza.
 
-Devi prima negare l’accesso a tutto, quindi consentire l’accesso a elementi specifici (limitati):
+Nega l&#39;accesso a tutto, quindi consenti l&#39;accesso a elementi specifici (limitati):
 
 <!-- 
 
@@ -785,7 +785,7 @@ Last Modified Date: 2015-06-26T04:32:37.986-0400
 
 Se scegli di estendere l’accesso, considera le seguenti raccomandazioni:
 
-* L’accesso esterno a `/admin` deve essere sempre *completamente* disabilitato, se utilizzi CQ versione 5.4 o una versione precedente.
+* Disattiva l&#39;accesso esterno a `/admin` se utilizzi CQ versione 5.4 o precedente.
 
 * Fai molta attenzione quando consenti l’accesso ai file in `/libs`. L’accesso deve essere consentito su base individuale.
 * Nega l’accesso alla configurazione di replica, in modo che non possa essere visualizzata:
@@ -801,11 +801,11 @@ A seconda dell’installazione, ci potrebbero essere risorse aggiuntive in `/lib
 
 >[!CAUTION]
 >
->L’accesso alle console e alle directory può rappresentare un rischio per la sicurezza degli ambienti di produzione. A meno che tu non abbia esplicite giustificazioni, devono rimanere disattivati (esclusi).
+>L’accesso alle console e alle directory può rappresentare un rischio per la sicurezza degli ambienti di produzione. A meno che non si disponga di giustificazioni esplicite, queste devono rimanere disattivate (commentato).
 
 >[!CAUTION]
 >
->Se utilizzi [ report in un ambiente di pubblicazione](https://experienceleague.adobe.com/docs/experience-manager-65/administering/operations/reporting.html?lang=it#using-reports-in-a-publish-environment), configura Dispatcher per negare l’accesso a `/etc/reports` ai visitatori esterni.
+>Se sei [utilizzo dei rapporti in un ambiente di pubblicazione](https://experienceleague.adobe.com/docs/experience-manager-65/administering/operations/reporting.html?lang=it#using-reports-in-a-publish-environment), è necessario configurare Dispatcher per negare l’accesso a `/etc/reports` per visitatori esterni.
 
 ### Limitazione delle stringhe di query {#restricting-query-strings}
 
@@ -822,15 +822,15 @@ Una singola voce può avere `glob` o una combinazione di `method`, `url`, `query
 
 >[!NOTE]
 >
->Se una regola contiene un elemento `/query`, avrà corrispondenza solo con le richieste che contengono una stringa di query e che a loro volta corrispondono al modello di query specificato.
+>Se una regola contiene `/query`, corrisponde solo alle richieste che contengono una stringa di query e corrispondono al pattern di query fornito.
 >
 >Nell’esempio precedente, se anche le richieste a `/etc` prive di stringa di query devono essere consentite, sono necessarie le seguenti regole:
 
 ```xml
 /filter {  
->/0001 { /type "deny" /method “*" /url "/path/*" }  
+>/0001 { /type "deny" /method "*" /url "/path/*" }  
 >/0002 { /type "allow" /method "GET" /url "/path/*" }  
->/0003 { /type “deny" /method "GET" /url "/path/*" /query "*" }  
+>/0003 { /type "deny" /method "GET" /url "/path/*" /query "*" }  
 >/0004 { /type "allow" /method "GET" /url "/path/*" /query "a=*" }  
 }  
 ```
@@ -839,7 +839,7 @@ Una singola voce può avere `glob` o una combinazione di `method`, `url`, `query
 
 I filtri di Dispatcher devono bloccare l’accesso alle pagine e agli script seguenti sulle istanze di AEM Publish. Utilizza un browser web per tentare di aprire le pagine seguenti come farebbe un visitatore del sito e verifica che venga restituito il codice 404. Se ottiene qualunque altro risultato, regola i filtri.
 
-Tieni presente che dovresti vedere il normale rendering della pagina per `/content/add_valid_page.html?debug=layout`.
+Dovresti visualizzare il rendering normale della pagina per `/content/add_valid_page.html?debug=layout`.
 
 * `/admin`
 * `/system/console`
@@ -893,11 +893,11 @@ Tieni presente che dovresti vedere il normale rendering della pagina per `/conte
 * `/etc/cloudservices.html`
 * `/welcome`
 
-Esegui il comando sotto riportato su un terminale o in un prompt dei comandi per determinare se l’accesso anonimo in scrittura è abilitato. Non dovresti poter scrivere dati sul nodo.
+Per determinare se l&#39;accesso in scrittura anonima è abilitato, eseguire il comando seguente in un terminale o in un prompt dei comandi. Non dovresti poter scrivere dati sul nodo.
 
 `curl -X POST "https://anonymous:anonymous@hostname:port/content/usergenerated/mytestnode"`
 
-Esegui il comando sotto riportato su un terminale o in un prompt dei comandi per tentare di invalidare la cache di Dispatcher e accertati di ricevere in risposta il codice 403:
+Per tentare di annullare la validità della cache del Dispatcher e assicurarsi di ricevere una risposta del codice 403, esegui il seguente comando in un terminale o in un prompt dei comandi:
 
 `curl -H "CQ-Handle: /content" -H "CQ-Path: /content" https://yourhostname/dispatcher/invalidate.cache`
 
@@ -936,7 +936,7 @@ La sezione `/vanity_urls` contiene le seguenti proprietà:
 
 >[!NOTE]
 >
->Se il rendering è un’istanza di AEM, è necessario installare il pacchetto [VanityURLS-Components da Software Distribution](https://experience.adobe.com/#/downloads/content/software-distribution/it/aem.html?package=/content/software-distribution/en/details.html/content/dam/aem/public/adobe/packages/granite/vanityurls-components) per abilitare il servizio URL personalizzato. (Per ulteriori informazioni, vedi [Distribuzione di software](https://experienceleague.adobe.com/docs/experience-manager-65/administering/contentmanagement/package-manager.html?lang=it#software-distribution)).
+>Se il rendering è un&#39;istanza di AEM, è necessario installare il [Pacchetto VanityURLS-Components da Distribuzione software](https://experience.adobe.com/#/downloads/content/software-distribution/it/aem.html?package=/content/software-distribution/en/details.html/content/dam/aem/public/adobe/packages/granite/vanityurls-components) per abilitare il servizio URL personalizzato. (Per ulteriori informazioni, vedi [Distribuzione di software](https://experienceleague.adobe.com/docs/experience-manager-65/administering/contentmanagement/package-manager.html?lang=it#software-distribution)).
 
 Utilizza la procedura seguente per abilitare l’accesso agli URL personalizzati.
 
@@ -947,7 +947,7 @@ Utilizza la procedura seguente per abilitare l’accesso agli URL personalizzati
 
 ## Inoltro delle richieste di distribuzione del contenuto (syndication): /propagateSyndPost {#forwarding-syndication-requests-propagatesyndpost}
 
-Le richieste di distribuzione del contenuto sono solitamente destinate solo a Dispatcher, pertanto per impostazione predefinita non vengono inviate al renderer (ad esempio, un’istanza di AEM).
+Le richieste di sindacazione sono destinate solo a Dispatcher, pertanto per impostazione predefinita non vengono inviate al renderer (ad esempio, un’istanza AEM).
 
 Se necessario, imposta la proprietà `/propagateSyndPost` su `"1"` per inoltrare le richieste di distribuzione del contenuto a Dispatcher. Se impostata, accertati che le richieste POST non siano negate nella sezione del filtro.
 
@@ -1003,7 +1003,7 @@ La proprietà `/docroot` identifica la directory in cui sono archiviati i file m
 >[!NOTE]
 >
 >Il valore deve corrispondere esattamente al percorso della directory principale del documento del server web, in modo che Dispatcher e il server web gestiscano gli stessi file.\
->Il server web è responsabile della distribuzione del codice di stato corretto quando viene utilizzato il file di cache di Dispatcher, per questo è importante che possa trovarlo.
+>Il server web è responsabile della distribuzione del codice di stato corretto quando viene utilizzato il file di cache del Dispatcher, per questo è importante che lo trovi anche.
 
 Se utilizzi più farm, ogni farm deve utilizzare una radice documento diversa.
 
@@ -1045,11 +1045,11 @@ Tuttavia, se i tuoi requisiti consentono la memorizzazione in cache dei document
 
 La proprietà `/rules` definisce quali documenti vengono memorizzati in cache in base al percorso del documento. Indipendentemente dalla proprietà `/rules`, Dispatcher non memorizza mai in cache un documento nelle seguenti circostanze:
 
-* Se l’URI della richiesta contiene un punto interrogativo (`?`).
-   * In genere, ciò indica una pagina dinamica, ad esempio il risultato di una ricerca che non richiede di essere memorizzata in cache.
+* L&#39;URI della richiesta contiene un punto interrogativo (`?`).
+   * Indica una pagina dinamica, ad esempio un risultato di ricerca che non deve essere memorizzato nella cache.
 * Se manca l’estensione del file.
    * Il server web ha bisogno dell’estensione per determinare il tipo di documento (tipo MIME).
-* Se l’intestazione di autenticazione è impostata(configurabile).
+* L&#39;intestazione di autenticazione è impostata (configurabile).
 * Se l’istanza AEM risponde con le seguenti intestazioni:
 
    * `no-cache`
@@ -1063,9 +1063,9 @@ La proprietà `/rules` definisce quali documenti vengono memorizzati in cache in
 Ciascun elemento della proprietà `/rules` include un modello [`glob`](#designing-patterns-for-glob-properties) e un tipo:
 
 * Il modello `glob` viene utilizzato per la corrispondenza al percorso del documento.
-* Il tipo definisce se memorizzare in cache i documenti che corrispondono al modello `glob`. Il valore può essere consenti (per memorizzare in cache il documento) o nega (per eseguire sempre il rendering del documento).
+* Il tipo definisce se memorizzare in cache i documenti che corrispondono al modello `glob`. Il valore può essere `allow` (per memorizzare il documento nella cache) o `deny` (per eseguire sempre il rendering del documento).
 
-Se non hai pagine dinamiche (oltre a quelle già escluse dalle regole di cui sopra), puoi configurare Dispatcher per memorizzare tutto in cache. La sezione delle regole si presenta così:
+Se non disponi di pagine dinamiche (oltre alle pagine già escluse dalle regole di cui sopra), puoi configurare Dispatcher per memorizzare tutto nella cache. La sezione delle regole si presenta così:
 
 ```xml
 /rules
@@ -1080,7 +1080,7 @@ Se alcune sezioni della pagina sono dinamiche (ad esempio, un’applicazione di 
 
 >[!NOTE]
 >
->I gruppi di utenti chiusi non devono essere memorizzati in cache, perché i loro diritti non vengono verificati per le pagine memorizzate in cache.
+>Non memorizzare nella cache i gruppi di utenti chiusi in quanto i diritti utente non vengono controllati per verificare la presenza di pagine memorizzate nella cache.
 
 ```xml
 /rules
@@ -1093,7 +1093,7 @@ Se alcune sezioni della pagina sono dinamiche (ad esempio, un’applicazione di 
 
 **Compressione**
 
-Sui server web Apache è possibile comprimere i documenti memorizzati in cache. La compressione consente ad Apache di restituire il documento in formato compresso, se richiesto dal client. La compressione viene eseguita automaticamente abilitando il modulo Apache `mod_deflate`, ad esempio:
+Sui server web Apache puoi comprimere i documenti memorizzati nella cache. La compressione consente ad Apache di restituire il documento in formato compresso, se richiesto dal client. La compressione viene eseguita automaticamente abilitando il modulo Apache `mod_deflate`, ad esempio:
 
 ```xml
 AddOutputFilterByType DEFLATE text/plain
@@ -1151,9 +1151,9 @@ Utilizza la proprietà `/statfileslevel` per annullare la validità dei file mem
 * Dispatcher crea file `.stat` in ogni cartella, partendo dalla cartella principale dei documenti fino al livello specificato. La cartella principale dei documenti è al livello 0.
 * I file vengono invalidati toccando il file `.stat`. L’ultima data di modifica del file `.stat` viene confrontata con l’ultima data di modifica di un documento memorizzato in cache. Il documento viene recuperato, se il file `.stat` è più recente.
 
-* Quando un file che si trova a un determinato livello viene invalidato, vengono toccati **tutti** i file `.stat` a partire dalla directory principale dei documenti **fino al** livello del file invalidato o della proprietà `statsfilevel` configurata (a seconda di quale dei due valori è più basso).
+* Quando un file a un determinato livello viene invalidato, **tutto** `.stat` file dal docroot **a** il livello del file invalidato o del `statsfilevel` (a seconda di quale dei due valori è minore) vengono toccati.
 
-   * Ad esempio: se imposti la proprietà `statfileslevel` su 6 e un file viene invalidato al livello 5, verrà toccato ogni file `.stat` a partire dalla directory principale dei documenti fino al livello 5. Continuando con questo esempio, se un file viene invalidato al livello 7, ogni file .`stat` a partire dalla directory principale dei documenti al livello 6 verrà toccato (in quanto `/statfileslevel = "6"`).
+   * Ad esempio: se si imposta la `statfileslevel` su 6 e un file viene invalidato al livello 5, quindi ogni `.stat` file da docroot a 5 sono toccati. Proseguendo con questo esempio, se un file viene invalidato al livello 7, ogni `stat` file da docroot a sei vengono toccati (dal momento che `/statfileslevel = "6"`).
 
 Sono interessate solo le risorse **lungo il percorso** del file invalidato. Prendi in considerazione l’esempio seguente: un sito web utilizza la struttura `/content/myWebsite/xx/.`. Se imposti `statfileslevel` su 3, viene creato un file `.stat` come segue:
 
@@ -1162,11 +1162,11 @@ Sono interessate solo le risorse **lungo il percorso** del file invalidato. Pren
 * `/content/myWebsite`
 * `/content/myWebsite/*xx*`
 
-Quando un file in `/content/myWebsite/xx` viene invalidato, viene toccato ogni file `.stat` a partire dalla directory principale dei documenti in giù fino a `/content/myWebsite/xx`. Questo vale solo per `/content/myWebsite/xx` e non per, ad esempio, `/content/myWebsite/yy` oppure `/content/anotherWebSite`.
+Quando un file in `/content/myWebsite/xx` viene invalidato, quindi ogni `.stat` file da docroot verso il basso a `/content/myWebsite/xx`è commosso. Questo scenario vale solo per `/content/myWebsite/xx` e non per esempio `/content/myWebsite/yy` o `/content/anotherWebSite`.
 
 >[!NOTE]
 >
->L’annullamento della validità può essere impedito inviando un’ulteriore intestazione `CQ-Action-Scope:ResourceOnly`. Questo metodo può essere utilizzato per effettuare il flushing di determinate risorse senza invalidare altre parti della cache. Per ulteriori informazioni, vedi [questa pagina](https://adobe-consulting-services.github.io/acs-aem-commons/features/dispatcher-flush-rules/index.html) e [Annullamento manuale della validità della cache di Dispatcher](https://experienceleague.adobe.com/docs/experience-manager-dispatcher/using/configuring/page-invalidate.html?lang=it#configuring).
+>L’annullamento della validità può essere impedito inviando un’altra intestazione `CQ-Action-Scope:ResourceOnly`. Questo metodo può essere utilizzato per svuotare determinate risorse senza invalidare altre parti della cache. Per ulteriori informazioni, vedi [questa pagina](https://adobe-consulting-services.github.io/acs-aem-commons/features/dispatcher-flush-rules/index.html) e [Annullamento manuale della validità della cache di Dispatcher](https://experienceleague.adobe.com/docs/experience-manager-dispatcher/using/configuring/page-invalidate.html?lang=it#configuring).
 
 >[!NOTE]
 >
@@ -1176,7 +1176,7 @@ Quando un file in `/content/myWebsite/xx` viene invalidato, viene toccato ogni f
 
 La proprietà `/invalidate` definisce i documenti che vengono invalidati automaticamente quando il contenuto viene aggiornato.
 
-Con l’annullamento automatico della validità, Dispatcher non elimina i file memorizzati in cache dopo un aggiornamento del contenuto, ma ne verifica la validità quando vengono successivamente richiesti. I documenti nella cache che non vengono invalidati automaticamente rimarranno nella cache fino a quando un aggiornamento del contenuto non li eliminerà esplicitamente.
+Con l’annullamento automatico della validità, Dispatcher non elimina i file memorizzati in cache dopo un aggiornamento del contenuto, ma ne verifica la validità quando vengono successivamente richiesti. I documenti nella cache che non vengono invalidati automaticamente rimangono nella cache fino a quando un aggiornamento del contenuto li elimina esplicitamente.
 
 L’annullamento automatico della validità viene in genere utilizzato per le pagine HTML. Le pagine HTML spesso contengono collegamenti ad altre pagine, rendendo difficile stabilire se un aggiornamento del contenuto influisce su una determinata pagina. Per fare in modo che tutte le pagine pertinenti vengano invalidate quando il contenuto viene aggiornato, conviene invalidare automaticamente tutte le pagine HTML. La configurazione che segue invalida tutte le pagine HTML:
 
@@ -1194,9 +1194,9 @@ Questa configurazione causa la seguente attività quando `/content/wknd/us/en` �
 
 * Tutti i file con pattern en.*vengono rimossi dalla cartella `/content/wknd/us`.
 * La cartella `/content/wknd/us/en./_jcr_content` viene rimossa.
-* Tutti gli altri file che corrispondono alla configurazione `/invalidate` non vengono eliminati immediatamente. Questi file vengono eliminati al momento della richiesta successiva. Nel nostro esempio, la pagina `/content/wknd.html` non viene eliminata subito, ma verrà eliminata nel momento in cui `/content/wknd.html` verrà richiesta.
+* Tutti gli altri file che corrispondono alla configurazione `/invalidate` non vengono eliminati immediatamente. Questi file vengono eliminati al momento della richiesta successiva. Nell’esempio `/content/wknd.html` non è soppresso; viene eliminato quando `/content/wknd.html` è richiesto.
 
-Se offri file PDF e ZIP generati automaticamente per il download, potresti dover annullare automaticamente anche questi. Esempio di configurazione:
+Se offri file PDF e ZIP generati automaticamente per il download, potresti dover annullare automaticamente anche la validità di questi file. Un esempio di configurazione è il seguente:
 
 ```xml
 /invalidate
@@ -1223,10 +1223,10 @@ La proprietà `/invalidateHandler` ti consente di definire uno script che viene 
 Lo script viene richiamato con i seguenti argomenti:
 
 * Handle: il percorso del contenuto invalidato
-* Azione: l’azione di replica (ad esempio Attiva, Disattiva)
+* Azione - Azione di replica (ad esempio, Attiva, Disattiva)
 * Ambito azione: ambito dell’azione di replica (vuoto, a meno che non venga inviata un’intestazione `CQ-Action-Scope: ResourceOnly`, per ulteriori dettagli, vedi [Annullamento della validità delle pagine nella cache da AEM](page-invalidate.md))
 
-Può essere utilizzato per coprire diversi casi d’uso, ad esempio per invalidare cache specifiche per altre applicazioni o per gestire casi in cui l’URL esternalizzato di una pagina e la sua posizione nella directory principale dei documenti non corrispondono al percorso del contenuto.
+Questo metodo può essere utilizzato per coprire diversi casi d’uso. Ad esempio, l’annullamento della validità di altre cache specifiche per l’applicazione o la gestione di casi in cui l’URL esternalizzato di una pagina e la sua posizione nel docroot non corrispondono al percorso del contenuto.
 
 Di seguito è riportato un esempio di script che registra in un file ogni richiesta di annullamento della validità.
 
@@ -1234,7 +1234,7 @@ Di seguito è riportato un esempio di script che registra in un file ogni richie
 /invalidateHandler "/opt/dispatcher/scripts/invalidate.sh"
 ```
 
-#### Esempio di script dell’handler di annullamento della validità {#sample-invalidation-handler-script}
+#### Esempio di script del gestore di invalidazione {#sample-invalidation-handler-script}
 
 ```shell
 #!/bin/bash
@@ -1265,7 +1265,7 @@ Per informazioni sulle proprietà glob, vedi [Progettazione di modelli per le pr
 >
 >È consigliabile definire il valore `/allowedClients`.
 >
->In caso contrario, qualsiasi client può inviare una chiamata per cancellare la cache; se ciò avviene ripetutamente, si può avere un forte impatto sulle prestazioni del sito.
+>In caso contrario, qualsiasi client può emettere una chiamata per cancellare la cache. Se eseguito ripetutamente, può influire gravemente sulle prestazioni del sito.
 
 ### Ignorare i parametri URL {#ignoring-url-parameters}
 
@@ -1278,19 +1278,19 @@ Quando un parametro viene ignorato per una pagina, questa pagine viene memorizza
 
 >[!NOTE]
 >
->È consigliabile configurare l’impostazione `ignoreUrlParams` come per creare un elenco Consentiti. In tal modo, tutti i parametri di query verranno ignorati e solo i parametri di query noti o previsti saranno esenti dall’essere ignorati. Per ulteriori dettagli ed esempi consulta [questa pagina](https://github.com/adobe/aem-dispatcher-optimizer-tool/blob/main/docs/Rules.md#dot—the-dispatcher-publish-farm-cache-should-have-its-ignoreurlparams-rules-configure-in-an-allow-list-mode).
+>È consigliabile configurare l’impostazione `ignoreUrlParams` come per creare un elenco Consentiti. In tal modo, tutti i parametri di query verranno ignorati e solo i parametri di query noti o previsti saranno esenti dall’essere ignorati. Per ulteriori dettagli ed esempi, vedi [questa pagina](https://github.com/adobe/aem-dispatcher-optimizer-tool/blob/main/docs/Rules.md#dot—the-dispatcher-publish-farm-cache-should-have-its-ignoreurlparams-rules-configure-in-an-allow-list-mode).
 
 Per specificare quali parametri ignorare, aggiungi regole glob alla proprietà `ignoreUrlParams`:
 
-* Per memorizzare in cache una pagina nonostante la richiesta contenga un parametro URL, crea una proprietà glob di tipo “allow” per consentire al parametro di essere ignorato.
+* Per memorizzare in cache una pagina nonostante la richiesta contenente un parametro URL, crea una proprietà glob che consenta al parametro (di essere ignorato).
 * Per evitare che la pagina venga memorizzata nella cache, crea una proprietà glob di tipo “deny” per impedire al parametro di essere ignorato.
 
 >[!NOTE]
 >
->Durante la configurazione della proprietà glob, tieni presente che deve corrispondere al nome del parametro query. Ad esempio, per ignorare il parametro “p1” dall’URL `http://example.com/path/test.html?p1=test&p2=v2`, la proprietà glob sarà configurata così:
+>Quando configuri la proprietà glob, deve corrispondere al nome del parametro query. Ad esempio, per ignorare il parametro “p1” dall’URL `http://example.com/path/test.html?p1=test&p2=v2`, la proprietà glob sarà configurata così:
 > `/0002 { /glob "p1" /type "allow" }`
 
-Il codice di esempio seguente fa sì che Dispatcher ignori tutti i parametri, tranne il parametro `nocache`. In tal modo, gli URL di una richiesta che includono il parametro `nocache` non verranno mai memorizzati nella cache dal dispatcher:
+Il codice di esempio seguente fa sì che Dispatcher ignori tutti i parametri, tranne il parametro `nocache`. Di conseguenza, richiedi gli URL che includono `nocache` I parametri non vengono mai memorizzati nella cache da Dispatcher:
 
 ```xml
 /ignoreUrlParams
@@ -1321,7 +1321,7 @@ Per informazioni sulle proprietà glob, vedi [Progettazione di modelli per le pr
 
 >[!NOTE]
 >
->Questa funzione è disponibile con la versione **4.1.11** di Dispatcher.
+>Questa funzione è disponibile con versione **4.1.11** del Dispatcher.
 
 La proprietà `/headers` ti consente di definire i tipi di intestazioni HTTP che verranno memorizzate in cache da Dispatcher. Alla prima richiesta di una risorsa non memorizzata in cache, tutte le intestazioni che corrispondono a uno dei valori configurati (vedi l’esempio di configurazione sotto riportato) vengono memorizzate in un file separato, accanto al file della cache. Alle successive richieste della risorsa memorizzata in cache, le intestazioni memorizzate vengono aggiunte alla risposta.
 
@@ -1344,14 +1344,14 @@ Di seguito è riportato un esempio di configurazione predefinita:
 
 >[!NOTE]
 >
->Considera anche che i caratteri globbing di file non sono consentiti. Per ulteriori dettagli, vedi [Progettazione di modelli per le proprietà glob](#designing-patterns-for-glob-properties).
+>I caratteri globbing del file non sono consentiti. Per ulteriori dettagli, vedi [Progettazione di modelli per le proprietà glob](#designing-patterns-for-glob-properties).
 
 >[!NOTE]
 >
 >Se hai bisogno che Dispatcher memorizzi e distribuisca le intestazioni di risposta ETag da AEM, procedi come segue:
 >
 >* Aggiungi il nome dell’intestazione nella sezione `/cache/headers`.
->* Aggiungi la seguente [direttiva Apache](https://httpd.apache.org/docs/2.4/mod/core.html#fileetag) nella sezione relativa a Dispatcher:
+>* Aggiungi quanto segue [Direttiva Apache](https://httpd.apache.org/docs/2.4/mod/core.html#fileetag) nella sezione relativa a Dispatcher:
 >
 >```xml
 >FileETag none
@@ -1371,30 +1371,30 @@ La proprietà `mode` specifica quali autorizzazioni di file vengono applicate al
 * `0002` Consenti la scrittura ad altri.
 * `0001` Consenti ad altri di eseguire ricerche nella directory.
 
-Il valore predefinito è `0755` che consente al proprietario di leggere, scrivere o eseguire ricerche e al gruppo e ad altri di leggere o eseguire ricerche.
+Il valore predefinito è `0755` che consente al proprietario di leggere, scrivere o cercare e al gruppo e ad altri di leggere o cercare.
 
 ### Limitazione del tocco del file .stat {#throttling-stat-file-touching}
 
-Con la proprietà `/invalidate` predefinita, ogni attivazione invalida efficacemente tutti i file `.html` (quando il loro percorso corrisponde alla sezione `/invalidate`). Su un sito web con traffico considerevole, più attivazioni successive incrementeranno il carico della CPU sul backend. In questo caso, sarebbe auspicabile “limitare” il tocco del file `.stat` per mantenere reattivo il sito web. Per farlo, utilizza la proprietà `/gracePeriod`.
+Con la proprietà `/invalidate` predefinita, ogni attivazione invalida efficacemente tutti i file `.html` (quando il loro percorso corrisponde alla sezione `/invalidate`). Su un sito web con traffico considerevole, più attivazioni successive aumentano il carico di cpu sul backend. In questo scenario, è auspicabile &quot;strozzare&quot; `.stat` touch dei file per mantenere dinamico il sito web. Puoi eseguire questa azione utilizzando il `/gracePeriod` proprietà.
 
-La proprietà `/gracePeriod` definisce il numero di secondi in cui una risorsa obsoleta e invalidata automaticamente può ancora essere distribuita dalla cache dopo l’ultima attivazione. La proprietà può essere utilizzata in una configurazione in cui, altrimenti, un batch di attivazioni annullerebbe ripetutamente l’intera cache. Il valore consigliato è 2 secondi.
+La `/gracePeriod` la proprietà definisce il numero di secondi in cui una risorsa obsoleta e auto-invalidata può ancora essere servita dalla cache dopo l&#39;ultima attivazione che si è verificata. La proprietà può essere utilizzata in una configurazione in cui, altrimenti, un batch di attivazioni annullerebbe ripetutamente l’intera cache. Il valore consigliato è 2 secondi.
 
 Per ulteriori informazioni, vedi anche le precedenti sezioni `/invalidate` e `/statfileslevel`.
 
 ### Configurazione dell’annullamento della validità della cache basata sul tempo: /enableTTL {#configuring-time-based-cache-invalidation-enablettl}
 
-L’annullamento della validità della cache in base al tempo dipende da `/enableTTL` e la presenza di intestazioni di scadenza regolari dallo standard HTTP. Se si imposta la proprietà su 1 (`/enableTTL "1"`), valuta le intestazioni di risposta dal backend e, se le intestazioni contengono un `Cache-Control`, `max-age` o `Expires` viene creato un file ausiliario vuoto accanto al file memorizzato in cache, con un tempo di modifica uguale alla data di scadenza. Quando il file memorizzato in cache viene richiesto oltre il tempo di modifica, viene automaticamente richiesto nuovamente dal back-end.
+L’annullamento della validità della cache basato su tempo dipende dal `/enableTTL` e la presenza di intestazioni di scadenza regolari dallo standard HTTP. Se imposti la proprietà su 1 (`/enableTTL "1"`), valuta le intestazioni di risposta dal backend. Se le intestazioni contengono un `Cache-Control`, `max-age` o `Expires` data, viene creato un file ausiliario vuoto accanto al file memorizzato nella cache, con l’ora di modifica uguale alla data di scadenza. Quando il file memorizzato nella cache viene richiesto oltre il tempo di modifica, viene automaticamente richiesto nuovamente dal backend.
 
-Prima della versione 4.3.5 di Dispatcher, la logica di invalidazione TTL si basava solo sul valore TTL configurato. Con la versione di Dispatcher 4.3.5, entrambi i valori TTL impostati **e** vengono prese in considerazione le regole di invalidazione della cache di dispatcher. Di conseguenza, per un file memorizzato in cache:
+Prima di Dispatcher 4.3.5, la logica di invalidazione TTL era basata solo sul valore TTL configurato. Con Dispatcher 4.3.5, entrambe le impostazioni TTL **e** vengono prese in considerazione le regole di invalidazione della cache del dispatcher. Come tale, per un file memorizzato nella cache:
 
-1. Se `/enableTTL` è impostato su 1, viene controllata la scadenza del file. Se il file è scaduto in base al TTL impostato, non vengono eseguiti altri controlli e il file memorizzato in cache viene richiesto nuovamente dal backend.
-2. Se il file non è scaduto o `/enableTTL` non è configurato, vengono applicate le regole standard di invalidazione della cache, ad esempio quelle impostate da [/statfileslevel](#invalidating-files-by-folder-level) e [/invalidate](#automatically-invalidating-cached-files). Questo significa che Dispatcher può annullare la validità dei file per i quali il TTL non è scaduto.
+1. Se `/enableTTL` è impostato su 1, la scadenza del file è controllata. Se il file è scaduto in base al valore TTL impostato, non vengono eseguiti altri controlli e il file memorizzato nella cache viene richiesto nuovamente dal backend.
+2. Se il file non è scaduto, oppure `/enableTTL` non è configurato, vengono applicate le regole standard di invalidazione della cache, ad esempio quelle impostate da [/statfileslevel](#invalidating-files-by-folder-level) e [/invalidate](#automatically-invalidating-cached-files). Questo flusso consente a Dispatcher di annullare la validità dei file per i quali il TTL non è scaduto.
 
-Questa nuova implementazione supporta i casi di utilizzo in cui i file hanno un TTL più lungo (ad esempio, sulla rete CDN) ma possono ancora essere invalidati anche se il TTL non è scaduto. Favorisce l’aggiornamento dei contenuti rispetto al rapporto cache-hit sul dispatcher.
+Questa nuova implementazione supporta i casi d’uso in cui i file hanno un TTL più lungo (ad esempio, sulla rete CDN) ma possono ancora essere invalidati anche se il TTL non è scaduto. Favorisce la freschezza dei contenuti rispetto al rapporto hit della cache sul Dispatcher.
 
-Al contrario, nel caso in cui **solo** la logica di scadenza applicata a un file e quindi impostata `/enableTTL` a 1 ed esclude tale file dal meccanismo standard di invalidazione della cache. Ad esempio:
+Viceversa, nel caso in cui sia necessario **only** la logica di scadenza applicata a un file e quindi impostata `/enableTTL` a 1 ed escludere il file dal meccanismo standard di invalidazione della cache. Ad esempio:
 
-* Configurare [regole di invalidazione](#automatically-invalidating-cached-files) nella sezione cache per ignorare il file. Nel frammento seguente, tutti i file che terminano con `.example.html` vengono ignorati e scadranno solo quando il valore TTL impostato viene superato.
+* Per ignorare il file, configura il [regole di invalidazione](#automatically-invalidating-cached-files) nella sezione cache. Nello snippet seguente, tutti i file che terminano con `.example.html` vengono ignorati e scadono solo quando il set TTL è passato.
 
 ```xml
   /invalidate
@@ -1405,9 +1405,9 @@ Al contrario, nel caso in cui **solo** la logica di scadenza applicata a un file
   }
 ```
 
-* Progettare la struttura del contenuto in modo da poter impostare un valore [/statfilelevel](#invalidating-files-by-folder-level) in modo che il file non venga invalidato automaticamente.
+* Progettare la struttura dei contenuti in modo da poter impostare un valore elevato [/statfilelevel](#invalidating-files-by-folder-level) quindi il file non viene invalidato automaticamente.
 
-Ciò assicura che `.stat` l&#39;annullamento della validità del file non viene utilizzato e per i file specificati è attiva solo la scadenza TTL.
+In questo modo si garantisce che `.stat` l’annullamento della validità dei file non viene utilizzato e per i file specificati è attiva solo la scadenza TTL.
 
 >[!NOTE]
 >
@@ -1426,7 +1426,7 @@ Ogni categoria creata definisce un modello glob. Dispatcher confronta l’URI de
 * L’ordine delle categorie determina l’ordine in cui vengono confrontate con l’URI.
 * Il primo modello di categoria che corrisponde all’URI è la categoria del file. Non vengono valutati altri modelli di categoria.
 
-Dispatcher supporta un massimo di 8 categorie di statistiche. Se definisci più di 8 categorie, vengono utilizzate solo le prime 8.
+Dispatcher supporta un massimo di otto categorie di statistiche. Se definisci più di otto categorie, vengono utilizzate solo le prime 8.
 
 **Selezione rendering**
 
@@ -1435,12 +1435,12 @@ Ogni volta che Dispatcher richiede una pagina sottoposta a rendering, utilizza i
 1. Se la richiesta contiene il nome del rendering in un cookie `renderid`, Dispatcher lo utilizza.
 1. Se la richiesta non include un cookie `renderid`, Dispatcher confronta le statistiche dei rendering:
 
-   1. Dispatcher determina la categoria dell’URI della richiesta.
+   1. Il Dispatcher determina la categoria dell’URI della richiesta.
    1. Dispatcher determina quale rendering ha il punteggio di risposta più basso per quella categoria e lo seleziona.
 
 1. Se non è stato ancora selezionato un rendering, utilizza il primo rendering dell’elenco.
 
-Il punteggio per la categoria di un rendering si basa sui tempi di risposta precedenti, nonché sui precedenti tentativi di connessioni non riusciti e riusciti effettuati da Dispatcher. Per ogni tentativo, viene aggiornato il punteggio per la categoria dell’URI richiesto.
+Il punteggio per la categoria di un rendering si basa sui tempi di risposta precedenti e sulle precedenti connessioni non riuscite e riuscite tentate da Dispatcher. Per ogni tentativo, viene aggiornato il punteggio per la categoria dell’URI richiesto.
 
 >[!NOTE]
 >
@@ -1454,7 +1454,7 @@ Definire una categoria per ciascun tipo di documento del quale vuoi conservare l
 
 Il nome della categoria (`name`) deve essere univoco per la farm. La sezione `pattern` è descritta nella sezione [Progettazione di modelli per le proprietà glob](#designing-patterns-for-glob-properties).
 
-Per determinare la categoria di un URI, Dispatcher lo confronta con ciascun modello di categoria fino a quando non viene trovata una corrispondenza. Dispatcher inizia con la prima categoria dell’elenco e continua seguendo l’ordine. Quindi, inserisci prima le categorie con i modelli più specifici.
+Per determinare la categoria di un URI, Dispatcher lo confronta con ciascun modello di categoria fino a quando non viene trovata una corrispondenza. Dispatcher inizia con la prima categoria nell’elenco e continua in ordine. Quindi, inserisci prima le categorie con i modelli più specifici.
 
 Ad esempio, il file predefinito di Dispatcher `dispatcher.any` definisce una categoria HTML e anche un’altra categoria. Tuttavia, la categoria HTML è più specifica e quindi viene visualizzata prima:
 
@@ -1499,7 +1499,7 @@ Se non esiste alcuna proprietà `/unavailablePenalty`, viene utilizzato il valor
 
 ## Identificazione di una cartella di connessione permanenti: /stickyConnectionsFor {#identifying-a-sticky-connection-folder-stickyconnectionsfor}
 
-La proprietà `/stickyConnectionsFor` definisce una cartella contenente documenti permanenti; la cartella sarà accessibile tramite l’URL. Dispatcher invia tutte le richieste, provenienti da un singolo utente, che sono in questa cartella alla stessa istanza di rendering. Le connessioni permanenti garantiscono la presenza e la coerenza dei dati della sessione per tutti i documenti. Questo meccanismo utilizza il cookie `renderid`.
+La `/stickyConnectionsFor` definisce una cartella contenente documenti permanenti. Questa proprietà è accessibile tramite l’URL . Dispatcher invia tutte le richieste, da un singolo utente che si trova in questa cartella, alla stessa istanza di rendering. Le connessioni permanenti garantiscono la presenza e la coerenza dei dati della sessione per tutti i documenti. Questo meccanismo utilizza il cookie `renderid`.
 
 L’esempio che segue definisce una connessione fissa alla cartella /products:
 
@@ -1521,13 +1521,13 @@ Quando una pagina è composta da contenuto proveniente da più nodi di contenuto
 
 ### httpOnly {#httponly}
 
-Quando le connessioni permanenti sono abilitate, il modulo Dispatcher imposta il cookie `renderid`. Questo cookie non ha il flag `httponly`, che però deve essere aggiunto per rafforzare la sicurezza. Per farlo, imposta la proprietà `httpOnly` nel nodo `/stickyConnections` di un file di configurazione `dispatcher.any`. Il valore della proprietà (`0` oppure `1`) definisce se al cookie `renderid` viene aggiunto l’attributo `HttpOnly`. Il valore predefinito è `0`, il che significa che l’attributo non viene aggiunto.
+Quando le connessioni permanenti sono abilitate, il modulo Dispatcher imposta la `renderid` cookie. Questo cookie non ha il `httponly` Flag , che deve essere aggiunto per migliorare la sicurezza. Aggiungi il `httponly` impostando il flag `httpOnly` nella `/stickyConnections` nodo di un `dispatcher.any` file di configurazione. Il valore della proprietà (`0` oppure `1`) definisce se al cookie `renderid` viene aggiunto l’attributo `HttpOnly`. Il valore predefinito è `0`, il che significa che l’attributo non viene aggiunto.
 
 Per ulteriori informazioni sul flag `httponly`, leggi [questa pagina](https://www.owasp.org/index.php/HttpOnly).
 
 ### Flag secure {#secure}
 
-Quando le connessioni permanenti sono abilitate, il modulo Dispatcher imposta il cookie `renderid`. Questo cookie non ha il flag `secure`, che però deve essere aggiunto per rafforzare la sicurezza. Per farlo, imposta la proprietà `secure` nel nodo `/stickyConnections` di un file di configurazione `dispatcher.any`. Il valore della proprietà (`0` oppure `1`) definisce se al cookie `renderid` viene aggiunto l’attributo `secure`. Il valore predefinito è `0`, il che significa che l’attributo viene aggiunto **se** la richiesta in ingresso è sicura. Se il valore è impostato su `1`, il flag secure viene aggiunto indipendentemente dal fatto che la richiesta in ingresso sia sicura o meno.
+Quando le connessioni permanenti sono abilitate, il modulo Dispatcher imposta la `renderid` cookie. Questo cookie non ha il `secure` Flag , che deve essere aggiunto per migliorare la sicurezza. Aggiungi il `secure` impostazione del flag `secure` nella `/stickyConnections` nodo di un `dispatcher.any` file di configurazione. Il valore della proprietà (`0` oppure `1`) definisce se al cookie `renderid` viene aggiunto l’attributo `secure`. Il valore predefinito è `0`, il che significa che l’attributo è aggiunto **if** la richiesta in arrivo è sicura. Se il valore è impostato su `1`, il flag Secure viene aggiunto indipendentemente dal fatto che la richiesta in arrivo sia protetta o meno.
 
 ## Gestione degli errori di connessione del rendering {#handling-render-connection-errors}
 
@@ -1535,7 +1535,7 @@ Configura il comportamento di Dispatcher quando il server di rendering restituis
 
 ### Specifica di una pagina di verifica dello stato di integrità {#specifying-a-health-check-page}
 
-Utilizzare la proprietà `/health_check` per specificare un URL che viene verificato quando viene restituito il codice di stato 500. Se anche questa pagina restituisce il codice di stato 500, l’istanza viene considerata non disponibile e al rendering viene applicata una penalità di tempo configurabile (`/unavailablePenalty`) prima di un nuovo tentativo.
+Utilizzare la proprietà `/health_check` per specificare un URL che viene verificato quando viene restituito il codice di stato 500. Se questa pagina restituisce anche un codice di stato 500, l’istanza è considerata non disponibile e viene applicata una penalità di tempo configurabile ( `/unavailablePenalty`) viene applicata al rendering prima di riprovare.
 
 ```xml
 /health_check
@@ -1549,7 +1549,7 @@ Utilizzare la proprietà `/health_check` per specificare un URL che viene verifi
 
 La proprietà `/retryDelay` imposta il tempo (in secondi) che Dispatcher deve attendere prima di ogni successivo turno di tentativi di connessione con i rendering nella farm. Per ogni turno, il numero massimo di tentativi di Dispatcher di connettersi a un rendering è pari al numero di rendering nella farm.
 
-Dispatcher utilizza il valore `"1"`, se `/retryDelay` non è definito in modo esplicito. Il valore predefinito è appropriato nella maggior parte dei casi.
+Dispatcher utilizza il valore `"1"`, se `/retryDelay` non è definito in modo esplicito. Il valore predefinito è in genere appropriato.
 
 ```xml
 /retryDelay "1"
@@ -1569,12 +1569,12 @@ Se il valore non è definito in modo esplicito, il valore predefinito è `5`.
 
 ### Utilizzo del meccanismo di failover {#using-the-failover-mechanism}
 
-Abilita il meccanismo di failover nella farm di Dispatcher per inviare nuovamente le richieste a rendering diversi quando la richiesta originale non riesce. Quando il failover è abilitato, Dispatcher si comporta come segue:
+Per inviare nuovamente le richieste a render diversi quando la richiesta originale non riesce, abilita il meccanismo di failover nella farm di Dispatcher. Quando il failover è abilitato, Dispatcher si comporta come segue:
 
 * Quando una richiesta inviata a un rendering restituisce lo stato HTTP 503 (NON DISPONIBILE), Dispatcher invia la richiesta a un altro rendering.
 * Quando una richiesta inviata a un rendering restituisce lo stato HTTP 50x (diverso da 503), Dispatcher invia una richiesta per la pagina configurata per la proprietà `health_check`.
    * Se la verifica dello stato di integrità restituisce il codice 500 (INTERNAL_SERVER_ERROR), Dispatcher invia la richiesta originale a un altro rendering.
-   * Se la verifica dello stato di integrità restituisce il codice HTTP 200, Dispatcher restituisce il codice di errore HTTP 500 iniziale al client.
+   * Se il controllo di integrità restituisce lo stato HTTP 200, Dispatcher restituisce l’errore HTTP 500 iniziale al client.
 
 Per abilitare il failover, aggiungi la seguente riga alla farm (o al sito web):
 
@@ -1584,23 +1584,23 @@ Per abilitare il failover, aggiungi la seguente riga alla farm (o al sito web):
 
 >[!NOTE]
 >
->Per ritentare le richieste HTTP che contengono un corpo, Dispatcher invia un’intestazione di richiesta `Expect: 100-continue` al rendering prima di eseguire lo spooling del contenuto effettivo. CQ 5.5 con CQSE risponde immediatamente con il codice di stato 100 (CONTINUA) o con un codice di errore. Anche altri contenitori servlet dovrebbero supportare questa funzione.
+>Per ritentare le richieste HTTP che contengono un corpo, Dispatcher invia un’intestazione di richiesta `Expect: 100-continue` al rendering prima di eseguire lo spooling del contenuto effettivo. CQ 5.5 con CQSE risponde immediatamente con il codice di stato 100 (CONTINUA) o con un codice di errore. Sono supportati anche altri contenitori servlet.
 
 ## Ignorare gli errori di interruzione: /ignoreEINTR {#ignoring-interruption-errors-ignoreeintr}
 
 >[!CAUTION]
 >
->Questa opzione di solito non è necessaria. Devi utilizzarla solo quando vedi i seguenti messaggi nel registro:
+>Questa opzione non è necessaria. Utilizzalo solo quando vedi i seguenti messaggi di log:
 >
 >`Error while reading response: Interrupted system call`
 
-Qualsiasi chiamata di sistema orientata al file system può essere interrotta `EINTR` se l’oggetto della chiamata di sistema si trova su un sistema remoto accessibile tramite NFS. Se queste chiamate di sistema possono andare in timeout o essere interrotte dipende da come il file system sottostante è stato installato sul computer locale.
+È possibile interrompere qualsiasi chiamata di sistema orientata al file system `EINTR` se l&#39;oggetto della chiamata di sistema si trova su un sistema remoto a cui si accede tramite NFS. Se queste chiamate di sistema possono andare in timeout o essere interrotte dipende da come il file system sottostante è stato installato sul computer locale.
 
 Usa il parametro `/ignoreEINTR`, se la tua istanza ha questa configurazione e il registro contiene il seguente messaggio:
 
 `Error while reading response: Interrupted system call`
 
-Internamente, Dispatcher legge la risposta dal server remoto (cioè, da AEM) utilizzando un loop che può essere rappresentato come:
+Internamente, Dispatcher legge la risposta dal server remoto (ovvero, AEM) utilizzando un loop che può essere rappresentato come:
 
 ```text
 while (response not finished) {  
@@ -1610,7 +1610,7 @@ read more data
 
 Questi messaggi possono essere generati quando la proprietà `EINTR` è inserita nella sezione “`read more data`” e sono dovuti alla ricezione di un segnale prima della ricezione di dati.
 
-Per ignorare queste interruzioni, puoi aggiungere il seguente parametro a `dispatcher.any` (prima di `/farms`):
+Per ignorare tali interruzioni, puoi aggiungere il seguente parametro a `dispatcher.any` (prima del `/farms`):
 
 `/ignoreEINTR "1"`
 
@@ -1627,7 +1627,7 @@ I valori `glob` possono includere caratteri jolly e caratteri alfanumerici per d
 | `*` | Corrisponde a zero o più istanze contigue di qualsiasi carattere nella stringa. Il carattere finale della corrispondenza è determinato da una delle seguenti situazioni: <br/>Un carattere nella stringa corrisponde al carattere successivo nel modello e il carattere del modello ha le seguenti caratteristiche:<br/><ul><li>Non è un *</li><li>Non è un ?</li><li>Un carattere letterale (incluso uno spazio) o una classe di caratteri.</li><li>Viene raggiunta la fine del modello.</li></ul>All’interno di una classe di caratteri, il carattere viene interpretato letteralmente. | `*/geo*` Corrisponde a qualsiasi pagina sotto i nodi `/content/geometrixx` e `/content/geometrixx-outdoors`. Le seguenti richieste HTTP corrispondono al modello glob: <br/><ul><li>`"GET /content/geometrixx/en.html"`</li><li>`"GET /content/geometrixx-outdoors/en.html"` </li></ul><br/> `*outdoors/*` <br/>Corrisponde a qualsiasi pagina sotto il nodo `/content/geometrixx-outdoors`. Ad esempio, la seguente richiesta HTTP corrisponde al modello glob: <br/><ul><li>`"GET /content/geometrixx-outdoors/en.html"`</li></ul> |
 | `?` | Corrisponde a qualsiasi carattere singolo. Da utilizzare al di fuori delle classi di caratteri. All’interno di una classe di caratteri, questo carattere viene interpretato letteralmente. | `*outdoors/??/*`<br/> Corrisponde alle pagine in qualsiasi lingua del sito geometrixx-outdoors. Ad esempio, la seguente richiesta HTTP corrisponde al modello glob: <br/><ul><li>`"GET /content/geometrixx-outdoors/en/men.html"`</li></ul><br/>La seguente richiesta non corrisponde al modello glob: <br/><ul><li>“GET /content/geometrixx-outdoors/en.html”</li></ul> |
 | `[ and ]` | Richiama l’inizio e la fine di una classe di caratteri. Le classi di caratteri possono includere uno o più intervalli di caratteri e caratteri singoli.<br/>Una corrispondenza si verifica, se il carattere di destinazione corrisponde a uno qualsiasi dei caratteri della classe di caratteri o dei caratteri all’interno di un intervallo definito.<br/>Se si omette la parentesi quadra di chiusura, il modello non produce alcuna corrispondenza. | `*[o]men.html*`<br/> Corrisponde alla seguente richiesta HTTP:<br/><ul><li>`"GET /content/geometrixx-outdoors/en/women.html"`</li></ul><br/>Non corrisponde alla seguente richiesta HTTP:<br/><ul><li>`"GET /content/geometrixx-outdoors/en/men.html"`</li></ul><br/> `*[o/]men.html*` <br/>Corrisponde alle seguenti richieste HTTP: <br/><ul><li>`"GET /content/geometrixx-outdoors/en/women.html"`</li><li>`"GET /content/geometrixx-outdoors/en/men.html"`</li></ul> |
-| `-` | Indica un intervallo di caratteri. Da utilizzare nelle classi di caratteri.  Al di fuori di una classe di caratteri, questo carattere viene interpretato letteralmente. | `*[m-p]men.html*` Corrisponde alla seguente richiesta HTTP: <br/><ul><li>`"GET /content/geometrixx-outdoors/en/women.html"`</li></ul>Non corrisponde alla seguente richiesta HTTP:<br/><ul><li>`"GET /content/geometrixx-outdoors/en/men.html"`</li></ul> |
+| `-` | Indica un intervallo di caratteri. Da utilizzare nelle classi di caratteri. Al di fuori di una classe di caratteri, questo carattere viene interpretato letteralmente. | `*[m-p]men.html*` Corrisponde alla seguente richiesta HTTP: <br/><ul><li>`"GET /content/geometrixx-outdoors/en/women.html"`</li></ul>Non corrisponde alla seguente richiesta HTTP:<br/><ul><li>`"GET /content/geometrixx-outdoors/en/men.html"`</li></ul> |
 | `!` | Ignora il carattere o la classe di che segue. Da utilizzare solo per ignorare caratteri e intervalli di caratteri all’interno delle classi di caratteri. Equivalente a `^ wildcard`. <br/>Al di fuori di una classe di caratteri, questo carattere viene interpretato letteralmente. | `*[!o]men.html*`<br/> Corrisponde alla seguente richiesta HTTP: <br/><ul><li>`"GET /content/geometrixx-outdoors/en/men.html"`</li></ul><br/>Non corrisponde alla seguente richiesta HTTP:<br/><ul><li>`"GET /content/geometrixx-outdoors/en/women.html"`</li></ul><br/>`*[!o!/]men.html*`<br/>Non corrisponde alla seguente richiesta HTTP:<br/><ul><li>`"GET /content/geometrixx-outdoors/en/women.html"` oppure `"GET /content/geometrixx-outdoors/en/men. html"`</li></ul> |
 | `^` | Ignora il carattere o l’intervallo di caratteri che segue. Da utilizzare solo per ignorare caratteri e intervalli di caratteri all’interno delle classi di caratteri. Equivalente al carattere jolly `!`. <br/>Al di fuori di una classe di caratteri, questo carattere viene interpretato letteralmente. | Gli esempi relativi al carattere jolly `!` valgono, ma previa sostituzione, negli esempi di modelli, dei caratteri `!` con i caratteri `^`. |
 
@@ -1735,28 +1735,28 @@ Per ulteriori informazioni, vedi la documentazione del server web e il file read
 
 **Rotazione/piping dei registri di Apache**
 
-Se utilizzi un server web **Apache** puoi utilizzare la funzionalità standard per la rotazione e/o il piping dei registri. Ad esempio, effettuando il piping dei registri:
+Se utilizzi un **Apache** server web, puoi utilizzare la funzionalità standard per i log ruotati, i log piping o entrambi. Ad esempio, effettuando il piping dei registri:
 
 `DispatcherLog "| /usr/apache/bin/rotatelogs logs/dispatcher.log%Y%m%d 604800"`
 
-Si otterrà automaticamente una rotazione:
+Questa funzionalità ruota automaticamente:
 
-* Del file di registro di Dispatcher; con una marca temporale nell’estensione (`logs/dispatcher.log%Y%m%d`).
+* il file di registro di Dispatcher, con una marca temporale nell’estensione (`logs/dispatcher.log%Y%m%d`).
 * Su base settimanale (60 x 60 x 24 x 7 = 604800 secondi).
 
-Vedi la documentazione del server web Apache sulla rotazione/piping dei registri; ad esempio, [Apache 2.4](https://httpd.apache.org/docs/2.4/logs.html).
+Vedi la documentazione del server web Apache su Log Rotation e Piped Logs. Ad esempio: [Apache 2.4](https://httpd.apache.org/docs/2.4/logs.html).
 
 >[!NOTE]
 >
->Al momento dell’installazione, il livello di registro predefinito è alto (ovvero livello 3 = Debug), in modo che Dispatcher registri tutti gli errori e gli avvisi. Ciò è molto utile nelle fasi iniziali.
+>Dopo l’installazione, il livello di registro predefinito è alto (ovvero livello 3 = Debug), in modo che Dispatcher registri tutti gli errori e gli avvisi. Questo livello è utile nelle fasi iniziali.
 >
->Tuttavia, questa impostazione richiede risorse aggiuntive, quindi quando Dispatcher funziona senza problemi *in base alle tue esigenze*, puoi (dovresti) abbassare il livello di registro.
+>Tuttavia, tale livello richiede risorse aggiuntive. Quando Dispatcher funziona senza problemi *in base alle tue esigenze*, è possibile abbassare il livello del registro.
 
 ### Registrazione della traccia {#trace-logging}
 
-Tra gli altri miglioramenti apportati a Dispatcher, la versione 4.2.0 introduce anche la funzione di registrazione della traccia.
+Tra gli altri miglioramenti per Dispatcher, la versione 4.2.0 introduce anche la registrazione della traccia.
 
-Si tratta di un livello più alto della registrazione di debug, in quanto mostra informazioni aggiuntive nei registri. La registrazione ora include:
+Questa funzionalità è di livello superiore alla registrazione di debug che mostra informazioni aggiuntive nei registri. La registrazione ora include:
 
 * I valori delle intestazioni inoltrate.
 * La regola applicata per una determinata azione.
@@ -1791,10 +1791,10 @@ Per verificare il funzionamento e l’interazione di base del server web, di Dis
 
 1. Imposta `loglevel` su `3`.
 
-1. Avvia il server web; ciò determina anche l’avvio di Dispatcher.
+1. Avvia il server web. In questo modo viene avviato anche Dispatcher.
 1. Avvia l’istanza di AEM.
 1. Verifica i file di registro e di errore per il server web e Dispatcher.
-   * A seconda del server web, dovresti visualizzare messaggi di questo tipo:
+   * A seconda del server web, dovresti visualizzare messaggi quali:
       * `[Thu May 30 05:16:36 2002] [notice] Apache/2.0.50 (Unix) configured` e
       * `[Fri Jan 19 17:22:16 2001] [I] [19096] Dispatcher initialized (build XXXX)`
 
@@ -1805,8 +1805,8 @@ Per verificare il funzionamento e l’interazione di base del server web, di Dis
    * Il risultato dovrebbe essere identico. Verifica l’accesso ad altre pagine con lo stesso meccanismo.
 
 1. Verifica che la directory della cache sia stata riempita.
-1. Attiva una pagina per verificare che il flushing della cache avvenga correttamente.
-1. Se tutto funziona correttamente, puoi ridurre `loglevel` a `0`.
+1. Per verificare che la cache venga scaricata correttamente, attiva una pagina.
+1. Se tutto funziona correttamente, è possibile ridurre le `loglevel` a `0`.
 
 ## Utilizzo di più istanze di Dispatcher {#using-multiple-dispatchers}
 
@@ -1819,9 +1819,9 @@ In questo caso, accertati che ogni richiesta venga gestita tramite un’unica is
 
 ## Debugging {#debugging}
 
-Quando si aggiunge l’intestazione `X-Dispatcher-Info` a una richiesta, Dispatcher risponde indicando se la destinazione è stata memorizzata in cache, restituita dalla cache o non è memorizzabile in cache. L’intestazione di risposta `X-Cache-Info` contiene queste informazioni in un formato leggibile. Puoi utilizzare queste intestazioni di risposta per eseguire il debug dei problemi relativi alle risposte memorizzate in cache da Dispatcher.
+Quando si aggiunge l’intestazione `X-Dispatcher-Info` a una richiesta, Dispatcher risponde se la destinazione è stata memorizzata nella cache, restituita dalla cache o non è affatto memorizzabile nella cache. L’intestazione di risposta `X-Cache-Info` contiene queste informazioni in un formato leggibile. Puoi utilizzare queste intestazioni di risposta per eseguire il debug dei problemi relativi alle risposte memorizzate in cache da Dispatcher.
 
-Questa funzionalità non è abilitata per impostazione predefinita, pertanto affinché l’intestazione di risposta `X-Cache-Info` sia inclusa, la farm deve contenere la seguente voce:
+Questa funzionalità non è abilitata per impostazione predefinita, quindi per l’intestazione della risposta `X-Cache-Info` per essere incluso, l&#39;azienda deve contenere la seguente voce:
 
 ```xml
 /info "1"
@@ -1840,39 +1840,39 @@ Ad esempio:
 }
 ```
 
-Inoltre, l’intestazione `X-Dispatcher-Info` non ha bisogno di un valore, ma se utilizzi `curl` per il test devi fornire un valore per poter inviare l’intestazione, ad esempio:
+Inoltre, il `X-Dispatcher-Info` l&#39;intestazione non richiede un valore, ma se utilizzi `curl` per il test, devi fornire un valore da inviare all’intestazione, ad esempio:
 
 ```xml
 curl -v -H "X-Dispatcher-Info: true" https://localhost/content/wknd/us/en.html
 ```
 
-Di seguito è riportato un elenco contenente le intestazioni di risposta che `X-Dispatcher-Info` restituirà:
+Di seguito è riportato un elenco contenente le intestazioni di risposta che `X-Dispatcher-Info` restituisce:
 
 * **memorizzato in cache**\
-   Il file di destinazione è contenuto nella cache e Dispatcher ha stabilito che è valido per la distribuzione.
+   Il file di destinazione è contenuto nella cache e Dispatcher ha determinato che è valido per consegnarlo.
 * **caching**\
-   Il file di destinazione non è contenuto nella cache e Dispatcher ha stabilito che è valido per il caching dell’output e per la distribuzione.
+   Il file di destinazione non è contenuto nella cache e Dispatcher ha determinato che è valido memorizzare nella cache l’output e consegnarlo.
 * **caching: il file stat è più recente**
-Il file di destinazione è contenuto nella cache, tuttavia, viene invalidato da un file stat più recente. Dispatcher eliminerà il file di destinazione, lo ricreerà dall’output e lo distribuirà.
+Il file di destinazione è contenuto nella cache, tuttavia, viene invalidato da un file stat più recente. Il Dispatcher elimina il file di destinazione, lo ricrea dall’output e lo distribuisce.
 * **non memorizzabile in cache: nessuna directory principale dei documenti**
 La configurazione della farm non contiene una directory principale dei documenti (elemento di configurazione 
 `cache.docroot`).
 * **non memorizzabile in cache: percorso del file della cache troppo lungo**\
    Il file di destinazione, ovvero la concatenazione di directory principale del documento e file URL, supera la lunghezza massima consentita per i nomi di file sul sistema.
 * **non memorizzabile in cache: percorso del file temporaneo troppo lungo**\
-   Il modello di nome file temporaneo supera la lunghezza massima consentita per i nomi di file sul sistema. Dispatcher crea un file temporaneo prima di creare o sovrascrivere effettivamente il file memorizzato in cache. Il nome del file temporaneo è il nome del file di destinazione con i caratteri `_YYYYXXXXXX` aggiunti alla fine, in cui i caratteri `Y` e `X` verranno sostituiti per creare un nome univoco.
+   Il modello di nome file temporaneo supera la lunghezza massima consentita per i nomi di file sul sistema. Dispatcher crea prima un file temporaneo prima di creare o sovrascrivere effettivamente il file memorizzato nella cache. Il nome del file temporaneo è il nome del file di destinazione con i caratteri `_YYYYXXXXXX` aggiunto, dove `Y` e `X` vengono sostituiti per creare un nome univoco.
 * **non memorizzabile in cache: l’URL della richiesta non ha estensione**\
    L’URL della richiesta non ha un’estensione oppure un percorso segue l’estensione del file, ad esempio: `/test.html/a/path`.
-* **non memorizzabile in cache: la richiesta non era GET o HEAD**
-Il metodo HTTP non è né GET né HEAD. Dispatcher presume che l’output conterrà dati dinamici che non devono essere memorizzati in cache.
+* **non memorizzabile in cache: non era una richiesta di GET o HEAD**
+Il metodo HTTP non è un GET o un HEAD. Dispatcher presuppone che l’output contenga dati dinamici che non devono essere memorizzati nella cache.
 * **non memorizzabile in cache: la richiesta conteneva una stringa di query**\
-   La richiesta conteneva una stringa di query. Dispatcher presume che l’output dipende dalla stringa di query specificata e pertanto non la memorizza in cache.
+   La richiesta conteneva una stringa di query. Dispatcher presuppone che l’output dipenda dalla stringa di query specificata e quindi non memorizza in cache.
 * **non memorizzabile in cache: il gestore di sessione non ha autenticato**\
    La cache della farm è gestita da un gestore di sessione (la configurazione contiene un nodo `sessionmanagement`) e la richiesta non conteneva le informazioni di autenticazione appropriate.
 * **non memorizzabile in cache: la richiesta contiene un’autorizzazione**\
    La farm non può memorizzare in cache l’output (`allowAuthorized 0`) e la richiesta contiene informazioni di autenticazione.
 * **non memorizzabile in cache: la destinazione è una directory**\
-   Il file di destinazione è una directory. Ciò potrebbe indicare un errore concettuale, in cui un URL e un URL secondario contengono entrambi un output memorizzabile in cache, ad esempio se una richiesta a `/test.html/a/file.ext` arriva prima e contiene un output memorizzabile in cache, Dispatcher non potrà memorizzare l’output di una richiesta successiva in `/test.html`.
+   Il file di destinazione è una directory. Questa posizione potrebbe indicare un errore concettuale, in cui un URL e alcuni URL secondari contengono entrambi un output memorizzabile nella cache. Ad esempio, se una richiesta a `/test.html/a/file.ext` viene prima e contiene l’output in cache, Dispatcher non è in grado di memorizzare nella cache l’output di una richiesta successiva a `/test.html`.
 * **non memorizzabile in cache: l’URL della richiesta ha una barra finale**\
    L’URL della richiesta ha una barra finale.
 * **non memorizzabile in cache: URL della richiesta non incluso nelle regole di cache**\
@@ -1883,6 +1883,6 @@ Il metodo HTTP non è né GET né HEAD. Dispatcher presume che l’output conter
 La cache della farm è gestita da un gestore di sessione (la configurazione contiene un nodo `sessionmanagement`) e la sessione dell’utente non è o non è più valida.
 * **non memorizzabile in cache: la risposta contiene`no_cache`**
 il server remoto ha restituito un’intestazione 
-`Dispatcher: no_cache` che vieta a Dispatcher di memorizzare in cache l’output.
+`Dispatcher: no_cache` intestazione, impossibile memorizzare in cache l’output in Dispatcher.
 * **non memorizzabile in cache: la lunghezza del contenuto della risposta è zero**
 La lunghezza del contenuto della risposta è zero; Dispatcher non crea un file di lunghezza zero.
