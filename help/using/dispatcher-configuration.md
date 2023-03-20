@@ -5,7 +5,7 @@ exl-id: 91159de3-4ccb-43d3-899f-9806265ff132
 source-git-commit: 26c8edbb142297830c7c8bd068502263c9f0e7eb
 workflow-type: tm+mt
 source-wordcount: '8900'
-ht-degree: 71%
+ht-degree: 72%
 
 ---
 
@@ -1278,7 +1278,7 @@ Quando un parametro viene ignorato per una pagina, questa pagine viene memorizza
 
 >[!NOTE]
 >
->È consigliabile configurare l’impostazione `ignoreUrlParams` come per creare un elenco Consentiti. In tal modo, tutti i parametri di query verranno ignorati e solo i parametri di query noti o previsti saranno esenti dall’essere ignorati. Per ulteriori dettagli ed esempi, vedi [questa pagina](https://github.com/adobe/aem-dispatcher-optimizer-tool/blob/main/docs/Rules.md#dot—the-dispatcher-publish-farm-cache-should-have-its-ignoreurlparams-rules-configure-in-an-allow-list-mode).
+>È consigliabile configurare l’impostazione `ignoreUrlParams` come per creare un elenco Consentiti. In tal modo, tutti i parametri di query verranno ignorati e solo i parametri di query noti o previsti saranno esenti dall’essere ignorati. Per ulteriori dettagli ed esempi, vedi [questa pagina](https://github.com/adobe/aem-dispatcher-optimizer-tool/blob/main/docs/Rules.md#dot---the-dispatcher-publish-farm-cache-should-have-its-ignoreurlparams-rules-configured-in-an-allow-list-manner).
 
 Per specificare quali parametri ignorare, aggiungi regole glob alla proprietà `ignoreUrlParams`:
 
@@ -1385,12 +1385,12 @@ Per ulteriori informazioni, vedi anche le precedenti sezioni `/invalidate` e `/s
 
 L’annullamento della validità della cache basato su tempo dipende dal `/enableTTL` e la presenza di intestazioni di scadenza regolari dallo standard HTTP. Se imposti la proprietà su 1 (`/enableTTL "1"`), valuta le intestazioni di risposta dal backend. Se le intestazioni contengono un `Cache-Control`, `max-age` o `Expires` data, viene creato un file ausiliario vuoto accanto al file memorizzato nella cache, con l’ora di modifica uguale alla data di scadenza. Quando il file memorizzato nella cache viene richiesto oltre il tempo di modifica, viene automaticamente richiesto nuovamente dal backend.
 
-Prima di Dispatcher 4.3.5, la logica di invalidazione TTL era basata solo sul valore TTL configurato. Con Dispatcher 4.3.5, entrambe le impostazioni TTL **e** vengono prese in considerazione le regole di invalidazione della cache del dispatcher. Come tale, per un file memorizzato nella cache:
+Prima di Dispatcher 4.3.5, la logica di invalidazione TTL era basata solo sul valore TTL configurato. Con Dispatcher 4.3.5, entrambe le impostazioni TTL **e** vengono prese in considerazione le regole di invalidazione della cache del dispatcher. Di conseguenza, per un file memorizzato in cache:
 
-1. Se `/enableTTL` è impostato su 1, la scadenza del file è controllata. Se il file è scaduto in base al valore TTL impostato, non vengono eseguiti altri controlli e il file memorizzato nella cache viene richiesto nuovamente dal backend.
+1. Se la proprietà `/enableTTL` è impostata su 1, viene controllata la scadenza del file. Se il file è scaduto in base alla proprietà TTL impostata, non vengono eseguiti altri controlli e il file memorizzato in cache viene richiesto nuovamente dal back-end.
 2. Se il file non è scaduto, oppure `/enableTTL` non è configurato, vengono applicate le regole standard di invalidazione della cache, ad esempio quelle impostate da [/statfileslevel](#invalidating-files-by-folder-level) e [/invalidate](#automatically-invalidating-cached-files). Questo flusso consente a Dispatcher di annullare la validità dei file per i quali il TTL non è scaduto.
 
-Questa nuova implementazione supporta i casi d’uso in cui i file hanno un TTL più lungo (ad esempio, sulla rete CDN) ma possono ancora essere invalidati anche se il TTL non è scaduto. Favorisce la freschezza dei contenuti rispetto al rapporto hit della cache sul Dispatcher.
+Questa nuova implementazione supporta i casi di utilizzo in cui i file hanno un TTL più lungo (ad esempio, sulla rete CDN) ma possono ancora essere invalidati anche se il valore TTL non è scaduto. Favorisce la freschezza dei contenuti rispetto al rapporto hit della cache sul Dispatcher.
 
 Viceversa, nel caso in cui sia necessario **only** la logica di scadenza applicata a un file e quindi impostata `/enableTTL` a 1 ed escludere il file dal meccanismo standard di invalidazione della cache. Ad esempio:
 
@@ -1405,7 +1405,7 @@ Viceversa, nel caso in cui sia necessario **only** la logica di scadenza applica
   }
 ```
 
-* Progettare la struttura dei contenuti in modo da poter impostare un valore elevato [/statfilelevel](#invalidating-files-by-folder-level) quindi il file non viene invalidato automaticamente.
+* Progetta la struttura del contenuto in modo da poter impostare un valore [/statfilelevel](#invalidating-files-by-folder-level) elevato affinché la validità del file non venga annullata automaticamente.
 
 In questo modo si garantisce che `.stat` l’annullamento della validità dei file non viene utilizzato e per i file specificati è attiva solo la scadenza TTL.
 
@@ -1882,7 +1882,7 @@ Il metodo HTTP non è un GET o un HEAD. Dispatcher presuppone che l’output con
 * **non memorizzabile in cache: sessione non valida**
 La cache della farm è gestita da un gestore di sessione (la configurazione contiene un nodo `sessionmanagement`) e la sessione dell’utente non è o non è più valida.
 * **non memorizzabile in cache: la risposta contiene`no_cache`**
-il server remoto ha restituito un’intestazione 
+Il server remoto ha restituito un’intestazione 
 `Dispatcher: no_cache` intestazione, impossibile memorizzare in cache l’output in Dispatcher.
 * **non memorizzabile in cache: la lunghezza del contenuto della risposta è zero**
 La lunghezza del contenuto della risposta è zero; Dispatcher non crea un file di lunghezza zero.
