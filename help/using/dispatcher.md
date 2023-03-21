@@ -9,9 +9,9 @@ topic-tags: dispatcher
 content-type: reference
 discoiquuid: 1d449ee2-4cdd-4b7a-8b4e-7e6fc0a1d7ee
 exl-id: c9266683-6890-4359-96db-054b7e856dd0
-source-git-commit: e87af532ee3268f0a45679e20031c3febc02de58
+source-git-commit: 7dd2ba37e149af960ba428421d64a5a24542eeeb
 workflow-type: tm+mt
-source-wordcount: '3165'
+source-wordcount: '3154'
 ht-degree: 57%
 
 ---
@@ -26,7 +26,7 @@ Dispatcher è uno strumento di caching e bilanciamento del carico di Adobe Exper
 
 Il processo di distribuzione di Dispatcher è indipendente dal server web e dalla piattaforma del sistema operativo scelti:
 
-1. Scopri di più su Dispatcher (questa pagina). Vedi anche [domande frequenti su Dispatcher](https://experienceleague.adobe.com/docs/experience-manager-dispatcher/using/troubleshooting/dispatcher-faq.html?lang=en).
+1. Scopri di più su Dispatcher (questa pagina). Vedi anche [domande frequenti su Dispatcher](/help/using/dispatcher-faq.md).
 1. Installa un [server web supportato](https://experienceleague.adobe.com/docs/experience-manager-65/deploying/introduction/technical-requirements.html?lang=it) in base alla documentazione di quel server web.
 1. [Installa il modulo Dispatcher](dispatcher-install.md) nel server web e configura di conseguenza il server web.
 1. [Configura Dispatcher](dispatcher-configuration.md) (il file dispatcher.any).
@@ -45,7 +45,7 @@ Utilizza le seguenti informazioni come richiesto:
 
 * [Elenco di controllo della sicurezza di Dispatcher](security-checklist.md)
 * [Knowledge Base di Dispatcher](https://helpx.adobe.com/experience-manager/kb/index/dispatcher.html)
-* [Ottimizzazione delle prestazioni della cache di un sito web](https://experienceleague.adobe.com/docs/experience-manager-64/deploying/configuring/configuring-performance.html?lang=en)
+* [Ottimizzazione delle prestazioni della cache di un sito web](https://experienceleague.adobe.com/docs/experience-manager-65/deploying/configuring/configuring-performance.html)
 * [Utilizzo di Dispatcher con più domini](dispatcher-domains.md)
 * [Utilizzo di SSL con Dispatcher](dispatcher-ssl.md)
 * [Implementazione del caching sensibile alle autorizzazioni](permissions-cache.md)
