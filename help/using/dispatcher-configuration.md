@@ -2,10 +2,10 @@
 title: Configurazione di Dispatcher
 description: Scopri come configurare Dispatcher. Scopri il supporto per IPv4 e IPv6, i file di configurazione, le variabili di ambiente, la denominazione dell’istanza, la definizione delle farm, l’identificazione degli host virtuali e altro ancora.
 exl-id: 91159de3-4ccb-43d3-899f-9806265ff132
-source-git-commit: 26c8edbb142297830c7c8bd068502263c9f0e7eb
+source-git-commit: 434a17077cea8958a55a637eddd1f4851fc7f2ee
 workflow-type: tm+mt
-source-wordcount: '8900'
-ht-degree: 72%
+source-wordcount: '8941'
+ht-degree: 71%
 
 ---
 
@@ -1411,7 +1411,7 @@ In questo modo si garantisce che `.stat` l’annullamento della validità dei fi
 
 >[!NOTE]
 >
->La memorizzazione in cache basata su TTL è un superset di memorizzazione in cache delle intestazioni e come tale anche la proprietà `/headers` deve essere configurata correttamente.
+>Tieni presente questa impostazione `/enableTTL` a 1 abilita la memorizzazione in cache TTL solo sul lato dispatcher. Di conseguenza, le informazioni TTL contenute nel file aggiuntivo (vedi sopra) non vengono fornite ad alcun altro agente utente che richiede tale tipo di file dal dispatcher. Se desideri fornire intestazioni di memorizzazione in cache a sistemi downstream come una CDN o un browser, devi configurare la `/cache/headers` di conseguenza.
 
 >[!NOTE]
 >
