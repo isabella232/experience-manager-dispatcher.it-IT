@@ -10,9 +10,9 @@ content-type: reference
 discoiquuid: 1d449ee2-4cdd-4b7a-8b4e-7e6fc0a1d7ee
 exl-id: c9266683-6890-4359-96db-054b7e856dd0
 source-git-commit: 7dd2ba37e149af960ba428421d64a5a24542eeeb
-workflow-type: tm+mt
+workflow-type: ht
 source-wordcount: '3154'
-ht-degree: 99%
+ht-degree: 100%
 
 ---
 
@@ -45,7 +45,7 @@ Utilizza le seguenti informazioni come richiesto:
 
 * [Elenco di controllo della sicurezza di Dispatcher](security-checklist.md)
 * [Knowledge Base di Dispatcher](https://helpx.adobe.com/it/experience-manager/kb/index/dispatcher.html)
-* [Ottimizzazione delle prestazioni della cache di un sito web](https://experienceleague.adobe.com/docs/experience-manager-65/deploying/configuring/configuring-performance.html)
+* [Ottimizzazione delle prestazioni della cache di un sito web](https://experienceleague.adobe.com/docs/experience-manager-65/deploying/configuring/configuring-performance.html?lang=it)
 * [Utilizzo di Dispatcher con più domini](dispatcher-domains.md)
 * [Utilizzo di SSL con Dispatcher](dispatcher-ssl.md)
 * [Implementazione del caching sensibile alle autorizzazioni](permissions-cache.md)
