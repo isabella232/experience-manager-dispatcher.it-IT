@@ -10,13 +10,13 @@ products: SG_EXPERIENCEMANAGER/6.4
 discoiquuid: ff3d38e0-71c9-4b41-85f9-fa896393aac5
 exl-id: b55c7a34-d57b-4d45-bd83-29890f1524de
 source-git-commit: f2036e8f73d5f9f58ff713df8f04caad89d660fc
-workflow-type: tm+mt
+workflow-type: ht
 source-wordcount: '1063'
-ht-degree: 97%
+ht-degree: 100%
 
 ---
 
-# Note sulla versione di AEM Dispatcher {#aem-dispatcher-release-notes}
+# Note sulla versione di AEM Dispatcher{#aem-dispatcher-release-notes}
 
 ## Informazioni sulla versione {#release-information}
 
@@ -45,9 +45,9 @@ Per istruzioni dettagliate, vedi [Installazione di Dispatcher](dispatcher-instal
 
 **Miglioramenti**:
 
-* DISP-911 AEM-05 - X-Edge-Key può trapelare in disp_apache2.c
-* DISP-937 registrazione di tutti i selettori
-* DISP-998: rendere configurabile il caricamento di URL personalizzati all’avvio
+* DISP-911: AEM-05 - X-Edge-Key può trapelare in disp_apache2.c
+* DISP-937: registrazione di tutti i selettori
+* DISP-998: possibilità configurabile il caricamento di URL personalizzati all’avvio
 
 ### Versione 4.3.5 (4 aprile 2022) {#apr}
 
@@ -65,7 +65,7 @@ Per istruzioni dettagliate, vedi [Installazione di Dispatcher](dispatcher-instal
 
 **Miglioramenti**:
 
-* DISP-874 - Crea una configurazione del dispatcher per attivare o disattivare l&#39;implementazione di DISP-818 tramite un flag `DispatcherRestrictUncacheableContent`. Il valore predefinito è Disattivato. Quando è attivato, rimuove le intestazioni di memorizzazione in cache impostate da mod_expires per il contenuto da non memorizzare nella cache. Si tratta di un comportamento diverso da quello rilevato nella versione 4.3.3 (dove il valore predefinito era Attivato) ma lo stesso delle versioni precedenti alla 4.3.3 (dove il valore predefinito era Disattivato). Si consiglia di mantenere l&#39;impostazione predefinita Off per `DispatcherRestrictUncacheableContent` in modo che la cache del browser sia più flessibile. Se, durante l’aggiornamento dalla versione 4.3.3 alla versione 4.3.4, desideri mantenere lo stesso comportamento della versione 4.3.3, imposta esplicitamente `DispatcherRestrictUncacheableContent` su On.
+* DISP-874 - Crea una configurazione del dispatcher per attivare o disattivare l&#39;implementazione di DISP-818 tramite un flag `DispatcherRestrictUncacheableContent`. Il valore predefinito è Disattivato. Quando è attivato, rimuove le intestazioni di memorizzazione in cache impostate da mod_expires per il contenuto da non memorizzare nella cache. Si tratta di un comportamento diverso da quello rilevato nella versione 4.3.3 (dove il valore predefinito era Attivato) ma lo stesso delle versioni precedenti alla 4.3.3 (dove il valore predefinito era Disattivato). Si consiglia di mantenere l&#39;impostazione predefinita Off per `DispatcherRestrictUncacheableContent`in modo che la cache del browser sia più flessibile. Se, durante l’aggiornamento dalla versione 4.3.3 alla versione 4.3.4, desideri mantenere lo stesso comportamento della versione 4.3.3, imposta esplicitamente `DispatcherRestrictUncacheableContent` su On.
 * DISP-841 - Dispatcher non rispetta /serverStaleOnError per il codice di risposta 504
 * DISP-874 - Creare una configurazione del dispatcher per attivare o disattivare l&#39;implementazione di DISP-818
 * DISP-883 - Traccia che mostra la decomposizione della richiesta URL in Dispatcher
