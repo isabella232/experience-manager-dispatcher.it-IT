@@ -2,10 +2,10 @@
 title: Configurazione di Dispatcher
 description: Scopri come configurare Dispatcher. Scopri il supporto per IPv4 e IPv6, i file di configurazione, le variabili di ambiente, la denominazione dell’istanza, la definizione delle farm, l’identificazione degli host virtuali e altro ancora.
 exl-id: 91159de3-4ccb-43d3-899f-9806265ff132
-source-git-commit: 434a17077cea8958a55a637eddd1f4851fc7f2ee
+source-git-commit: 5fe3bb534b239d5aec892623cab65e84e04c7d10
 workflow-type: tm+mt
 source-wordcount: '8941'
-ht-degree: 100%
+ht-degree: 99%
 
 ---
 
@@ -368,7 +368,7 @@ L’esempio che segue è un frammento di codice preso da un file `dispatcher.any
     {
     /virtualhosts
       {
-      "www.mycompany.com"
+      "www.mycompany.com/products/*"
       }
     /renders
       {
@@ -380,7 +380,7 @@ L’esempio che segue è un frammento di codice preso da un file `dispatcher.any
     {
     /virtualhosts
       {
-      "www.mycompany.com/products/*"
+      "www.mycompany.com"
       }
     /renders
       {
@@ -647,7 +647,7 @@ Il filtro di esempio che segue consente l’inoltro di dati di moduli tramite il
 
 #### Esempio di filtro: consenti l’accesso alla console del flusso di lavoro {#example-filter-allow-access-to-the-workflow-console}
 
-L’esempio che segue mostra un filtro utilizzato per negare l’accesso esterno alla console del flusso di lavoro:
+L’esempio seguente mostra un filtro utilizzato per consentire l’accesso esterno alla console del flusso di lavoro:
 
 ```xml
 /filter {
@@ -825,6 +825,7 @@ Una singola voce può avere `glob` o una combinazione di `method`, `url`, `query
 >Se una regola contiene un elemento `/query`, avrà corrispondenza solo con le richieste che contengono una stringa di query e che a loro volta corrispondono al modello di query specificato.
 >
 >Nell’esempio precedente, se anche le richieste a `/etc` prive di stringa di query devono essere consentite, sono necessarie le seguenti regole:
+>
 
 ```xml
 /filter {  
@@ -1849,40 +1850,38 @@ curl -v -H "X-Dispatcher-Info: true" https://localhost/content/wknd/us/en.html
 Di seguito è riportato un elenco contenente le intestazioni di risposta che `X-Dispatcher-Info` restituirà:
 
 * **memorizzato in cache**\
-   Il file di destinazione è contenuto nella cache e Dispatcher ha stabilito che è valido per la distribuzione.
+  Il file di destinazione è contenuto nella cache e Dispatcher ha stabilito che è valido per la distribuzione.
 * **caching**\
-   Il file di destinazione non è contenuto nella cache e Dispatcher ha stabilito che è valido per il caching dell’output e per la distribuzione.
+  Il file di destinazione non è contenuto nella cache e Dispatcher ha stabilito che è valido per il caching dell’output e per la distribuzione.
 * **caching: il file stat è più recente**
 Il file di destinazione è contenuto nella cache, tuttavia, viene invalidato da un file stat più recente. Dispatcher eliminerà il file di destinazione, lo ricreerà dall’output e lo distribuirà.
 * **non memorizzabile in cache: nessuna directory principale dei documenti**
-La configurazione della farm non contiene una directory principale dei documenti (elemento di configurazione 
-`cache.docroot`).
+La configurazione della farm non contiene una directory principale dei documenti (elemento di configurazione `cache.docroot`).
 * **non memorizzabile in cache: percorso del file della cache troppo lungo**\
-   Il file di destinazione, ovvero la concatenazione di directory principale del documento e file URL, supera la lunghezza massima consentita per i nomi di file sul sistema.
+  Il file di destinazione, ovvero la concatenazione di directory principale del documento e file URL, supera la lunghezza massima consentita per i nomi di file sul sistema.
 * **non memorizzabile in cache: percorso del file temporaneo troppo lungo**\
-   Il modello di nome file temporaneo supera la lunghezza massima consentita per i nomi di file sul sistema. Dispatcher crea un file temporaneo prima di creare o sovrascrivere effettivamente il file memorizzato in cache. Il nome del file temporaneo è il nome del file di destinazione con i caratteri `_YYYYXXXXXX` aggiunti alla fine, in cui i caratteri `Y` e `X` verranno sostituiti per creare un nome univoco.
+  Il modello di nome file temporaneo supera la lunghezza massima consentita per i nomi di file sul sistema. Dispatcher crea un file temporaneo prima di creare o sovrascrivere effettivamente il file memorizzato in cache. Il nome del file temporaneo è il nome del file di destinazione con i caratteri `_YYYYXXXXXX` aggiunti alla fine, in cui i caratteri `Y` e `X` verranno sostituiti per creare un nome univoco.
 * **non memorizzabile in cache: l’URL della richiesta non ha estensione**\
-   L’URL della richiesta non ha un’estensione oppure un percorso segue l’estensione del file, ad esempio: `/test.html/a/path`.
+  L’URL della richiesta non ha un’estensione oppure un percorso segue l’estensione del file, ad esempio: `/test.html/a/path`.
 * **non memorizzabile in cache: la richiesta non era GET o HEAD**
 Il metodo HTTP non è né GET né HEAD. Dispatcher presuppone che l’output contenga dati dinamici che non devono essere memorizzati nella cache.
 * **non memorizzabile in cache: la richiesta conteneva una stringa di query**\
-   La richiesta conteneva una stringa di query. Dispatcher presume che l’output dipenda dalla stringa di query specificata e pertanto non la memorizza in cache.
+  La richiesta conteneva una stringa di query. Dispatcher presume che l’output dipenda dalla stringa di query specificata e pertanto non la memorizza in cache.
 * **non memorizzabile in cache: il gestore di sessione non ha autenticato**\
-   La cache della farm è gestita da un gestore di sessione (la configurazione contiene un nodo `sessionmanagement`) e la richiesta non conteneva le informazioni di autenticazione appropriate.
+  La cache della farm è gestita da un gestore di sessione (la configurazione contiene un nodo `sessionmanagement`) e la richiesta non conteneva le informazioni di autenticazione appropriate.
 * **non memorizzabile in cache: la richiesta contiene un’autorizzazione**\
-   La farm non può memorizzare in cache l’output (`allowAuthorized 0`) e la richiesta contiene informazioni di autenticazione.
+  La farm non può memorizzare in cache l’output (`allowAuthorized 0`) e la richiesta contiene informazioni di autenticazione.
 * **non memorizzabile in cache: la destinazione è una directory**\
-   Il file di destinazione è una directory. Questa posizione potrebbe indicare un errore concettuale, in cui un URL e alcuni URL secondari contengono entrambi un output memorizzabile nella cache. Ad esempio, se una richiesta a `/test.html/a/file.ext` viene prima e contiene l’output in cache, Dispatcher non è in grado di memorizzare nella cache l’output di una richiesta successiva a `/test.html`.
+  Il file di destinazione è una directory. Questa posizione potrebbe indicare un errore concettuale, in cui un URL e alcuni URL secondari contengono entrambi un output memorizzabile nella cache. Ad esempio, se una richiesta a `/test.html/a/file.ext` viene prima e contiene l’output in cache, Dispatcher non è in grado di memorizzare nella cache l’output di una richiesta successiva a `/test.html`.
 * **non memorizzabile in cache: l’URL della richiesta ha una barra finale**\
-   L’URL della richiesta ha una barra finale.
+  L’URL della richiesta ha una barra finale.
 * **non memorizzabile in cache: URL della richiesta non incluso nelle regole di cache**\
-   Le regole di cache della farm negano esplicitamente il caching dell’output di alcuni URL di richiesta.
+  Le regole di cache della farm negano esplicitamente il caching dell’output di alcuni URL di richiesta.
 * **non memorizzabile in cache: accesso negato dal modulo AuthChecker**\
-   Il modulo AuthChecker della farm ha negato l’accesso al file memorizzato in cache.
+  Il modulo AuthChecker della farm ha negato l’accesso al file memorizzato in cache.
 * **non memorizzabile in cache: sessione non valida**
 La cache della farm è gestita da un gestore di sessione (la configurazione contiene un nodo `sessionmanagement`) e la sessione dell’utente non è o non è più valida.
 * **non memorizzabile in cache: la risposta contiene`no_cache`**
-Il server remoto ha restituito un’intestazione 
-Intestazione `Dispatcher: no_cache` che vieta a Dispatcher di memorizzare in cache l’output.
+Il server remoto ha restituito un’intestazione Intestazione `Dispatcher: no_cache` che vieta a Dispatcher di memorizzare in cache l’output.
 * **non memorizzabile in cache: la lunghezza del contenuto della risposta è zero**
 La lunghezza del contenuto della risposta è zero; Dispatcher non crea un file di lunghezza zero.
