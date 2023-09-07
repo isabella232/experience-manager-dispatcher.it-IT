@@ -3,9 +3,9 @@ title: Configurazione di Dispatcher
 description: Scopri come configurare Dispatcher. Scopri il supporto per IPv4 e IPv6, i file di configurazione, le variabili di ambiente, la denominazione dell’istanza, la definizione delle farm, l’identificazione degli host virtuali e altro ancora.
 exl-id: 91159de3-4ccb-43d3-899f-9806265ff132
 source-git-commit: 5fe3bb534b239d5aec892623cab65e84e04c7d10
-workflow-type: tm+mt
+workflow-type: ht
 source-wordcount: '8941'
-ht-degree: 99%
+ht-degree: 100%
 
 ---
 
@@ -213,7 +213,7 @@ Ogni proprietà farm può contenere le seguenti proprietà figlio:
 
 >[!CAUTION]
 >
->Il parametro `/homepage` (solo IIS) non funziona più. In Alternativa, utilizza [URL Rewrite Module per Microsoft IIS](https://learn.microsoft.com/it-it/iis/extensions/url-rewrite-module/using-the-url-rewrite-module).
+>Il parametro `/homepage`(solo IIS) non funziona più. In Alternativa, utilizza [URL Rewrite Module per Microsoft IIS](https://learn.microsoft.com/it-it/iis/extensions/url-rewrite-module/using-the-url-rewrite-module).
 >
 >Se utilizzi Apache, utilizza il modulo `mod_rewrite`. Per informazioni su `mod_rewrite`, vedi la documentazione del sito web di Apache (ad esempio, [Apache 2.4](https://httpd.apache.org/docs/current/mod/mod_rewrite.html)). Quando si utilizza `mod_rewrite`, è consigliabile utilizzare il flag ‘passthrough|PT’ (passare all’handler successivo) per forzare il motore di riscrittura a impostare il campo `uri` della struttura interna `request_rec` sul valore del campo `filename`.
 
@@ -647,7 +647,7 @@ Il filtro di esempio che segue consente l’inoltro di dati di moduli tramite il
 
 #### Esempio di filtro: consenti l’accesso alla console del flusso di lavoro {#example-filter-allow-access-to-the-workflow-console}
 
-L’esempio seguente mostra un filtro utilizzato per consentire l’accesso esterno alla console del flusso di lavoro:
+L’esempio che segue mostra un filtro utilizzato per consentire l’accesso esterno alla console del flusso di lavoro:
 
 ```xml
 /filter {
@@ -1149,7 +1149,7 @@ Last Modified Date: 2017-11-13T09:23:24.326-0500
 
 Utilizza la proprietà `/statfileslevel` per annullare la validità dei file memorizzati in cache in base al loro percorso:
 
-* Dispatcher crea file `.stat` in ogni cartella, partendo dalla cartella principale dei documenti fino al livello specificato. La cartella principale dei documenti è al livello 0.
+* Dispatcher crea file `.stat`in ogni cartella, partendo dalla cartella principale dei documenti fino al livello specificato. La cartella principale dei documenti è al livello 0.
 * I file vengono invalidati toccando il file `.stat`. L’ultima data di modifica del file `.stat` viene confrontata con l’ultima data di modifica di un documento memorizzato in cache. Il documento viene recuperato, se il file `.stat` è più recente.
 
 * Quando un file che si trova a un determinato livello viene invalidato, vengono toccati **tutti** i file `.stat` a partire dalla docroot **fino** al livello del file invalidato o della proprietà configurata `statsfilevel` (a seconda di quale dei due valori è più basso).
