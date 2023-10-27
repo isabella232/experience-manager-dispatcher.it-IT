@@ -10,9 +10,9 @@ topic-tags: dispatcher
 content-type: reference
 discoiquuid: f00ad751-6b95-4365-8500-e1e0108d9536
 exl-id: 9375d1c0-8d9e-46cb-9810-fa4162a8c1ba
-source-git-commit: 663e493f3e1ae26c264e574cec4e0b271a971809
-workflow-type: tm+mt
-source-wordcount: '3693'
+source-git-commit: 3bb9cb81ac98147bf12e9370d02002dd91ee374e
+workflow-type: ht
+source-wordcount: '3726'
 ht-degree: 100%
 
 ---
@@ -314,9 +314,9 @@ Per aggiungere Dispatcher al server web Apache, fai quanto segue:
 
    * **Windows**: posiziona `disp_apache<x.y>.dll` in `<APACHE_ROOT>/modules`
    * **Unix**: individua la directory `<APACHE_ROOT>/libexec` o `<APACHE_ROOT>/modules`in base al tipo di installazione.\
-      Copia il file `dispatcher-apache<options>.so` in questa directory.\
-      Per semplificare la manutenzione a lungo termine, puoi anche creare un collegamento simbolico denominato `mod_dispatcher.so` a Dispatcher:\
-      `ln -s dispatcher-apache<x>-<os>-<rel-nr>.so mod_dispatcher.so`
+     Copia il file `dispatcher-apache<options>.so` in questa directory.\
+     Per semplificare la manutenzione a lungo termine, puoi anche creare un collegamento simbolico denominato `mod_dispatcher.so` a Dispatcher:\
+     `ln -s dispatcher-apache<x>-<os>-<rel-nr>.so mod_dispatcher.so`
 
 1. Copia il file dispatcher.any nella directory `<APACHE_ROOT>/conf`.
 
@@ -362,10 +362,10 @@ I seguenti passaggi sono obbligatori:
 
    * Il server Apache viene avviato come radice, anche se i processi figlio iniziano come daemon (per motivi di sicurezza). DocumentRoot (`<APACHE_ROOT>/htdocs`) deve appartenere al daemon utente:
 
-      ```xml
-      cd <APACHE_ROOT>  
-      chown -R daemon:daemon htdocs
-      ```
+     ```xml
+     cd <APACHE_ROOT>  
+     chown -R daemon:daemon htdocs
+     ```
 
 **LoadModule**
 
@@ -400,6 +400,10 @@ DispatcherKeepAliveTimeout 60
 </IfModule>
 ...
 ```
+
+>[!NOTE]
+>
+>I clienti che eseguono l’aggiornamento specifico dalla versione 4.3.3 alla versione 4.3.4 noteranno un comportamento diverso nel modo in cui le intestazioni di memorizzazione in cache vengono impostate per i contenuti da non memorizzare nella cache. Per ulteriori informazioni su questa modifica, consulta la pagina [Note sulla versione](/help/using/release-notes.md#nov).
 
 I singoli parametri di configurazione:
 
