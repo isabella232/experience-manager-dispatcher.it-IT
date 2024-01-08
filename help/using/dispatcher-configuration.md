@@ -2,10 +2,10 @@
 title: Configurazione di Dispatcher
 description: Scopri come configurare Dispatcher. Scopri il supporto per IPv4 e IPv6, i file di configurazione, le variabili di ambiente, la denominazione dell’istanza, la definizione delle farm, l’identificazione degli host virtuali e altro ancora.
 exl-id: 91159de3-4ccb-43d3-899f-9806265ff132
-source-git-commit: 5fe3bb534b239d5aec892623cab65e84e04c7d10
-workflow-type: ht
-source-wordcount: '8941'
-ht-degree: 100%
+source-git-commit: 410346694a134c0f32a24de905623655f15269b4
+workflow-type: tm+mt
+source-wordcount: '8857'
+ht-degree: 99%
 
 ---
 
@@ -1296,10 +1296,10 @@ Il codice di esempio seguente fa sì che Dispatcher ignori tutti i parametri, tr
 ```xml
 /ignoreUrlParams
 {
+    # ignore-all-url-parameters-by-dispatcher-and-requests-are-cached
+    /0001 { /glob "*" /type "allow" }
     # allow-the-url-parameter-nocache-to-bypass-dispatcher-on-every-request
-    /0001 { /glob "nocache" /type "deny" }
-    # all-other-url-parameters-are-ignored-by-dispatcher-and-requests-are-cached
-    /0002 { /glob "*" /type "allow" }
+    /0002 { /glob "nocache" /type "deny" }
 }
 ```
 
@@ -1384,7 +1384,7 @@ Per ulteriori informazioni, vedi anche le precedenti sezioni `/invalidate` e `/s
 
 ### Configurazione dell’annullamento della validità della cache basata sul tempo: /enableTTL {#configuring-time-based-cache-invalidation-enablettl}
 
-L’annullamento della validità della cache basato sul tempo dipende dalla proprietà `/enableTTL` e dalla presenza di intestazioni di scadenza regolari dello standard HTTP. Se la proprietà è impostata su 1 (`/enableTTL "1"`), verranno valutate le intestazioni di risposta provenienti dal back-end; se le intestazioni contengono una data `Cache-Control`, `max-age` o `Expires`, viene creato un file ausiliario vuoto accanto a quello della cache, con un tempo di modifica uguale alla data di scadenza. Quando il file memorizzato nella cache viene richiesto oltre il tempo di modifica, viene automaticamente richiesto nuovamente dal back-end.
+L’annullamento della validità della cache basato sul tempo dipende dalla proprietà `/enableTTL` e dalla presenza di intestazioni di scadenza regolari dello standard HTTP. Se si imposta la proprietà su 1 (`/enableTTL "1"`), valuta le intestazioni di risposta dal backend. Se le intestazioni contengono `Cache-Control`, `max-age` o `Expires` viene creato un file ausiliario vuoto accanto al file memorizzato in cache, con un tempo di modifica uguale alla data di scadenza. Quando il file memorizzato nella cache viene richiesto oltre il tempo di modifica, viene automaticamente richiesto nuovamente dal back-end.
 
 Prima della versione 4.3.5 di Dispatcher, la logica di annullamento della validità TTL si basava solo sul valore TTL configurato. Con Dispatcher 4.3.5, vengono presi in considerazione sia il valore TTL impostato **sia** le regole di annullamento della validità della cache di Dispatcher. Di conseguenza, per un file memorizzato in cache:
 
@@ -1882,6 +1882,6 @@ Il metodo HTTP non è né GET né HEAD. Dispatcher presuppone che l’output con
 * **non memorizzabile in cache: sessione non valida**
 La cache della farm è gestita da un gestore di sessione (la configurazione contiene un nodo `sessionmanagement`) e la sessione dell’utente non è o non è più valida.
 * **non memorizzabile in cache: la risposta contiene`no_cache`**
-Il server remoto ha restituito un’intestazione Intestazione `Dispatcher: no_cache` che vieta a Dispatcher di memorizzare in cache l’output.
+Il server remoto ha restituito un `Dispatcher: no_cache` che vieta a Dispatcher di memorizzare in cache l’output.
 * **non memorizzabile in cache: la lunghezza del contenuto della risposta è zero**
 La lunghezza del contenuto della risposta è zero; Dispatcher non crea un file di lunghezza zero.
